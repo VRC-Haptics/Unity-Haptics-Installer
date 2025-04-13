@@ -1,13 +1,25 @@
 {
-  "name": "com.vrchat.demo-template",
-  "displayName": "VRChat Example Package",
-  "version": "0.0.7",
+  "name": "com.vrch.haptics-installer",
+  "displayName": "Haptics Installer",
+  "version": "0.0.1",
   "unity": "2022.3",
-  "description": "Simple Package for testing Automation",
+  "description": "Generate and install prefabs to avatars from config files.",
   "vrchatVersion": "2022.1.1",
   "author": {
-    "name": "Momo the Monster",
-    "email": "momodmonster@gmail.com",
-    "url": "https://mmmlabs.com"
+    "name": "Average",
+    "email": "",
+    "url": ""
+  },
+  "scopedRegistries": [
+    {
+      "name": "package.openupm.com",
+      "url": "https://package.openupm.com",
+      "scopes": [
+        "com.vrcfury.vrcfury"
+      ]
+    }
+  ],
+  "dependencies": {
+    "com.vrcfury.vrcfury": "1.1226.0"
   }
 }
