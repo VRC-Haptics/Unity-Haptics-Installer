@@ -18,7 +18,7 @@ MonoBehaviour:
     icon: {fileID: 0}
     type: 102
     parameter:
-      name: /haptic/show
+      name: /haptic/global/show
     value: 1
     style: 0
     subMenu: {fileID: 0}

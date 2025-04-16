@@ -24,7 +24,7 @@ MonoBehaviour:
     saved: 1
     defaultValue: 1
     networkSynced: 0
-  - name: /haptic/show
+  - name: /haptic/global/show
     valueType: 2
     saved: 1
     defaultValue: 0
