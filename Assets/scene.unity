@@ -1188,10 +1188,20 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1957847310}
     m_Modifications:
+    - target: {fileID: 3234715510942063988, guid: 409cb8db419ae18428d4348494679a70,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4727698979476489773, guid: 409cb8db419ae18428d4348494679a70,
         type: 3}
       propertyPath: m_Name
       value: Haptics-Integration
+      objectReference: {fileID: 0}
+    - target: {fileID: 4855238353524716117, guid: 409cb8db419ae18428d4348494679a70,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5957223446747110383, guid: 409cb8db419ae18428d4348494679a70,
         type: 3}

@@ -27,10 +27,10 @@ MonoBehaviour:
   - name: /haptic/prefabs/Average/Tail-Pull
     valueType: 0
     saved: 1
-    defaultValue: 0
+    defaultValue: 1
     networkSynced: 0
   - name: /haptic/prefabs/Average/Headset-8x
     valueType: 0
     saved: 1
-    defaultValue: 0
+    defaultValue: 1
     networkSynced: 0
