@@ -2,7 +2,6 @@
 using UnityEditor;
 using UnityEngine;
 using System.IO;
-using HarmonyLib;
 using Newtonsoft.Json;
 using UnityEditorInternal;
 
@@ -20,7 +19,7 @@ namespace Editor
         // The ReorderableList to edit the list in the GUI.
         private static ReorderableList _prefabReorderableList;
 
-        [MenuItem("Haptics Installer/Start Installer")]
+        [MenuItem("Haptics/Start Installer")]
         static void ShowInstaller()
         {
             GetWindow<HapticsInstaller>("Haptics Installer");
@@ -92,7 +91,6 @@ namespace Editor
             PrefabsToOptimize.Clear();
         }
         
-        
         /// The prefab generator section for the installer gui
         static void GeneratorGui()
         {
@@ -118,6 +116,7 @@ namespace Editor
                     // read file and validate results
                     _selectedConfigPath = path;
                     _configJsonContent = File.ReadAllText(path);
+                    _config = JsonConvert.DeserializeObject<Config>(_configJsonContent);
                     _configValid = ValidateConfig();
 
                     Debug.Log("Config File loaded from: " + _selectedConfigPath);
@@ -146,7 +145,7 @@ namespace Editor
                     validationMessage += "  Author: " + _config.meta.map_author + "\n";
                     validationMessage += "  Name: " + _config.meta.map_name + "\n";
                     validationMessage += "  Version: " + _config.meta.map_version + "\n";
-                    validationMessage += "  Number of nodes: " + _config.nodes.Length;
+                    validationMessage += "  Number of Nodes: " + _config.nodes.Length;
 
                     EditorGUILayout.HelpBox(validationMessage, MessageType.Info);
                 }
@@ -177,21 +176,17 @@ namespace Editor
             EditorGUILayout.HelpBox("Drag and drop your prefabs into the list below to add them for optimization.", MessageType.Info);
             _prefabReorderableList.DoLayoutList();
 
-            GUI.enabled = PrefabsToOptimize.Count > 0 && PrefabListNotNull();
+            GUI.enabled = PrefabsToOptimize.Count > 0 && PrefabListNotNull() && _avatarRoot != null;;
             if (GUILayout.Button("Bake Prefabs"))
             {
                 OptimizePrefab.OptimizePrefabs(PrefabsToOptimize.ToArray(), _avatarRoot);
             }
             GUI.enabled = true;
-            
         }
 
         /// Returns true if the config has at least one node and the required metadata
         static bool ValidateConfig()
         {
-            // Deserialize JSON content into a Config object.
-            _config = JsonConvert.DeserializeObject<Config>(_configJsonContent);
-
             if (_config == null)
             {
                 Debug.LogError("Failed to parse JSON.");

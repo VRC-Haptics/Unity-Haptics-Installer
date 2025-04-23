@@ -4,9 +4,11 @@ using UnityEngine;
 using com.vrcfury.api;
 using com.vrcfury.api.Components;
 using HapticsInstaller.Runtime;
+using HarmonyLib;
 using UnityEditor;
 using VRC;
 using VRC.Dynamics;
+using VRC.PackageManagement.Core.Types;
 using VRC.SDK3.Avatars.ScriptableObjects;
 using VRC.SDK3.Dynamics.Contact.Components;
 
@@ -56,20 +58,27 @@ namespace Editor
             // build nodes
             for (int i = 0; i < conf.nodes.Length; i++)
             {
+                if (conf.nodes[i].is_external_address)
+                {
+                    Debug.Log("Skipping creating a node for external address");
+                    continue;
+                }
                 BuildHapticNode(conf.nodes[i], i, conf.meta.map_name);
             }
             
-            // build the menu for this prefab
-            string prefabPath = $"/haptic/prefabs/{conf.meta.map_author}/{conf.meta.map_name}";
-            VRCExpressionParameters parameters = BuildMenuParameters(conf, prefabPath, GlobalIntensityParam);
-            VRCExpressionsMenu expressionsMenu = BuildMenu(conf, parameters, GlobalIntensityParam);
+            // build the menu for this prefab;
+            var (expressionsMenu, expressionsParameters) = BuildMenu(conf);
             
             // Create Controller Merger
             FuryFullController menu = FuryComponents.CreateFullController(_menuParent);
-            menu.AddParams(parameters);
+            menu.AddParams(expressionsParameters);
             menu.AddGlobalParam(GlobalIntensityParam);
             menu.AddGlobalParam(GlobalVisualizerParam);
             menu.AddMenu(expressionsMenu);
+            
+            // Add data script
+            var menuDataScript = _menuParent.AddComponent<MenuData>();
+            menuDataScript.vrcMenu = expressionsMenu;
             
             // create prefab for the finished product
             PrefabUtility.SaveAsPrefabAssetAndConnect(
@@ -81,189 +90,71 @@ namespace Editor
         }
 
         /// <summary>
-        /// Builds the in-game menu for this prefab and places the generated assets in the Assets folder.
+        /// Builds the in-game menu for this prefab and places the generated assets in the generated assets path.
         /// </summary>
-        /// <param name="conf">The Config we are generating from</param>
-        /// <param name="parameters">The VRCParameters Asset to build the menu around</param>
-        /// <param name="intensityPath">The parameter path to set the global intensity to</param>
+        /// <param name="conf">The Config we are generating a prefab for.</param>
         /// <returns></returns>
-        private static VRCExpressionsMenu BuildMenu(Config conf, VRCExpressionParameters parameters, string intensityPath)
+        private static (VRCExpressionsMenu, VRCExpressionParameters) BuildMenu(Config conf)
         {
-            // build main menu (Will be under Haptics)
+            // create save directories.
+            string generatedPrefabFolder = $"{GeneratedAssetPath}/{conf.meta.map_author} {conf.meta.map_name}/";
+            Utils.CreateDirectoryFromAssetPath(generatedPrefabFolder);
+            string rootMenuPath = generatedPrefabFolder + "Menu_Root.asset";
+            string mainMenuPath = generatedPrefabFolder + "Menu_Main.asset";
+            string prefabMenuPath = generatedPrefabFolder + $"Menu_{conf.meta.map_name}.asset"; // eventually support per/prefab devices
+            string parametersPath = generatedPrefabFolder + $"Parameters_{conf.meta.map_name}.asset";
             
-            // build intensity parameter list
-            var intensityMenuParam = new VRCExpressionsMenu.Control.Parameter { name = intensityPath };
-            var intensityList = new List<VRCExpressionsMenu.Control.Parameter> { intensityMenuParam };
-
-            // create intensity control.
-            VRCExpressionsMenu.Control intensity = new VRCExpressionsMenu.Control
+            // Create Copy of pre-generated assets.
+            string menuAssetsPath = "Packages/com.vrch.haptics-installer/Assets/Menu/";
+            AssetDatabase.CopyAsset(menuAssetsPath + "Menu_Root.asset", rootMenuPath);
+            AssetDatabase.CopyAsset(menuAssetsPath + "Menu_Main.asset", mainMenuPath);
+            AssetDatabase.CopyAsset(menuAssetsPath + $"Parameters_Basic.asset", parametersPath);
+            
+            // load copies into memory
+            var rootMenu = AssetDatabase.LoadAssetAtPath<VRCExpressionsMenu>(rootMenuPath);
+            var mainMenu = AssetDatabase.LoadAssetAtPath<VRCExpressionsMenu>(mainMenuPath);
+            var menuParameters = AssetDatabase.LoadAssetAtPath<VRCExpressionParameters>(parametersPath);
+            
+            // Point internal references to new copies
+            rootMenu.Parameters = menuParameters;
+            rootMenu.controls.First().subMenu = mainMenu;
+            mainMenu.Parameters = menuParameters;
+            
+            // Add advertising parameter.
+            var paramlist = menuParameters.parameters.ToList();
+            var advertisingParameter = new VRCExpressionParameters.Parameter
             {
-                name = "Feedback Intensity",
+                name = $"/haptic/prefabs/{conf.meta.map_author}/{conf.meta.map_name}",
+                defaultValue = 0f,
+                networkSynced = false,
+                saved = true,
+                valueType = VRCExpressionParameters.ValueType.Int
+            };
+            paramlist.Add(advertisingParameter);
+            menuParameters.parameters = paramlist.ToArray();
+            
+            // Add user-facing menu listing
+            var prefabControl = new VRCExpressionsMenu.Control
+            {
+                name = $"{conf.meta.map_name} V{conf.meta.map_version}",
                 icon = null,
                 labels = null,
                 parameter = null,
                 style = VRCExpressionsMenu.Control.Style.Style1,
                 subMenu = null,
-                subParameters = intensityList.ToArray(),
-                type = VRCExpressionsMenu.Control.ControlType.RadialPuppet,
-                value = 1f,
-
-            };
-            
-            // build visibility parameter
-            var visibilityMenuParam = new VRCExpressionsMenu.Control.Parameter { name = GlobalVisualizerParam };
-
-            // create node visibility control
-            VRCExpressionsMenu.Control nodeShowToggle = new VRCExpressionsMenu.Control
-            {
-                name = "Show Nodes",
-                icon = null,
-                labels = null,
-                parameter = visibilityMenuParam,
-                style = VRCExpressionsMenu.Control.Style.Style1,
-                subMenu = null,
                 subParameters = null,
-                type = VRCExpressionsMenu.Control.ControlType.Toggle,
+                type = VRCExpressionsMenu.Control.ControlType.Button,
                 value = 1f,
-
             };
-                
-            // create and fill the menu asset.
-            VRCExpressionsMenu menu = ScriptableObject.CreateInstance<VRCExpressionsMenu>();
-            menu.controls.Add(nodeShowToggle);
-            menu.controls.Add(intensity);
-            menu.Parameters = parameters;
-            menu.MarkDirty();
+            mainMenu.controls.Add(prefabControl);
             
-            // save menu asset.
-            string savePath = GeneratedAssetPath +
-                              $"Menu_{conf.meta.map_author}_{conf.meta.map_name}_{conf.meta.map_version}.asset";
-            Utils.CreateDirectoryFromAssetPath(savePath);
-            AssetDatabase.CreateAsset(menu, savePath);
+            // Make sure changes are saved.
+            rootMenu.MarkDirty();
+            mainMenu.MarkDirty();
+            menuParameters.MarkDirty();
             AssetDatabase.SaveAssets();
             
-            // add sub-menu's to the parent.
-            var parentMenu = AddToParentMenu(menu);
-            
-            return parentMenu;
-        }
-
-        /// <summary>
-        /// Adds the given `subMenu` to the parent `Haptics` menu.
-        /// Essentially give the Prefix Haptics/{menu name} to the submenu's address.
-        /// Either loads from disk and appends or creates a new asset file.
-        /// </summary>
-        /// <param name="conf">The config that a prefab is being generated for</param>
-        /// <param name="subMenu">The submenu that should be added.</param>
-        /// <param name="menuName">The user-facing name for this submenu</param>
-        /// <returns>The Modified Parent menu. NOTE: The parent is automatically saved to disk. </returns>
-        private static VRCExpressionsMenu AddToParentMenu(VRCExpressionsMenu subMenu) 
-        {
-            const string parentSavePath = GeneratedAssetPath + "Menu_Haptics_Parent.asset";
-            
-            // Create entry for submenu
-            VRCExpressionsMenu.Control newControl = new VRCExpressionsMenu.Control
-            {
-                name = "Haptics",
-                icon = null,
-                labels = null,
-                parameter = null,
-                style = VRCExpressionsMenu.Control.Style.Style1,
-                subMenu = subMenu,
-                subParameters = null,
-                type = VRCExpressionsMenu.Control.ControlType.SubMenu,
-                value = 1f,
-
-            };
-            
-            VRCExpressionsMenu parentMenu = AssetDatabase.LoadAssetAtPath<VRCExpressionsMenu>(parentSavePath);
-
-            if (parentMenu == null)
-            {
-                // create empty parent menu (to gather all the submenus under one name).
-                parentMenu = ScriptableObject.CreateInstance<VRCExpressionsMenu>();
-                parentMenu.controls.Add(newControl);
-                parentMenu.MarkDirty();
-                
-                Utils.CreateDirectoryFromAssetPath(parentSavePath);
-                AssetDatabase.CreateAsset(parentMenu, parentSavePath);
-            }
-            else
-            {
-                // remove old instance of the same menu if needed
-                var duplicate = parentMenu.controls.FirstOrDefault(control => control.name == newControl.name);
-                if (duplicate != null)
-                {
-                    parentMenu.controls.Remove(duplicate);
-                }
-                parentMenu.controls.Add(newControl);
-                
-            }
-            
-            EditorUtility.SetDirty(parentMenu);
-            AssetDatabase.SaveAssets();
-
-            return parentMenu;
-        }
-
-        /// <summary>
-        /// Builds the VRC Parameters that this prefab needs.
-        /// If a parameter is not private to this prefab, it is added as a VRCFury global parameter.
-        /// </summary>
-        /// <param name="conf"></param>
-        /// <param name="prefabPath"></param>
-        /// <param name="menuPath"></param>
-        /// <returns></returns>
-        private static VRCExpressionParameters BuildMenuParameters(Config conf, string prefabPath, string menuPath)
-        {
-            // Create a new instance of VRCExpressionParameters
-            VRCExpressionParameters parametersAsset = ScriptableObject.CreateInstance<VRCExpressionParameters>();
-            List<VRCExpressionParameters.Parameter> parameterList = new List<VRCExpressionParameters.Parameter>();
-            
-            // create the parameter that makes this prefab identifiable.
-            VRCExpressionParameters.Parameter prefabParam = new VRCExpressionParameters.Parameter
-            {
-                name = prefabPath,
-                valueType = VRCExpressionParameters.ValueType.Int,
-                saved = true,
-                defaultValue = conf.meta.map_version,
-                networkSynced = false
-            };
-            
-            // create the parameter for showing the nodes
-            VRCExpressionParameters.Parameter globalShowNodes = new VRCExpressionParameters.Parameter
-            {
-                name = GlobalVisualizerParam,
-                valueType = VRCExpressionParameters.ValueType.Bool,
-                saved = true,
-                defaultValue = 0,
-                networkSynced = true
-            };
-            
-            // create the parameter that sets the global intensity
-            VRCExpressionParameters.Parameter globalParam = new VRCExpressionParameters.Parameter
-            {
-                name = menuPath,
-                valueType = VRCExpressionParameters.ValueType.Float,
-                saved = true,
-                defaultValue = 1.0f,
-                networkSynced = false
-            };
-
-            // add parameters to our list
-            parameterList.Add(globalParam);
-            parameterList.Add(prefabParam);
-            parameterList.Add(globalShowNodes);
-            parametersAsset.parameters = parameterList.ToArray();
-            
-            // save the generated Parameters asset.
-            string savePath = GeneratedAssetPath +
-                              $"Parameters_{conf.meta.map_author}_{conf.meta.map_name}_{conf.meta.map_version}.asset";
-            Utils.CreateDirectoryFromAssetPath(savePath);
-            AssetDatabase.CreateAsset(parametersAsset, savePath);
-            AssetDatabase.SaveAssets();
-            
-            return parametersAsset; 
+            return (rootMenu, menuParameters);
         }
         
         /// <summary>
@@ -273,14 +164,14 @@ namespace Editor
         /// <param name="index">The index of this node in the config list.</param>
         /// <param name="prefabName">The name of the parent prefab</param>
         /// <returns>The fully built, but unoptimized, haptic node.</returns>
-        public static GameObject BuildHapticNode(Node node, int index, string prefabName)
+        private static GameObject BuildHapticNode(Node node, int index, string prefabName)
         {
             // strip OSC address prefix
             const string prefix = "/avatar/parameters/";
-            string localAddr = node.address;
+            var localAddr = node.address;
             if (node.address.StartsWith(prefix))
             {
-                localAddr = node.address.Substring(prefix.Length);
+                localAddr = node.address[prefix.Length..];
             } else { Debug.LogError("OSC address is not valid for node: " + index); }
             
             // create new node object
@@ -345,16 +236,9 @@ namespace Editor
         /// <returns>The instance of the Visualizer created.</returns>
         private static GameObject CreateVisualizer(Node node, GameObject nodeObj)
         {
-            string prefabPath;
-            if (_useLowPoly)
-            {
-                prefabPath = "Packages/com.vrch.haptics-installer/Assets/Visualizers/default_icosphere_20tri.prefab";
-            }
-            else
-            {
-                prefabPath = "Packages/com.vrch.haptics-installer/Assets/Visualizers/default_icosphere_80tri.prefab";
-            }
-            
+            var prefabPath = _useLowPoly ? "Packages/com.vrch.haptics-installer/Assets/Visualizers/default_icosphere_20tri.prefab" 
+                : "Packages/com.vrch.haptics-installer/Assets/Visualizers/default_icosphere_80tri.prefab";
+
             // load desired prefab.
             GameObject prefab = AssetDatabase.LoadAssetAtPath<GameObject>(prefabPath);
             if (prefab == null)

@@ -21,6 +21,7 @@ namespace Editor
     {
         public NodeData node_data;
         public string address;
+        public bool is_external_address;
         public float radius;
         [JsonConverter(typeof(StringEnumConverter))]
         public HumanBodyBones target_bone;

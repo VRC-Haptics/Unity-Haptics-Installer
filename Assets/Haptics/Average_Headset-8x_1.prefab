@@ -1,5 +1,529 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &970398917795635367
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8457127974697178581}
+  - component: {fileID: 9114144828671754718}
+  - component: {fileID: 5458265631726396851}
+  - component: {fileID: 7318076473895294425}
+  m_Layer: 0
+  m_Name: 5_Headset-8x
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8457127974697178581
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 970398917795635367}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.033, y: 1.5376999, z: 0.116670005}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1969832692761661422}
+  m_Father: {fileID: 3399018691634966662}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &9114144828671754718
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 970398917795635367}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9e94e501a2d4c95bff3d5601013d923, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 3
+  unityVersion: 2022.3.22f1
+  vrcfuryVersion: 1.1205.0
+  somethingIsBroken: 0
+  config:
+    features: []
+  content:
+    rid: 6877727224870469797
+  references:
+    version: 2
+    RefIds:
+    - rid: 6877727224870469797
+      type: {class: ArmatureLink, ns: VF.Model.Feature, asm: VRCFury}
+      data:
+        version: 7
+        propBone: {fileID: 970398917795635367}
+        linkTo:
+        - useBone: 1
+          bone: 10
+          useObj: 0
+          obj: {fileID: 0}
+          offset: 
+        removeBoneSuffix: 
+        removeParentConstraints: 1
+        forceMergedName: 
+        forceOneWorldScale: 0
+        recursive: 0
+        alignPosition: 0
+        alignRotation: 0
+        alignScale: 0
+        autoScaleFactor: 1
+        scalingFactorPowersOf10Only: 1
+        skinRewriteScalingFactor: 1
+        useOptimizedUpload: 0
+        useBoneMerging: 0
+        keepBoneOffsets: 0
+        physbonesOnAvatarBones: 0
+        boneOnAvatar: 0
+        bonePathOnAvatar: 
+        fallbackBones: 
+        keepBoneOffsets2: 0
+        linkMode: 4
+--- !u!114 &5458265631726396851
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 970398917795635367}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82cdd1a1369ed09419adf38df1d7ed91, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetBone: 10
+--- !u!114 &7318076473895294425
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 970398917795635367}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1450912254, guid: 80f1b8067b0760e4bb45023bc2e9de66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rootTransform: {fileID: 0}
+  shapeType: 0
+  radius: 0.0375
+  height: 2
+  position: {x: 0, y: 0, z: 0}
+  rotation: {x: 0, y: 0, z: 0, w: 1}
+  localOnly: 1
+  collisionTags:
+  - Head
+  - Hand
+  - Foot
+  - Torso
+  allowSelf: 0
+  allowOthers: 1
+  receiverType: 2
+  parameter: Haptics/Nodes/1tM996T3gL
+  minVelocity: 0.05
+--- !u!1 &2746345992943278120
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2772895363002009251}
+  - component: {fileID: 7355561898470900385}
+  - component: {fileID: 4443910785817234776}
+  - component: {fileID: 6764057144062347186}
+  m_Layer: 0
+  m_Name: 4_Headset-8x
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2772895363002009251
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2746345992943278120}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.033000004, y: 1.5376999, z: 0.116670005}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2683661257090953557}
+  m_Father: {fileID: 3399018691634966662}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7355561898470900385
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2746345992943278120}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9e94e501a2d4c95bff3d5601013d923, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 3
+  unityVersion: 2022.3.22f1
+  vrcfuryVersion: 1.1205.0
+  somethingIsBroken: 0
+  config:
+    features: []
+  content:
+    rid: 6877727224870469794
+  references:
+    version: 2
+    RefIds:
+    - rid: 6877727224870469794
+      type: {class: ArmatureLink, ns: VF.Model.Feature, asm: VRCFury}
+      data:
+        version: 7
+        propBone: {fileID: 2746345992943278120}
+        linkTo:
+        - useBone: 1
+          bone: 10
+          useObj: 0
+          obj: {fileID: 0}
+          offset: 
+        removeBoneSuffix: 
+        removeParentConstraints: 1
+        forceMergedName: 
+        forceOneWorldScale: 0
+        recursive: 0
+        alignPosition: 0
+        alignRotation: 0
+        alignScale: 0
+        autoScaleFactor: 1
+        scalingFactorPowersOf10Only: 1
+        skinRewriteScalingFactor: 1
+        useOptimizedUpload: 0
+        useBoneMerging: 0
+        keepBoneOffsets: 0
+        physbonesOnAvatarBones: 0
+        boneOnAvatar: 0
+        bonePathOnAvatar: 
+        fallbackBones: 
+        keepBoneOffsets2: 0
+        linkMode: 4
+--- !u!114 &4443910785817234776
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2746345992943278120}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82cdd1a1369ed09419adf38df1d7ed91, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetBone: 10
+--- !u!114 &6764057144062347186
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2746345992943278120}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1450912254, guid: 80f1b8067b0760e4bb45023bc2e9de66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rootTransform: {fileID: 0}
+  shapeType: 0
+  radius: 0.0375
+  height: 2
+  position: {x: 0, y: 0, z: 0}
+  rotation: {x: 0, y: 0, z: 0, w: 1}
+  localOnly: 1
+  collisionTags:
+  - Head
+  - Hand
+  - Foot
+  - Torso
+  allowSelf: 0
+  allowOthers: 1
+  receiverType: 2
+  parameter: Haptics/Nodes/Q0AHGPn8Uw
+  minVelocity: 0.05
+--- !u!1 &2756721691203474097
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6971075586137161933}
+  - component: {fileID: 454183191675688662}
+  - component: {fileID: 5405820953980807361}
+  - component: {fileID: 6624091281793215649}
+  m_Layer: 0
+  m_Name: 2_Headset-8x
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6971075586137161933
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2756721691203474097}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.0324, y: 1.6143, z: 0.11529999}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1648521680515269374}
+  m_Father: {fileID: 3399018691634966662}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &454183191675688662
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2756721691203474097}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9e94e501a2d4c95bff3d5601013d923, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 3
+  unityVersion: 2022.3.22f1
+  vrcfuryVersion: 1.1205.0
+  somethingIsBroken: 0
+  config:
+    features: []
+  content:
+    rid: 6877727224870469788
+  references:
+    version: 2
+    RefIds:
+    - rid: 6877727224870469788
+      type: {class: ArmatureLink, ns: VF.Model.Feature, asm: VRCFury}
+      data:
+        version: 7
+        propBone: {fileID: 2756721691203474097}
+        linkTo:
+        - useBone: 1
+          bone: 10
+          useObj: 0
+          obj: {fileID: 0}
+          offset: 
+        removeBoneSuffix: 
+        removeParentConstraints: 1
+        forceMergedName: 
+        forceOneWorldScale: 0
+        recursive: 0
+        alignPosition: 0
+        alignRotation: 0
+        alignScale: 0
+        autoScaleFactor: 1
+        scalingFactorPowersOf10Only: 1
+        skinRewriteScalingFactor: 1
+        useOptimizedUpload: 0
+        useBoneMerging: 0
+        keepBoneOffsets: 0
+        physbonesOnAvatarBones: 0
+        boneOnAvatar: 0
+        bonePathOnAvatar: 
+        fallbackBones: 
+        keepBoneOffsets2: 0
+        linkMode: 4
+--- !u!114 &5405820953980807361
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2756721691203474097}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82cdd1a1369ed09419adf38df1d7ed91, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetBone: 10
+--- !u!114 &6624091281793215649
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2756721691203474097}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1450912254, guid: 80f1b8067b0760e4bb45023bc2e9de66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rootTransform: {fileID: 0}
+  shapeType: 0
+  radius: 0.0375
+  height: 2
+  position: {x: 0, y: 0, z: 0}
+  rotation: {x: 0, y: 0, z: 0, w: 1}
+  localOnly: 1
+  collisionTags:
+  - Head
+  - Hand
+  - Foot
+  - Torso
+  allowSelf: 0
+  allowOthers: 1
+  receiverType: 2
+  parameter: Haptics/Nodes/gDj5VzfPTJ
+  minVelocity: 0.05
+--- !u!1 &4533054590968019130
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1811324908282246845}
+  - component: {fileID: 4161478292063169055}
+  - component: {fileID: 5457568301266199968}
+  - component: {fileID: 7154494930987658527}
+  m_Layer: 0
+  m_Name: 3_Headset-8x
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1811324908282246845
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4533054590968019130}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.0324, y: 1.6143, z: 0.11529999}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 623956813390477934}
+  m_Father: {fileID: 3399018691634966662}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4161478292063169055
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4533054590968019130}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9e94e501a2d4c95bff3d5601013d923, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 3
+  unityVersion: 2022.3.22f1
+  vrcfuryVersion: 1.1205.0
+  somethingIsBroken: 0
+  config:
+    features: []
+  content:
+    rid: 6877727224870469791
+  references:
+    version: 2
+    RefIds:
+    - rid: 6877727224870469791
+      type: {class: ArmatureLink, ns: VF.Model.Feature, asm: VRCFury}
+      data:
+        version: 7
+        propBone: {fileID: 4533054590968019130}
+        linkTo:
+        - useBone: 1
+          bone: 10
+          useObj: 0
+          obj: {fileID: 0}
+          offset: 
+        removeBoneSuffix: 
+        removeParentConstraints: 1
+        forceMergedName: 
+        forceOneWorldScale: 0
+        recursive: 0
+        alignPosition: 0
+        alignRotation: 0
+        alignScale: 0
+        autoScaleFactor: 1
+        scalingFactorPowersOf10Only: 1
+        skinRewriteScalingFactor: 1
+        useOptimizedUpload: 0
+        useBoneMerging: 0
+        keepBoneOffsets: 0
+        physbonesOnAvatarBones: 0
+        boneOnAvatar: 0
+        bonePathOnAvatar: 
+        fallbackBones: 
+        keepBoneOffsets2: 0
+        linkMode: 4
+--- !u!114 &5457568301266199968
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4533054590968019130}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82cdd1a1369ed09419adf38df1d7ed91, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetBone: 10
+--- !u!114 &7154494930987658527
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4533054590968019130}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1450912254, guid: 80f1b8067b0760e4bb45023bc2e9de66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rootTransform: {fileID: 0}
+  shapeType: 0
+  radius: 0.0375
+  height: 2
+  position: {x: 0, y: 0, z: 0}
+  rotation: {x: 0, y: 0, z: 0, w: 1}
+  localOnly: 1
+  collisionTags:
+  - Head
+  - Hand
+  - Foot
+  - Torso
+  allowSelf: 0
+  allowOthers: 1
+  receiverType: 2
+  parameter: Haptics/Nodes/W6ZRiRKy2u
+  minVelocity: 0.05
 --- !u!1 &4874141820457353549
 GameObject:
   m_ObjectHideFlags: 0
@@ -10,6 +534,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4447653481101731756}
   - component: {fileID: 2390510354849273601}
+  - component: {fileID: 4614011271155479279}
   m_Layer: 0
   m_Name: menu
   m_TagString: Untagged
@@ -51,11 +576,11 @@ MonoBehaviour:
   config:
     features: []
   content:
-    rid: 6877727075705553109
+    rid: 6877727224870469781
   references:
     version: 2
     RefIds:
-    - rid: 6877727075705553109
+    - rid: 6877727224870469781
       type: {class: FullController, ns: VF.Model.Feature, asm: VRCFury}
       data:
         version: 4
@@ -65,16 +590,18 @@ MonoBehaviour:
             version: 1
             fileID: 0
             guid: 
-            id: 1b5e019d14fa9764ab3c5f7a5cb14659|Assets/Haptics/Generated/Menu_Haptics_Parent.asset
-            objRef: {fileID: 11400000, guid: 1b5e019d14fa9764ab3c5f7a5cb14659, type: 2}
+            id: 29fc7fab6ea511c48ae49da9f5626e14|Assets/Haptics/Generated/Average
+              Headset-8x/Menu_Root.asset
+            objRef: {fileID: 11400000, guid: 29fc7fab6ea511c48ae49da9f5626e14, type: 2}
           prefix: 
         prms:
         - parameters:
             version: 1
             fileID: 0
             guid: 
-            id: 885c28db6c4596340960378b427ebe92|Assets/Haptics/Generated/Parameters_Average_Headset-8x_1.asset
-            objRef: {fileID: 11400000, guid: 885c28db6c4596340960378b427ebe92, type: 2}
+            id: 76004a3e4dc908c4f9cc43c9fb594940|Assets/Haptics/Generated/Average
+              Headset-8x/Parameters_Headset-8x.asset
+            objRef: {fileID: 11400000, guid: 76004a3e4dc908c4f9cc43c9fb594940, type: 2}
         smoothedPrms: []
         globalParams:
         - /haptic/global/intensity
@@ -110,6 +637,150 @@ MonoBehaviour:
         removePrefixes: []
         addPrefix: 
         useSecurityForToggle: 0
+--- !u!114 &4614011271155479279
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4874141820457353549}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd6c16b286206ea4a8eb0acbf0d82f1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  vrcMenu: {fileID: 11400000, guid: 29fc7fab6ea511c48ae49da9f5626e14, type: 2}
+--- !u!1 &6267767424440645560
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1104540040273479612}
+  - component: {fileID: 1074543799067860214}
+  - component: {fileID: 8077475152696296130}
+  - component: {fileID: 2663249559748756825}
+  m_Layer: 0
+  m_Name: 7_Headset-8x
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1104540040273479612
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6267767424440645560}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.6919, z: 0.0159}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 4743887702086335485}
+  m_Father: {fileID: 3399018691634966662}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1074543799067860214
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6267767424440645560}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9e94e501a2d4c95bff3d5601013d923, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 3
+  unityVersion: 2022.3.22f1
+  vrcfuryVersion: 1.1205.0
+  somethingIsBroken: 0
+  config:
+    features: []
+  content:
+    rid: 6877727224870469803
+  references:
+    version: 2
+    RefIds:
+    - rid: 6877727224870469803
+      type: {class: ArmatureLink, ns: VF.Model.Feature, asm: VRCFury}
+      data:
+        version: 7
+        propBone: {fileID: 6267767424440645560}
+        linkTo:
+        - useBone: 1
+          bone: 10
+          useObj: 0
+          obj: {fileID: 0}
+          offset: 
+        removeBoneSuffix: 
+        removeParentConstraints: 1
+        forceMergedName: 
+        forceOneWorldScale: 0
+        recursive: 0
+        alignPosition: 0
+        alignRotation: 0
+        alignScale: 0
+        autoScaleFactor: 1
+        scalingFactorPowersOf10Only: 1
+        skinRewriteScalingFactor: 1
+        useOptimizedUpload: 0
+        useBoneMerging: 0
+        keepBoneOffsets: 0
+        physbonesOnAvatarBones: 0
+        boneOnAvatar: 0
+        bonePathOnAvatar: 
+        fallbackBones: 
+        keepBoneOffsets2: 0
+        linkMode: 4
+--- !u!114 &8077475152696296130
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6267767424440645560}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82cdd1a1369ed09419adf38df1d7ed91, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetBone: 10
+--- !u!114 &2663249559748756825
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6267767424440645560}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1450912254, guid: 80f1b8067b0760e4bb45023bc2e9de66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rootTransform: {fileID: 0}
+  shapeType: 0
+  radius: 0.0375
+  height: 2
+  position: {x: 0, y: 0, z: 0}
+  rotation: {x: 0, y: 0, z: 0, w: 1}
+  localOnly: 1
+  collisionTags:
+  - Head
+  - Hand
+  - Foot
+  - Torso
+  allowSelf: 0
+  allowOthers: 1
+  receiverType: 2
+  parameter: Haptics/Nodes/jqb4srC6uG
+  minVelocity: 0.05
 --- !u!1 &6919881842537804853
 GameObject:
   m_ObjectHideFlags: 0
@@ -141,6 +812,12 @@ Transform:
   m_Children:
   - {fileID: 6510613211480889205}
   - {fileID: 7799595726477466862}
+  - {fileID: 6971075586137161933}
+  - {fileID: 1811324908282246845}
+  - {fileID: 2772895363002009251}
+  - {fileID: 8457127974697178581}
+  - {fileID: 8186081796442936716}
+  - {fileID: 1104540040273479612}
   m_Father: {fileID: 8850355515970330908}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6999963265499977741
@@ -171,11 +848,11 @@ Transform:
   m_GameObject: {fileID: 6999963265499977741}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.1, y: 0.1, z: 0.1}
+  m_LocalPosition: {x: -0.0634, y: 1.5838, z: 0.0846}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 861503718144326609}
+  - {fileID: 61034373023746925}
   m_Father: {fileID: 3399018691634966662}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6577385904518791796
@@ -197,11 +874,11 @@ MonoBehaviour:
   config:
     features: []
   content:
-    rid: 6877727075705553110
+    rid: 6877727224870469782
   references:
     version: 2
     RefIds:
-    - rid: 6877727075705553110
+    - rid: 6877727224870469782
       type: {class: ArmatureLink, ns: VF.Model.Feature, asm: VRCFury}
       data:
         version: 7
@@ -272,7 +949,7 @@ MonoBehaviour:
   allowSelf: 0
   allowOthers: 1
   receiverType: 2
-  parameter: h/Head_0
+  parameter: Haptics/Nodes/KYBu3jmg2I
   minVelocity: 0.05
 --- !u!1 &7160484477391967725
 GameObject:
@@ -307,6 +984,137 @@ Transform:
   - {fileID: 3399018691634966662}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7289306629075571299
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8186081796442936716}
+  - component: {fileID: 594659764286573702}
+  - component: {fileID: 813416456198133925}
+  - component: {fileID: 240794255671256329}
+  m_Layer: 0
+  m_Name: 6_Headset-8x
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8186081796442936716
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7289306629075571299}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.6117, z: -0.0738}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 5027972864630451359}
+  m_Father: {fileID: 3399018691634966662}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &594659764286573702
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7289306629075571299}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9e94e501a2d4c95bff3d5601013d923, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 3
+  unityVersion: 2022.3.22f1
+  vrcfuryVersion: 1.1205.0
+  somethingIsBroken: 0
+  config:
+    features: []
+  content:
+    rid: 6877727224870469800
+  references:
+    version: 2
+    RefIds:
+    - rid: 6877727224870469800
+      type: {class: ArmatureLink, ns: VF.Model.Feature, asm: VRCFury}
+      data:
+        version: 7
+        propBone: {fileID: 7289306629075571299}
+        linkTo:
+        - useBone: 1
+          bone: 10
+          useObj: 0
+          obj: {fileID: 0}
+          offset: 
+        removeBoneSuffix: 
+        removeParentConstraints: 1
+        forceMergedName: 
+        forceOneWorldScale: 0
+        recursive: 0
+        alignPosition: 0
+        alignRotation: 0
+        alignScale: 0
+        autoScaleFactor: 1
+        scalingFactorPowersOf10Only: 1
+        skinRewriteScalingFactor: 1
+        useOptimizedUpload: 0
+        useBoneMerging: 0
+        keepBoneOffsets: 0
+        physbonesOnAvatarBones: 0
+        boneOnAvatar: 0
+        bonePathOnAvatar: 
+        fallbackBones: 
+        keepBoneOffsets2: 0
+        linkMode: 4
+--- !u!114 &813416456198133925
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7289306629075571299}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82cdd1a1369ed09419adf38df1d7ed91, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetBone: 10
+--- !u!114 &240794255671256329
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7289306629075571299}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1450912254, guid: 80f1b8067b0760e4bb45023bc2e9de66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rootTransform: {fileID: 0}
+  shapeType: 0
+  radius: 0.0375
+  height: 2
+  position: {x: 0, y: 0, z: 0}
+  rotation: {x: 0, y: 0, z: 0, w: 1}
+  localOnly: 1
+  collisionTags:
+  - Head
+  - Hand
+  - Foot
+  - Torso
+  allowSelf: 0
+  allowOthers: 1
+  receiverType: 2
+  parameter: Haptics/Nodes/yzvpgOYT7O
+  minVelocity: 0.05
 --- !u!1 &7956955117137647295
 GameObject:
   m_ObjectHideFlags: 0
@@ -335,11 +1143,11 @@ Transform:
   m_GameObject: {fileID: 7956955117137647295}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.1, y: 0.1, z: 0.1}
+  m_LocalPosition: {x: 0.0634, y: 1.5838, z: 0.0846}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 5925166960541577702}
+  - {fileID: 1388997784066288495}
   m_Father: {fileID: 3399018691634966662}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3817032683233634702
@@ -361,11 +1169,11 @@ MonoBehaviour:
   config:
     features: []
   content:
-    rid: 6877727075705553113
+    rid: 6877727224870469785
   references:
     version: 2
     RefIds:
-    - rid: 6877727075705553113
+    - rid: 6877727224870469785
       type: {class: ArmatureLink, ns: VF.Model.Feature, asm: VRCFury}
       data:
         version: 7
@@ -436,9 +1244,543 @@ MonoBehaviour:
   allowSelf: 0
   allowOthers: 1
   receiverType: 2
-  parameter: h/Head_1
+  parameter: Haptics/Nodes/h983IdVsLu
   minVelocity: 0.05
---- !u!1001 &840520881070629584
+--- !u!1001 &1749056950362335435
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1104540040273479612}
+    m_Modifications:
+    - target: {fileID: 5970535124683786636, guid: 1bbac79a163121548a4039815e7bc1b4,
+        type: 3}
+      propertyPath: m_Name
+      value: default_icosphere_20tri
+      objectReference: {fileID: 0}
+    - target: {fileID: 6453740439810167606, guid: 1bbac79a163121548a4039815e7bc1b4,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 149.99998
+      objectReference: {fileID: 0}
+    - target: {fileID: 6453740439810167606, guid: 1bbac79a163121548a4039815e7bc1b4,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 149.99998
+      objectReference: {fileID: 0}
+    - target: {fileID: 6453740439810167606, guid: 1bbac79a163121548a4039815e7bc1b4,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6453740439810167606, guid: 1bbac79a163121548a4039815e7bc1b4,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6453740439810167606, guid: 1bbac79a163121548a4039815e7bc1b4,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6453740439810167606, guid: 1bbac79a163121548a4039815e7bc1b4,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6453740439810167606, guid: 1bbac79a163121548a4039815e7bc1b4,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6453740439810167606, guid: 1bbac79a163121548a4039815e7bc1b4,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6453740439810167606, guid: 1bbac79a163121548a4039815e7bc1b4,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6453740439810167606, guid: 1bbac79a163121548a4039815e7bc1b4,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6453740439810167606, guid: 1bbac79a163121548a4039815e7bc1b4,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6453740439810167606, guid: 1bbac79a163121548a4039815e7bc1b4,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5970535124683786636, guid: 1bbac79a163121548a4039815e7bc1b4,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5035578040811319671}
+  m_SourcePrefab: {fileID: 100100000, guid: 1bbac79a163121548a4039815e7bc1b4, type: 3}
+--- !u!4 &4743887702086335485 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6453740439810167606, guid: 1bbac79a163121548a4039815e7bc1b4,
+    type: 3}
+  m_PrefabInstance: {fileID: 1749056950362335435}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5376871445559468359 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5970535124683786636, guid: 1bbac79a163121548a4039815e7bc1b4,
+    type: 3}
+  m_PrefabInstance: {fileID: 1749056950362335435}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5035578040811319671
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5376871445559468359}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9e94e501a2d4c95bff3d5601013d923, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 3
+  unityVersion: 2022.3.22f1
+  vrcfuryVersion: 1.1205.0
+  somethingIsBroken: 0
+  config:
+    features: []
+  content:
+    rid: 6877727224870469804
+  references:
+    version: 2
+    RefIds:
+    - rid: 6877727224870469804
+      type: {class: Toggle, ns: VF.Model.Feature, asm: VRCFury}
+      data:
+        version: 3
+        name: Haptics/Ignore Me/Individual Nodes
+        state:
+          actions:
+          - rid: 6877727224870469805
+        saved: 1
+        slider: 0
+        sliderInactiveAtZero: 0
+        securityEnabled: 0
+        defaultOn: 0
+        includeInRest: 0
+        exclusiveOffState: 0
+        enableExclusiveTag: 0
+        exclusiveTag: 
+        resetPhysbones: []
+        hasExitTime: 0
+        enableIcon: 0
+        icon:
+          version: 1
+          fileID: 0
+          guid: 
+          id: 
+          objRef: {fileID: 0}
+        enableDriveGlobalParam: 0
+        driveGlobalParam: 
+        separateLocal: 0
+        localState:
+          actions: []
+        hasTransition: 0
+        transitionStateIn:
+          actions: []
+        transitionStateOut:
+          actions: []
+        transitionTimeIn: 0
+        transitionTimeOut: 0
+        localTransitionStateIn:
+          actions: []
+        localTransitionStateOut:
+          actions: []
+        localTransitionTimeIn: 0
+        localTransitionTimeOut: 0
+        simpleOutTransition: 1
+        defaultSliderValue: 0
+        useGlobalParam: 1
+        globalParam: /haptic/global/show
+        holdButton: 0
+        invertRestLogic: 0
+        expandIntoTransition: 1
+    - rid: 6877727224870469805
+      type: {class: ObjectToggleAction, ns: VF.Model.StateAction, asm: VRCFury}
+      data:
+        version: 1
+        desktopActive: 0
+        androidActive: 0
+        localOnly: 0
+        remoteOnly: 0
+        obj: {fileID: 5376871445559468359}
+        mode: 0
+--- !u!1001 &2042021871929311145
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 8186081796442936716}
+    m_Modifications:
+    - target: {fileID: 5970535124683786636, guid: 1bbac79a163121548a4039815e7bc1b4,
+        type: 3}
+      propertyPath: m_Name
+      value: default_icosphere_20tri
+      objectReference: {fileID: 0}
+    - target: {fileID: 6453740439810167606, guid: 1bbac79a163121548a4039815e7bc1b4,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 149.99998
+      objectReference: {fileID: 0}
+    - target: {fileID: 6453740439810167606, guid: 1bbac79a163121548a4039815e7bc1b4,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 149.99998
+      objectReference: {fileID: 0}
+    - target: {fileID: 6453740439810167606, guid: 1bbac79a163121548a4039815e7bc1b4,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6453740439810167606, guid: 1bbac79a163121548a4039815e7bc1b4,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6453740439810167606, guid: 1bbac79a163121548a4039815e7bc1b4,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6453740439810167606, guid: 1bbac79a163121548a4039815e7bc1b4,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6453740439810167606, guid: 1bbac79a163121548a4039815e7bc1b4,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6453740439810167606, guid: 1bbac79a163121548a4039815e7bc1b4,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6453740439810167606, guid: 1bbac79a163121548a4039815e7bc1b4,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6453740439810167606, guid: 1bbac79a163121548a4039815e7bc1b4,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6453740439810167606, guid: 1bbac79a163121548a4039815e7bc1b4,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6453740439810167606, guid: 1bbac79a163121548a4039815e7bc1b4,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5970535124683786636, guid: 1bbac79a163121548a4039815e7bc1b4,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 62030974437443315}
+  m_SourcePrefab: {fileID: 100100000, guid: 1bbac79a163121548a4039815e7bc1b4, type: 3}
+--- !u!4 &5027972864630451359 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6453740439810167606, guid: 1bbac79a163121548a4039815e7bc1b4,
+    type: 3}
+  m_PrefabInstance: {fileID: 2042021871929311145}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5660217701917373989 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5970535124683786636, guid: 1bbac79a163121548a4039815e7bc1b4,
+    type: 3}
+  m_PrefabInstance: {fileID: 2042021871929311145}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &62030974437443315
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5660217701917373989}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9e94e501a2d4c95bff3d5601013d923, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 3
+  unityVersion: 2022.3.22f1
+  vrcfuryVersion: 1.1205.0
+  somethingIsBroken: 0
+  config:
+    features: []
+  content:
+    rid: 6877727224870469801
+  references:
+    version: 2
+    RefIds:
+    - rid: 6877727224870469801
+      type: {class: Toggle, ns: VF.Model.Feature, asm: VRCFury}
+      data:
+        version: 3
+        name: Haptics/Ignore Me/Individual Nodes
+        state:
+          actions:
+          - rid: 6877727224870469802
+        saved: 1
+        slider: 0
+        sliderInactiveAtZero: 0
+        securityEnabled: 0
+        defaultOn: 0
+        includeInRest: 0
+        exclusiveOffState: 0
+        enableExclusiveTag: 0
+        exclusiveTag: 
+        resetPhysbones: []
+        hasExitTime: 0
+        enableIcon: 0
+        icon:
+          version: 1
+          fileID: 0
+          guid: 
+          id: 
+          objRef: {fileID: 0}
+        enableDriveGlobalParam: 0
+        driveGlobalParam: 
+        separateLocal: 0
+        localState:
+          actions: []
+        hasTransition: 0
+        transitionStateIn:
+          actions: []
+        transitionStateOut:
+          actions: []
+        transitionTimeIn: 0
+        transitionTimeOut: 0
+        localTransitionStateIn:
+          actions: []
+        localTransitionStateOut:
+          actions: []
+        localTransitionTimeIn: 0
+        localTransitionTimeOut: 0
+        simpleOutTransition: 1
+        defaultSliderValue: 0
+        useGlobalParam: 1
+        globalParam: /haptic/global/show
+        holdButton: 0
+        invertRestLogic: 0
+        expandIntoTransition: 1
+    - rid: 6877727224870469802
+      type: {class: ObjectToggleAction, ns: VF.Model.StateAction, asm: VRCFury}
+      data:
+        version: 1
+        desktopActive: 0
+        androidActive: 0
+        localOnly: 0
+        remoteOnly: 0
+        obj: {fileID: 5660217701917373989}
+        mode: 0
+--- !u!1001 &4811545179762187480
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 8457127974697178581}
+    m_Modifications:
+    - target: {fileID: 5970535124683786636, guid: 1bbac79a163121548a4039815e7bc1b4,
+        type: 3}
+      propertyPath: m_Name
+      value: default_icosphere_20tri
+      objectReference: {fileID: 0}
+    - target: {fileID: 6453740439810167606, guid: 1bbac79a163121548a4039815e7bc1b4,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 149.99998
+      objectReference: {fileID: 0}
+    - target: {fileID: 6453740439810167606, guid: 1bbac79a163121548a4039815e7bc1b4,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 149.99998
+      objectReference: {fileID: 0}
+    - target: {fileID: 6453740439810167606, guid: 1bbac79a163121548a4039815e7bc1b4,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6453740439810167606, guid: 1bbac79a163121548a4039815e7bc1b4,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6453740439810167606, guid: 1bbac79a163121548a4039815e7bc1b4,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6453740439810167606, guid: 1bbac79a163121548a4039815e7bc1b4,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6453740439810167606, guid: 1bbac79a163121548a4039815e7bc1b4,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6453740439810167606, guid: 1bbac79a163121548a4039815e7bc1b4,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6453740439810167606, guid: 1bbac79a163121548a4039815e7bc1b4,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6453740439810167606, guid: 1bbac79a163121548a4039815e7bc1b4,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6453740439810167606, guid: 1bbac79a163121548a4039815e7bc1b4,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6453740439810167606, guid: 1bbac79a163121548a4039815e7bc1b4,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5970535124683786636, guid: 1bbac79a163121548a4039815e7bc1b4,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7805764201334649812}
+  m_SourcePrefab: {fileID: 100100000, guid: 1bbac79a163121548a4039815e7bc1b4, type: 3}
+--- !u!1 &1161243472526759252 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5970535124683786636, guid: 1bbac79a163121548a4039815e7bc1b4,
+    type: 3}
+  m_PrefabInstance: {fileID: 4811545179762187480}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7805764201334649812
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1161243472526759252}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9e94e501a2d4c95bff3d5601013d923, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 3
+  unityVersion: 2022.3.22f1
+  vrcfuryVersion: 1.1205.0
+  somethingIsBroken: 0
+  config:
+    features: []
+  content:
+    rid: 6877727224870469798
+  references:
+    version: 2
+    RefIds:
+    - rid: 6877727224870469798
+      type: {class: Toggle, ns: VF.Model.Feature, asm: VRCFury}
+      data:
+        version: 3
+        name: Haptics/Ignore Me/Individual Nodes
+        state:
+          actions:
+          - rid: 6877727224870469799
+        saved: 1
+        slider: 0
+        sliderInactiveAtZero: 0
+        securityEnabled: 0
+        defaultOn: 0
+        includeInRest: 0
+        exclusiveOffState: 0
+        enableExclusiveTag: 0
+        exclusiveTag: 
+        resetPhysbones: []
+        hasExitTime: 0
+        enableIcon: 0
+        icon:
+          version: 1
+          fileID: 0
+          guid: 
+          id: 
+          objRef: {fileID: 0}
+        enableDriveGlobalParam: 0
+        driveGlobalParam: 
+        separateLocal: 0
+        localState:
+          actions: []
+        hasTransition: 0
+        transitionStateIn:
+          actions: []
+        transitionStateOut:
+          actions: []
+        transitionTimeIn: 0
+        transitionTimeOut: 0
+        localTransitionStateIn:
+          actions: []
+        localTransitionStateOut:
+          actions: []
+        localTransitionTimeIn: 0
+        localTransitionTimeOut: 0
+        simpleOutTransition: 1
+        defaultSliderValue: 0
+        useGlobalParam: 1
+        globalParam: /haptic/global/show
+        holdButton: 0
+        invertRestLogic: 0
+        expandIntoTransition: 1
+    - rid: 6877727224870469799
+      type: {class: ObjectToggleAction, ns: VF.Model.StateAction, asm: VRCFury}
+      data:
+        version: 1
+        desktopActive: 0
+        androidActive: 0
+        localOnly: 0
+        remoteOnly: 0
+        obj: {fileID: 1161243472526759252}
+        mode: 0
+--- !u!4 &1969832692761661422 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6453740439810167606, guid: 1bbac79a163121548a4039815e7bc1b4,
+    type: 3}
+  m_PrefabInstance: {fileID: 4811545179762187480}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &5392775353089800281
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -518,27 +1860,27 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5970535124683786636, guid: 1bbac79a163121548a4039815e7bc1b4,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 4103488792888692274}
+      addedObject: {fileID: 5124158400810985166}
   m_SourcePrefab: {fileID: 100100000, guid: 1bbac79a163121548a4039815e7bc1b4, type: 3}
---- !u!4 &5925166960541577702 stripped
+--- !u!4 &1388997784066288495 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6453740439810167606, guid: 1bbac79a163121548a4039815e7bc1b4,
     type: 3}
-  m_PrefabInstance: {fileID: 840520881070629584}
+  m_PrefabInstance: {fileID: 5392775353089800281}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &6445138535745219420 stripped
+--- !u!1 &1733154185297474005 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5970535124683786636, guid: 1bbac79a163121548a4039815e7bc1b4,
     type: 3}
-  m_PrefabInstance: {fileID: 840520881070629584}
+  m_PrefabInstance: {fileID: 5392775353089800281}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &4103488792888692274
+--- !u!114 &5124158400810985166
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6445138535745219420}
+  m_GameObject: {fileID: 1733154185297474005}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d9e94e501a2d4c95bff3d5601013d923, type: 3}
@@ -551,18 +1893,18 @@ MonoBehaviour:
   config:
     features: []
   content:
-    rid: 6877727075705553114
+    rid: 6877727224870469786
   references:
     version: 2
     RefIds:
-    - rid: 6877727075705553114
+    - rid: 6877727224870469786
       type: {class: Toggle, ns: VF.Model.Feature, asm: VRCFury}
       data:
         version: 3
         name: Haptics/Ignore Me/Individual Nodes
         state:
           actions:
-          - rid: 6877727075705553115
+          - rid: 6877727224870469787
         saved: 1
         slider: 0
         sliderInactiveAtZero: 0
@@ -606,7 +1948,7 @@ MonoBehaviour:
         holdButton: 0
         invertRestLogic: 0
         expandIntoTransition: 1
-    - rid: 6877727075705553115
+    - rid: 6877727224870469787
       type: {class: ObjectToggleAction, ns: VF.Model.StateAction, asm: VRCFury}
       data:
         version: 1
@@ -614,9 +1956,365 @@ MonoBehaviour:
         androidActive: 0
         localOnly: 0
         remoteOnly: 0
-        obj: {fileID: 6445138535745219420}
+        obj: {fileID: 1733154185297474005}
         mode: 0
---- !u!1001 &5937124941812918503
+--- !u!1001 &5724342339402584520
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 6971075586137161933}
+    m_Modifications:
+    - target: {fileID: 5970535124683786636, guid: 1bbac79a163121548a4039815e7bc1b4,
+        type: 3}
+      propertyPath: m_Name
+      value: default_icosphere_20tri
+      objectReference: {fileID: 0}
+    - target: {fileID: 6453740439810167606, guid: 1bbac79a163121548a4039815e7bc1b4,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 149.99998
+      objectReference: {fileID: 0}
+    - target: {fileID: 6453740439810167606, guid: 1bbac79a163121548a4039815e7bc1b4,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 149.99998
+      objectReference: {fileID: 0}
+    - target: {fileID: 6453740439810167606, guid: 1bbac79a163121548a4039815e7bc1b4,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6453740439810167606, guid: 1bbac79a163121548a4039815e7bc1b4,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6453740439810167606, guid: 1bbac79a163121548a4039815e7bc1b4,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6453740439810167606, guid: 1bbac79a163121548a4039815e7bc1b4,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6453740439810167606, guid: 1bbac79a163121548a4039815e7bc1b4,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6453740439810167606, guid: 1bbac79a163121548a4039815e7bc1b4,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6453740439810167606, guid: 1bbac79a163121548a4039815e7bc1b4,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6453740439810167606, guid: 1bbac79a163121548a4039815e7bc1b4,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6453740439810167606, guid: 1bbac79a163121548a4039815e7bc1b4,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6453740439810167606, guid: 1bbac79a163121548a4039815e7bc1b4,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5970535124683786636, guid: 1bbac79a163121548a4039815e7bc1b4,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2581045213231936294}
+  m_SourcePrefab: {fileID: 100100000, guid: 1bbac79a163121548a4039815e7bc1b4, type: 3}
+--- !u!4 &1648521680515269374 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6453740439810167606, guid: 1bbac79a163121548a4039815e7bc1b4,
+    type: 3}
+  m_PrefabInstance: {fileID: 5724342339402584520}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2137917997385570372 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5970535124683786636, guid: 1bbac79a163121548a4039815e7bc1b4,
+    type: 3}
+  m_PrefabInstance: {fileID: 5724342339402584520}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2581045213231936294
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2137917997385570372}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9e94e501a2d4c95bff3d5601013d923, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 3
+  unityVersion: 2022.3.22f1
+  vrcfuryVersion: 1.1205.0
+  somethingIsBroken: 0
+  config:
+    features: []
+  content:
+    rid: 6877727224870469789
+  references:
+    version: 2
+    RefIds:
+    - rid: 6877727224870469789
+      type: {class: Toggle, ns: VF.Model.Feature, asm: VRCFury}
+      data:
+        version: 3
+        name: Haptics/Ignore Me/Individual Nodes
+        state:
+          actions:
+          - rid: 6877727224870469790
+        saved: 1
+        slider: 0
+        sliderInactiveAtZero: 0
+        securityEnabled: 0
+        defaultOn: 0
+        includeInRest: 0
+        exclusiveOffState: 0
+        enableExclusiveTag: 0
+        exclusiveTag: 
+        resetPhysbones: []
+        hasExitTime: 0
+        enableIcon: 0
+        icon:
+          version: 1
+          fileID: 0
+          guid: 
+          id: 
+          objRef: {fileID: 0}
+        enableDriveGlobalParam: 0
+        driveGlobalParam: 
+        separateLocal: 0
+        localState:
+          actions: []
+        hasTransition: 0
+        transitionStateIn:
+          actions: []
+        transitionStateOut:
+          actions: []
+        transitionTimeIn: 0
+        transitionTimeOut: 0
+        localTransitionStateIn:
+          actions: []
+        localTransitionStateOut:
+          actions: []
+        localTransitionTimeIn: 0
+        localTransitionTimeOut: 0
+        simpleOutTransition: 1
+        defaultSliderValue: 0
+        useGlobalParam: 1
+        globalParam: /haptic/global/show
+        holdButton: 0
+        invertRestLogic: 0
+        expandIntoTransition: 1
+    - rid: 6877727224870469790
+      type: {class: ObjectToggleAction, ns: VF.Model.StateAction, asm: VRCFury}
+      data:
+        version: 1
+        desktopActive: 0
+        androidActive: 0
+        localOnly: 0
+        remoteOnly: 0
+        obj: {fileID: 2137917997385570372}
+        mode: 0
+--- !u!1001 &5852700218191489368
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1811324908282246845}
+    m_Modifications:
+    - target: {fileID: 5970535124683786636, guid: 1bbac79a163121548a4039815e7bc1b4,
+        type: 3}
+      propertyPath: m_Name
+      value: default_icosphere_20tri
+      objectReference: {fileID: 0}
+    - target: {fileID: 6453740439810167606, guid: 1bbac79a163121548a4039815e7bc1b4,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 149.99998
+      objectReference: {fileID: 0}
+    - target: {fileID: 6453740439810167606, guid: 1bbac79a163121548a4039815e7bc1b4,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 149.99998
+      objectReference: {fileID: 0}
+    - target: {fileID: 6453740439810167606, guid: 1bbac79a163121548a4039815e7bc1b4,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6453740439810167606, guid: 1bbac79a163121548a4039815e7bc1b4,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6453740439810167606, guid: 1bbac79a163121548a4039815e7bc1b4,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6453740439810167606, guid: 1bbac79a163121548a4039815e7bc1b4,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6453740439810167606, guid: 1bbac79a163121548a4039815e7bc1b4,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6453740439810167606, guid: 1bbac79a163121548a4039815e7bc1b4,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6453740439810167606, guid: 1bbac79a163121548a4039815e7bc1b4,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6453740439810167606, guid: 1bbac79a163121548a4039815e7bc1b4,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6453740439810167606, guid: 1bbac79a163121548a4039815e7bc1b4,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6453740439810167606, guid: 1bbac79a163121548a4039815e7bc1b4,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5970535124683786636, guid: 1bbac79a163121548a4039815e7bc1b4,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7602299696893037283}
+  m_SourcePrefab: {fileID: 100100000, guid: 1bbac79a163121548a4039815e7bc1b4, type: 3}
+--- !u!1 &280188302821335252 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5970535124683786636, guid: 1bbac79a163121548a4039815e7bc1b4,
+    type: 3}
+  m_PrefabInstance: {fileID: 5852700218191489368}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7602299696893037283
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 280188302821335252}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9e94e501a2d4c95bff3d5601013d923, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 3
+  unityVersion: 2022.3.22f1
+  vrcfuryVersion: 1.1205.0
+  somethingIsBroken: 0
+  config:
+    features: []
+  content:
+    rid: 6877727224870469792
+  references:
+    version: 2
+    RefIds:
+    - rid: 6877727224870469792
+      type: {class: Toggle, ns: VF.Model.Feature, asm: VRCFury}
+      data:
+        version: 3
+        name: Haptics/Ignore Me/Individual Nodes
+        state:
+          actions:
+          - rid: 6877727224870469793
+        saved: 1
+        slider: 0
+        sliderInactiveAtZero: 0
+        securityEnabled: 0
+        defaultOn: 0
+        includeInRest: 0
+        exclusiveOffState: 0
+        enableExclusiveTag: 0
+        exclusiveTag: 
+        resetPhysbones: []
+        hasExitTime: 0
+        enableIcon: 0
+        icon:
+          version: 1
+          fileID: 0
+          guid: 
+          id: 
+          objRef: {fileID: 0}
+        enableDriveGlobalParam: 0
+        driveGlobalParam: 
+        separateLocal: 0
+        localState:
+          actions: []
+        hasTransition: 0
+        transitionStateIn:
+          actions: []
+        transitionStateOut:
+          actions: []
+        transitionTimeIn: 0
+        transitionTimeOut: 0
+        localTransitionStateIn:
+          actions: []
+        localTransitionStateOut:
+          actions: []
+        localTransitionTimeIn: 0
+        localTransitionTimeOut: 0
+        simpleOutTransition: 1
+        defaultSliderValue: 0
+        useGlobalParam: 1
+        globalParam: /haptic/global/show
+        holdButton: 0
+        invertRestLogic: 0
+        expandIntoTransition: 1
+    - rid: 6877727224870469793
+      type: {class: ObjectToggleAction, ns: VF.Model.StateAction, asm: VRCFury}
+      data:
+        version: 1
+        desktopActive: 0
+        androidActive: 0
+        localOnly: 0
+        remoteOnly: 0
+        obj: {fileID: 280188302821335252}
+        mode: 0
+--- !u!4 &623956813390477934 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6453740439810167606, guid: 1bbac79a163121548a4039815e7bc1b4,
+    type: 3}
+  m_PrefabInstance: {fileID: 5852700218191489368}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &6433564471047624795
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -696,21 +2394,27 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5970535124683786636, guid: 1bbac79a163121548a4039815e7bc1b4,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2713249873725345290}
+      addedObject: {fileID: 181227033760406598}
   m_SourcePrefab: {fileID: 100100000, guid: 1bbac79a163121548a4039815e7bc1b4, type: 3}
---- !u!1 &53899974175089003 stripped
+--- !u!4 &61034373023746925 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6453740439810167606, guid: 1bbac79a163121548a4039815e7bc1b4,
+    type: 3}
+  m_PrefabInstance: {fileID: 6433564471047624795}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &834017901204410839 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5970535124683786636, guid: 1bbac79a163121548a4039815e7bc1b4,
     type: 3}
-  m_PrefabInstance: {fileID: 5937124941812918503}
+  m_PrefabInstance: {fileID: 6433564471047624795}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2713249873725345290
+--- !u!114 &181227033760406598
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 53899974175089003}
+  m_GameObject: {fileID: 834017901204410839}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d9e94e501a2d4c95bff3d5601013d923, type: 3}
@@ -723,18 +2427,18 @@ MonoBehaviour:
   config:
     features: []
   content:
-    rid: 6877727075705553111
+    rid: 6877727224870469783
   references:
     version: 2
     RefIds:
-    - rid: 6877727075705553111
+    - rid: 6877727224870469783
       type: {class: Toggle, ns: VF.Model.Feature, asm: VRCFury}
       data:
         version: 3
         name: Haptics/Ignore Me/Individual Nodes
         state:
           actions:
-          - rid: 6877727075705553112
+          - rid: 6877727224870469784
         saved: 1
         slider: 0
         sliderInactiveAtZero: 0
@@ -778,7 +2482,7 @@ MonoBehaviour:
         holdButton: 0
         invertRestLogic: 0
         expandIntoTransition: 1
-    - rid: 6877727075705553112
+    - rid: 6877727224870469784
       type: {class: ObjectToggleAction, ns: VF.Model.StateAction, asm: VRCFury}
       data:
         version: 1
@@ -786,11 +2490,183 @@ MonoBehaviour:
         androidActive: 0
         localOnly: 0
         remoteOnly: 0
-        obj: {fileID: 53899974175089003}
+        obj: {fileID: 834017901204410839}
         mode: 0
---- !u!4 &861503718144326609 stripped
+--- !u!1001 &8984132657295598179
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 2772895363002009251}
+    m_Modifications:
+    - target: {fileID: 5970535124683786636, guid: 1bbac79a163121548a4039815e7bc1b4,
+        type: 3}
+      propertyPath: m_Name
+      value: default_icosphere_20tri
+      objectReference: {fileID: 0}
+    - target: {fileID: 6453740439810167606, guid: 1bbac79a163121548a4039815e7bc1b4,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 149.99998
+      objectReference: {fileID: 0}
+    - target: {fileID: 6453740439810167606, guid: 1bbac79a163121548a4039815e7bc1b4,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 149.99998
+      objectReference: {fileID: 0}
+    - target: {fileID: 6453740439810167606, guid: 1bbac79a163121548a4039815e7bc1b4,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6453740439810167606, guid: 1bbac79a163121548a4039815e7bc1b4,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6453740439810167606, guid: 1bbac79a163121548a4039815e7bc1b4,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6453740439810167606, guid: 1bbac79a163121548a4039815e7bc1b4,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6453740439810167606, guid: 1bbac79a163121548a4039815e7bc1b4,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6453740439810167606, guid: 1bbac79a163121548a4039815e7bc1b4,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6453740439810167606, guid: 1bbac79a163121548a4039815e7bc1b4,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6453740439810167606, guid: 1bbac79a163121548a4039815e7bc1b4,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6453740439810167606, guid: 1bbac79a163121548a4039815e7bc1b4,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6453740439810167606, guid: 1bbac79a163121548a4039815e7bc1b4,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5970535124683786636, guid: 1bbac79a163121548a4039815e7bc1b4,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 258639889793739915}
+  m_SourcePrefab: {fileID: 100100000, guid: 1bbac79a163121548a4039815e7bc1b4, type: 3}
+--- !u!4 &2683661257090953557 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6453740439810167606, guid: 1bbac79a163121548a4039815e7bc1b4,
     type: 3}
-  m_PrefabInstance: {fileID: 5937124941812918503}
+  m_PrefabInstance: {fileID: 8984132657295598179}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &3347748050118519791 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5970535124683786636, guid: 1bbac79a163121548a4039815e7bc1b4,
+    type: 3}
+  m_PrefabInstance: {fileID: 8984132657295598179}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &258639889793739915
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3347748050118519791}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9e94e501a2d4c95bff3d5601013d923, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 3
+  unityVersion: 2022.3.22f1
+  vrcfuryVersion: 1.1205.0
+  somethingIsBroken: 0
+  config:
+    features: []
+  content:
+    rid: 6877727224870469795
+  references:
+    version: 2
+    RefIds:
+    - rid: 6877727224870469795
+      type: {class: Toggle, ns: VF.Model.Feature, asm: VRCFury}
+      data:
+        version: 3
+        name: Haptics/Ignore Me/Individual Nodes
+        state:
+          actions:
+          - rid: 6877727224870469796
+        saved: 1
+        slider: 0
+        sliderInactiveAtZero: 0
+        securityEnabled: 0
+        defaultOn: 0
+        includeInRest: 0
+        exclusiveOffState: 0
+        enableExclusiveTag: 0
+        exclusiveTag: 
+        resetPhysbones: []
+        hasExitTime: 0
+        enableIcon: 0
+        icon:
+          version: 1
+          fileID: 0
+          guid: 
+          id: 
+          objRef: {fileID: 0}
+        enableDriveGlobalParam: 0
+        driveGlobalParam: 
+        separateLocal: 0
+        localState:
+          actions: []
+        hasTransition: 0
+        transitionStateIn:
+          actions: []
+        transitionStateOut:
+          actions: []
+        transitionTimeIn: 0
+        transitionTimeOut: 0
+        localTransitionStateIn:
+          actions: []
+        localTransitionStateOut:
+          actions: []
+        localTransitionTimeIn: 0
+        localTransitionTimeOut: 0
+        simpleOutTransition: 1
+        defaultSliderValue: 0
+        useGlobalParam: 1
+        globalParam: /haptic/global/show
+        holdButton: 0
+        invertRestLogic: 0
+        expandIntoTransition: 1
+    - rid: 6877727224870469796
+      type: {class: ObjectToggleAction, ns: VF.Model.StateAction, asm: VRCFury}
+      data:
+        version: 1
+        desktopActive: 0
+        androidActive: 0
+        localOnly: 0
+        remoteOnly: 0
+        obj: {fileID: 3347748050118519791}
+        mode: 0

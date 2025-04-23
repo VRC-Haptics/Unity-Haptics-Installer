@@ -10,17 +10,28 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: -340790334, guid: 67cc4cb7839cd3741b63733d5adf0442, type: 3}
-  m_Name: Menu_Haptics_Parent
+  m_Name: Menu_Main
   m_EditorClassIdentifier: 
-  Parameters: {fileID: 0}
+  Parameters: {fileID: 11400000, guid: 21c1a8564d3808f4c9e62dd41719befc, type: 2}
   controls:
-  - name: Haptics
+  - name: Show Nodes
     icon: {fileID: 0}
-    type: 103
+    type: 102
+    parameter:
+      name: /haptic/global/show
+    value: 1
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters: []
+    labels: []
+  - name: Feedback Intensity
+    icon: {fileID: 0}
+    type: 203
     parameter:
       name: 
     value: 1
     style: 0
-    subMenu: {fileID: 11400000, guid: a4c86aa4e9df4bf47877fcd8145dfc51, type: 2}
-    subParameters: []
+    subMenu: {fileID: 0}
+    subParameters:
+    - name: /haptic/global/intensity
     labels: []

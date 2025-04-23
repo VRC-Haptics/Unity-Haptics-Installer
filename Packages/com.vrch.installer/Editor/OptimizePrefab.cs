@@ -1,10 +1,13 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using com.vrcfury.api;
 using com.vrcfury.api.Components;
 using HapticsInstaller.Runtime;
 using UnityEditor;
 using UnityEngine;
+using VRC;
 using VRC.Dynamics;
+using VRC.SDK3.Avatars.ScriptableObjects;
 using VRC.SDK3.Dynamics.Contact.Components;
 using Object = UnityEngine.Object;
 
@@ -12,18 +15,24 @@ namespace Editor
 {
     public class OptimizePrefab
     {
+        // can't disable menu entries on vrcfury so we create a dump folder in the menu.
         private const string dumpPath = "Haptics/Ignore Me/Individual Nodes";
-        private const string GlobalVisualizerParam = "/haptic/global/show";
+        private const string GeneratedAssetPath = "Assets/Haptics/Generated/";
+        
         private static List<GameObject> Prefabs = new ();
         private static GameObject _optimPrefabParent;
         private static Dictionary<HumanBodyBones, List<GameObject>> _nodeGroups = new();
+        private static List<bool> _emptyNodes = new List<bool>();
+        
+        // OSC Parameter Paths
+        private const string GlobalVisualizerParam = "/haptic/global/show";
+        private const string GlobalIntensityParam = "/haptic/global/intensity";
         
         public static GameObject OptimizePrefabs(GameObject[] inPrefabs, GameObject avatarRoot)
         {
             Prefabs.Clear();
             _nodeGroups.Clear();
             
-            Debug.Log("in prefabs: " + inPrefabs.Length);
             // create our final parent.
             _optimPrefabParent = new GameObject("Haptics-Integration")
             {
@@ -33,7 +42,6 @@ namespace Editor
             // create our copies to wreak havoc on
             foreach(var prefab in inPrefabs)
             {
-                Debug.Log("The name: " + prefab.name);
                 GameObject ourCopy = Object.Instantiate(prefab, _optimPrefabParent.transform, true);
                 Prefabs.Add(ourCopy);
             }
@@ -42,19 +50,18 @@ namespace Editor
             GameObject optimNodes = new GameObject("nodes");
             optimNodes.transform.SetParent(_optimPrefabParent.transform);
             
-            Debug.Log("Optimized prefabs: " + Prefabs.Count);
-            
             // group our nodes by what bone they want to be parented to.
-            foreach (GameObject prefab in Prefabs)
+            foreach (var prefab in Prefabs)
             {
                 if (prefab == null) continue; // Skip destroyed references
-
-                Debug.Log("Grouping nodes on: " + prefab.name);
+                
                 Transform nodesTransform = prefab.transform.Find("nodes");
                 if (nodesTransform == null) {
-                    Debug.LogError(prefab.name + " has no nodes under the `nodes` object");
+                    Debug.LogWarning(prefab.name + " has no nodes under the `nodes` object. Be sure you know what you are doing");
+                    _emptyNodes.Add(true);
                     continue;
                 }
+                _emptyNodes.Add(false);
 
                 GatherHapticNodes(nodesTransform, optimNodes);
             }
@@ -69,8 +76,9 @@ namespace Editor
             {
                 if (prefab == null) continue;
                 prefab.name = prefab.name.Replace("(Clone)", "");
-                foreach (Transform child in prefab.transform) {
-                    Object.DestroyImmediate(child.gameObject); 
+                for (int i = prefab.transform.childCount - 1; i >= 0; --i)
+                {
+                    Object.DestroyImmediate(prefab.transform.GetChild(i).gameObject);
                 }
             }
             
@@ -89,6 +97,7 @@ namespace Editor
         /// <param name="optimNodes"></param>
         static void GatherHapticNodes(Transform nodeParent, GameObject optimNodes)
         {
+            _nodeGroups.Clear();
             // Gather nodes into _nodeGroups
             for (int j = 0; j < nodeParent.childCount; j++)
             {
@@ -117,12 +126,10 @@ namespace Editor
             
             // Push new nodes into our main nodes section
             foreach (var (bone, nodeList) in _nodeGroups)
-            {
-                // add bone our bones parent named with the HumanSkeletonBones name.
+            { 
                 GameObject boneGroup = new GameObject(bone.ToString());
                 boneGroup.transform.SetParent(optimNodes.transform);
                 
-                // add vrcfury armatureLinker component to nodes parent
                 FuryComponents.CreateArmatureLink(optimNodes).LinkTo(bone);
 
                 // create contact nodes under the parent.
@@ -179,6 +186,11 @@ namespace Editor
                 var t = node.transform;
                 GameObject tempVisual = Object.Instantiate(visualsPrefab, t.position, t.rotation);
                 
+                // apply scaling according to radius
+                var contact = boneGroup.transform.GetChild(j).GetComponent<VRCContactReceiver>();
+                float defaultRadius = 0.0375f;
+                float scaleFactor = contact.radius / defaultRadius;
+                tempVisual.transform.localScale *= scaleFactor;
                 
                 MeshFilter mf = tempVisual.GetComponent<MeshFilter>();
                 if (mf != null)
@@ -227,27 +239,77 @@ namespace Editor
         }
 
         /// <summary>
-        /// Merges and creates the menu for us
+        /// Merges the menu for the prefabs.
         /// </summary>
         /// <param name="prefabs">The prefabs to get the menu from.</param>
         static void CreateMenu(List<GameObject> prefabs)
         {
-            var first = prefabs[0];
-            if (first == null)
+            // define our copies paths
+            string generatedOptimFolder = $"{GeneratedAssetPath}/Optimized Prefab/";
+            Utils.CreateDirectoryFromAssetPath(generatedOptimFolder);
+            string rootMenuPath = generatedOptimFolder + "Menu_Root.asset";
+            string mainMenuPath = generatedOptimFolder + "Menu_Main.asset";
+            string parametersPath = generatedOptimFolder + $"Parameters_Main.asset";
+            
+            // Create Copy of pre-generated assets.
+            string menuAssetsPath = "Packages/com.vrch.haptics-installer/Assets/Menu/";
+            AssetDatabase.CopyAsset(menuAssetsPath + "Menu_Root.asset", rootMenuPath);
+            AssetDatabase.CopyAsset(menuAssetsPath + "Menu_Main.asset", mainMenuPath);
+            AssetDatabase.CopyAsset(menuAssetsPath + $"Parameters_Basic.asset", parametersPath);
+            
+            // load copies into memory
+            var rootMenu = AssetDatabase.LoadAssetAtPath<VRCExpressionsMenu>(rootMenuPath);
+            var mainMenu = AssetDatabase.LoadAssetAtPath<VRCExpressionsMenu>(mainMenuPath);
+            var menuParameters = AssetDatabase.LoadAssetAtPath<VRCExpressionParameters>(parametersPath);
+            
+            // compile lists from contents
+            var parameters = new List<VRCExpressionParameters>();
+            var menus = new List<VRCExpressionsMenu>();
+            foreach (var prefab in prefabs)
             {
-                Debug.LogError("Empty prefab list in menu creation");
-                return;
+                Transform child = prefab.transform.Find("menu");
+                if (child == null)
+                {
+                   Debug.LogError($"Unable to find menu for: {prefab.name}");
+                   continue; 
+                }
+                
+                MenuData md = child.GetComponent<MenuData>();
+                if (md != null)
+                {
+                    parameters.Add(md.vrcMenu.Parameters);
+                    // add main menu (strip root)
+                    menus.Add(md.vrcMenu.controls.First().subMenu);
+                }
+                else
+                {
+                    Debug.LogError($"Unable to find MenuData on menu: {prefab.name}");
+                }
             }
-    
-            // Try to find the menu child by name instead of getting the first child
-            Transform menuObj = first.transform.Find("menu");
-            if (menuObj == null)
-            {
-                Debug.LogError("No menu in prefab");
-                return;
-            }
-    
-            menuObj.SetParent(_optimPrefabParent.transform);
+            
+            // merge parameters and menu's
+            Utils.MergeParameters(parameters, menuParameters);
+            Utils.MergeMainMenus(menus, mainMenu);
+            
+            // update the menu references
+            rootMenu.controls.First().subMenu = mainMenu;
+            rootMenu.Parameters = menuParameters;
+            mainMenu.Parameters = menuParameters;
+
+            // ensure saved.
+            rootMenu.MarkDirty();
+            mainMenu.MarkDirty();
+            menuParameters.MarkDirty();
+            AssetDatabase.SaveAssets();
+
+            // create new vrcfury component on base prefab.
+            GameObject menuObject = new GameObject("menu");
+            menuObject.transform.SetParent(_optimPrefabParent.transform, false);
+            var furyCon = FuryComponents.CreateFullController(menuObject);
+            furyCon.AddParams(menuParameters);
+            furyCon.AddGlobalParam(GlobalIntensityParam);
+            furyCon.AddGlobalParam(GlobalVisualizerParam);
+            furyCon.AddMenu(rootMenu);
         }
 
     }

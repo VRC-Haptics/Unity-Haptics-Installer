@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &862978277052571343
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6053687315522312982}
+  m_Layer: 0
+  m_Name: Haptic-Prefab_Tail-Pull_Average
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6053687315522312982
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 862978277052571343}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5957223446747110383}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1112356684197900980
 GameObject:
   m_ObjectHideFlags: 0
@@ -27,7 +58,7 @@ Transform:
   m_GameObject: {fileID: 1112356684197900980}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.1, y: 0.1, z: 0.1}
+  m_LocalPosition: {x: -0.0921, y: 1.7461, z: 0.0607}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -47,7 +78,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rootTransform: {fileID: 0}
   shapeType: 0
-  radius: 0.0375
+  radius: 0.06
   height: 2
   position: {x: 0, y: 0, z: 0}
   rotation: {x: 0, y: 0, z: 0, w: 1}
@@ -60,7 +91,7 @@ MonoBehaviour:
   allowSelf: 0
   allowOthers: 1
   receiverType: 2
-  parameter: h/Head_0
+  parameter: Haptics/Nodes/KYBu3jmg2I
   minVelocity: 0.05
 --- !u!114 &7252172006701943835
 MonoBehaviour:
@@ -106,9 +137,165 @@ Transform:
   m_Children:
   - {fileID: 8414029463297130842}
   - {fileID: 9177892960086857313}
+  - {fileID: 8211226510161858240}
+  - {fileID: 1930157443770305608}
+  - {fileID: 1742475343273662147}
+  - {fileID: 4702455479568698505}
+  - {fileID: 87225258642521232}
+  - {fileID: 821018070828054903}
   - {fileID: 2045880669536510516}
   m_Father: {fileID: 8800066363087557883}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3222462307975358781
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1930157443770305608}
+  - component: {fileID: 1420143414996890275}
+  - component: {fileID: 3799238426602791659}
+  m_Layer: 0
+  m_Name: 3_Headset-8x
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1930157443770305608
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3222462307975358781}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.0419, y: 1.7811, z: 0.11529999}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5602211282413626031}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1420143414996890275
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3222462307975358781}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1450912254, guid: 80f1b8067b0760e4bb45023bc2e9de66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rootTransform: {fileID: 0}
+  shapeType: 0
+  radius: 0.06
+  height: 2
+  position: {x: 0, y: 0, z: 0}
+  rotation: {x: 0, y: 0, z: 0, w: 1}
+  localOnly: 1
+  collisionTags:
+  - Head
+  - Hand
+  - Foot
+  - Torso
+  allowSelf: 0
+  allowOthers: 1
+  receiverType: 2
+  parameter: Haptics/Nodes/W6ZRiRKy2u
+  minVelocity: 0.05
+--- !u!114 &3799238426602791659
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3222462307975358781}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82cdd1a1369ed09419adf38df1d7ed91, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetBone: 10
+--- !u!1 &4351302611659822679
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4702455479568698505}
+  - component: {fileID: 2662942865411932810}
+  - component: {fileID: 884996538817567469}
+  m_Layer: 0
+  m_Name: 5_Headset-8x
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4702455479568698505
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4351302611659822679}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.0485, y: 1.7036, z: 0.0994}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5602211282413626031}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2662942865411932810
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4351302611659822679}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1450912254, guid: 80f1b8067b0760e4bb45023bc2e9de66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rootTransform: {fileID: 0}
+  shapeType: 0
+  radius: 0.06
+  height: 2
+  position: {x: 0, y: 0, z: 0}
+  rotation: {x: 0, y: 0, z: 0, w: 1}
+  localOnly: 1
+  collisionTags:
+  - Head
+  - Hand
+  - Foot
+  - Torso
+  allowSelf: 0
+  allowOthers: 1
+  receiverType: 2
+  parameter: Haptics/Nodes/1tM996T3gL
+  minVelocity: 0.05
+--- !u!114 &884996538817567469
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4351302611659822679}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82cdd1a1369ed09419adf38df1d7ed91, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetBone: 10
 --- !u!1 &4727698979476489773
 GameObject:
   m_ObjectHideFlags: 0
@@ -138,11 +325,162 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 6053687315522312982}
   - {fileID: 7563419178204444025}
   - {fileID: 8800066363087557883}
   - {fileID: 3132127412882727131}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4751575797014341484
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 821018070828054903}
+  - component: {fileID: 2864035021600526961}
+  - component: {fileID: 3148760799979686659}
+  m_Layer: 0
+  m_Name: 7_Headset-8x
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &821018070828054903
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4751575797014341484}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.8936001, z: 0.0159}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5602211282413626031}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2864035021600526961
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4751575797014341484}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1450912254, guid: 80f1b8067b0760e4bb45023bc2e9de66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rootTransform: {fileID: 0}
+  shapeType: 0
+  radius: 0.06
+  height: 2
+  position: {x: 0, y: 0, z: 0}
+  rotation: {x: 0, y: 0, z: 0, w: 1}
+  localOnly: 1
+  collisionTags:
+  - Head
+  - Hand
+  - Foot
+  - Torso
+  allowSelf: 0
+  allowOthers: 1
+  receiverType: 2
+  parameter: Haptics/Nodes/jqb4srC6uG
+  minVelocity: 0.05
+--- !u!114 &3148760799979686659
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4751575797014341484}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82cdd1a1369ed09419adf38df1d7ed91, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetBone: 10
+--- !u!1 &4809159618027443646
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 87225258642521232}
+  - component: {fileID: 3624854689741021680}
+  - component: {fileID: 4494798852899807326}
+  m_Layer: 0
+  m_Name: 6_Headset-8x
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &87225258642521232
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4809159618027443646}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.8134001, z: -0.1755}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5602211282413626031}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3624854689741021680
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4809159618027443646}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1450912254, guid: 80f1b8067b0760e4bb45023bc2e9de66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rootTransform: {fileID: 0}
+  shapeType: 0
+  radius: 0.06
+  height: 2
+  position: {x: 0, y: 0, z: 0}
+  rotation: {x: 0, y: 0, z: 0, w: 1}
+  localOnly: 1
+  collisionTags:
+  - Head
+  - Hand
+  - Foot
+  - Torso
+  allowSelf: 0
+  allowOthers: 1
+  receiverType: 2
+  parameter: Haptics/Nodes/yzvpgOYT7O
+  minVelocity: 0.05
+--- !u!114 &4494798852899807326
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4809159618027443646}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82cdd1a1369ed09419adf38df1d7ed91, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetBone: 10
 --- !u!1 &4855238353524716117
 GameObject:
   m_ObjectHideFlags: 0
@@ -246,18 +584,18 @@ MonoBehaviour:
   config:
     features: []
   content:
-    rid: 6877727075705553117
+    rid: 6877727224870469834
   references:
     version: 2
     RefIds:
-    - rid: 6877727075705553117
+    - rid: 6877727224870469834
       type: {class: Toggle, ns: VF.Model.Feature, asm: VRCFury}
       data:
         version: 3
         name: Haptics/Ignore Me/Individual Nodes
         state:
           actions:
-          - rid: 6877727075705553118
+          - rid: 6877727224870469835
         saved: 1
         slider: 0
         sliderInactiveAtZero: 0
@@ -301,7 +639,7 @@ MonoBehaviour:
         holdButton: 0
         invertRestLogic: 0
         expandIntoTransition: 1
-    - rid: 6877727075705553118
+    - rid: 6877727224870469835
       type: {class: ObjectToggleAction, ns: VF.Model.StateAction, asm: VRCFury}
       data:
         version: 1
@@ -338,7 +676,7 @@ Transform:
   m_GameObject: {fileID: 5215699549592037974}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.1, y: 0.1, z: 0.1}
+  m_LocalPosition: {x: 0.0921, y: 1.7461, z: 0.0607}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -358,7 +696,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rootTransform: {fileID: 0}
   shapeType: 0
-  radius: 0.0375
+  radius: 0.06
   height: 2
   position: {x: 0, y: 0, z: 0}
   rotation: {x: 0, y: 0, z: 0, w: 1}
@@ -371,7 +709,7 @@ MonoBehaviour:
   allowSelf: 0
   allowOthers: 1
   receiverType: 2
-  parameter: h/Head_1
+  parameter: Haptics/Nodes/h983IdVsLu
   minVelocity: 0.05
 --- !u!114 &8553287302351772626
 MonoBehaviour:
@@ -411,7 +749,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5341285996878341405}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -437,11 +775,11 @@ MonoBehaviour:
   config:
     features: []
   content:
-    rid: 6877727075705553109
+    rid: 6877727224870469836
   references:
     version: 2
     RefIds:
-    - rid: 6877727075705553109
+    - rid: 6877727224870469836
       type: {class: FullController, ns: VF.Model.Feature, asm: VRCFury}
       data:
         version: 4
@@ -451,16 +789,18 @@ MonoBehaviour:
             version: 1
             fileID: 0
             guid: 
-            id: 1b5e019d14fa9764ab3c5f7a5cb14659|Assets/Haptics/Generated/Menu_Haptics_Parent.asset
-            objRef: {fileID: 11400000, guid: 1b5e019d14fa9764ab3c5f7a5cb14659, type: 2}
+            id: 7b47fb495b0e5f64c88adba503b2e4ba|Assets/Haptics/Generated/Optimized
+              Prefab/Menu_Root.asset
+            objRef: {fileID: 11400000, guid: 7b47fb495b0e5f64c88adba503b2e4ba, type: 2}
           prefix: 
         prms:
         - parameters:
             version: 1
             fileID: 0
             guid: 
-            id: 885c28db6c4596340960378b427ebe92|Assets/Haptics/Generated/Parameters_Average_Headset-8x_1.asset
-            objRef: {fileID: 11400000, guid: 885c28db6c4596340960378b427ebe92, type: 2}
+            id: 21c1a8564d3808f4c9e62dd41719befc|Assets/Haptics/Generated/Optimized
+              Prefab/Parameters_Main.asset
+            objRef: {fileID: 11400000, guid: 21c1a8564d3808f4c9e62dd41719befc, type: 2}
         smoothedPrms: []
         globalParams:
         - /haptic/global/intensity
@@ -527,6 +867,81 @@ Transform:
   m_Children: []
   m_Father: {fileID: 5957223446747110383}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6967668200117790479
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8211226510161858240}
+  - component: {fileID: 9060748049117595903}
+  - component: {fileID: 1354184409237478108}
+  m_Layer: 0
+  m_Name: 2_Headset-8x
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8211226510161858240
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6967668200117790479}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.0419, y: 1.7811, z: 0.11529999}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5602211282413626031}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &9060748049117595903
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6967668200117790479}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1450912254, guid: 80f1b8067b0760e4bb45023bc2e9de66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rootTransform: {fileID: 0}
+  shapeType: 0
+  radius: 0.06
+  height: 2
+  position: {x: 0, y: 0, z: 0}
+  rotation: {x: 0, y: 0, z: 0, w: 1}
+  localOnly: 1
+  collisionTags:
+  - Head
+  - Hand
+  - Foot
+  - Torso
+  allowSelf: 0
+  allowOthers: 1
+  receiverType: 2
+  parameter: Haptics/Nodes/gDj5VzfPTJ
+  minVelocity: 0.05
+--- !u!114 &1354184409237478108
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6967668200117790479}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82cdd1a1369ed09419adf38df1d7ed91, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetBone: 10
 --- !u!1 &7210985127676363545
 GameObject:
   m_ObjectHideFlags: 0
@@ -536,7 +951,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8800066363087557883}
-  - component: {fileID: 8347035954554206993}
+  - component: {fileID: 3889572575115566035}
   m_Layer: 0
   m_Name: nodes
   m_TagString: Untagged
@@ -560,7 +975,7 @@ Transform:
   - {fileID: 5602211282413626031}
   m_Father: {fileID: 5957223446747110383}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8347035954554206993
+--- !u!114 &3889572575115566035
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -579,11 +994,11 @@ MonoBehaviour:
   config:
     features: []
   content:
-    rid: 6877727075705553116
+    rid: 6877727224870469833
   references:
     version: 2
     RefIds:
-    - rid: 6877727075705553116
+    - rid: 6877727224870469833
       type: {class: ArmatureLink, ns: VF.Model.Feature, asm: VRCFury}
       data:
         version: 7
@@ -614,3 +1029,78 @@ MonoBehaviour:
         fallbackBones: 
         keepBoneOffsets2: 0
         linkMode: 4
+--- !u!1 &8919146257066664818
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1742475343273662147}
+  - component: {fileID: 8886605380674359721}
+  - component: {fileID: 4812578094421553875}
+  m_Layer: 0
+  m_Name: 4_Headset-8x
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1742475343273662147
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8919146257066664818}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.0485, y: 1.7036, z: 0.0994}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5602211282413626031}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8886605380674359721
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8919146257066664818}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1450912254, guid: 80f1b8067b0760e4bb45023bc2e9de66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rootTransform: {fileID: 0}
+  shapeType: 0
+  radius: 0.06
+  height: 2
+  position: {x: 0, y: 0, z: 0}
+  rotation: {x: 0, y: 0, z: 0, w: 1}
+  localOnly: 1
+  collisionTags:
+  - Head
+  - Hand
+  - Foot
+  - Torso
+  allowSelf: 0
+  allowOthers: 1
+  receiverType: 2
+  parameter: Haptics/Nodes/Q0AHGPn8Uw
+  minVelocity: 0.05
+--- !u!114 &4812578094421553875
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8919146257066664818}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82cdd1a1369ed09419adf38df1d7ed91, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetBone: 10

@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: -340790334, guid: 67cc4cb7839cd3741b63733d5adf0442, type: 3}
-  m_Name: Menu_Haptics_Parent
+  m_Name: Menu_Root
   m_EditorClassIdentifier: 
-  Parameters: {fileID: 0}
+  Parameters: {fileID: 11400000, guid: 21c1a8564d3808f4c9e62dd41719befc, type: 2}
   controls:
   - name: Haptics
     icon: {fileID: 0}
@@ -21,6 +21,6 @@ MonoBehaviour:
       name: 
     value: 1
     style: 0
-    subMenu: {fileID: 11400000, guid: a4c86aa4e9df4bf47877fcd8145dfc51, type: 2}
+    subMenu: {fileID: 11400000, guid: 58c5075de5d30c845b43c148282efb89, type: 2}
     subParameters: []
     labels: []
