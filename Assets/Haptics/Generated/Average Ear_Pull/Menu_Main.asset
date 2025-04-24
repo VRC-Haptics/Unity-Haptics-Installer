@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: -340790334, guid: 67cc4cb7839cd3741b63733d5adf0442, type: 3}
   m_Name: Menu_Main
   m_EditorClassIdentifier: 
-  Parameters: {fileID: 11400000, guid: 7232d6632a4c568429d72798dc9c6bd4, type: 2}
+  Parameters: {fileID: 11400000, guid: 90c37ec2f2c1c054f8f4ac4553322521, type: 2}
   controls:
   - name: Show Nodes
     icon: {fileID: 0}
@@ -34,4 +34,14 @@ MonoBehaviour:
     subMenu: {fileID: 0}
     subParameters:
     - name: /haptic/global/intensity
+    labels: []
+  - name: Ear_Pull V1
+    icon: {fileID: 0}
+    type: 101
+    parameter:
+      name: 
+    value: 1
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters: []
     labels: []

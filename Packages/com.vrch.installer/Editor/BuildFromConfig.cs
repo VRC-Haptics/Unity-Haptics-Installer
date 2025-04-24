@@ -52,8 +52,11 @@ namespace Editor
             _nodesParent = new GameObject("nodes");
             _menuParent = new GameObject("menu");
             _prefabRoot.transform.SetParent(parent.transform);
+            _prefabRoot.transform.localPosition = Vector3.zero;
             _menuParent.transform.SetParent(_prefabRoot.transform);
+            _menuParent.transform.localPosition = Vector3.zero;
             _nodesParent.transform.SetParent(_prefabRoot.transform);
+            _nodesParent.transform.localPosition = Vector3.zero;
             
             // build nodes
             for (int i = 0; i < conf.nodes.Length; i++)
@@ -177,7 +180,7 @@ namespace Editor
             // create new node object
             GameObject nodeObj = new GameObject(index + "_" + prefabName);
             nodeObj.transform.SetParent(_nodesParent.transform);
-            nodeObj.transform.SetPositionAndRotation(GetNodePosition(node), Quaternion.identity);
+            nodeObj.transform.localPosition = GetNodePosition(node);
 
             // move node to skeleton on avatar build
             FuryComponents.CreateArmatureLink(nodeObj)
