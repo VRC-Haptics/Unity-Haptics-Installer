@@ -6,7 +6,7 @@
   "description": "Generate and install prefabs to avatars from config files.",
   "vrchatVersion": "2022.1.1",
   "vpmDependencies" : {
-    "com.vrchat.avatars": "3.1.0",
+    "com.vrchat.avatars": "^3.1.0",
     "com.vrcfury.vrcfury": "^1.20.0"
   },
   "author": {

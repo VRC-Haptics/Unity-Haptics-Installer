@@ -180,9 +180,7 @@
       "version": "file:com.vrch.installer",
       "depth": 0,
       "source": "embedded",
-      "dependencies": {
-        "com.vrcfury.vrcfury": "1.1226.0"
-      }
+      "dependencies": {}
     },
     "com.vrchat.avatars": {
       "version": "file:com.vrchat.avatars",
