@@ -18,6 +18,8 @@ namespace Editor
         // can't disable menu entries on vrcfury so we create a dump folder in the menu.
         private const string dumpPath = "Haptics/Ignore Me/Individual Nodes";
         private const string GeneratedAssetPath = "Assets/Haptics/Generated/";
+        private const string GeneratedOptimFolder = "Assets/Haptics/Generated/Optimized Prefab/";
+        private const string GeneratedOptimMeshPath = "Assets/Haptics/Generated/Optimized Prefab/";
         
         private static List<GameObject> Prefabs = new ();
         private static GameObject _optimPrefabParent;
@@ -130,7 +132,7 @@ namespace Editor
                 GameObject boneGroup = new GameObject(bone.ToString());
                 boneGroup.transform.SetParent(optimNodes.transform);
                 
-                FuryComponents.CreateArmatureLink(optimNodes).LinkTo(bone);
+                FuryComponents.CreateArmatureLink(boneGroup).LinkTo(bone);
 
                 // create contact nodes under the parent.
                 foreach (var node in nodeList)
@@ -178,32 +180,27 @@ namespace Editor
         {
             List<CombineInstance> combine = new List<CombineInstance>();
             
-            // Create an instance of the visualizers at each node?
-            for (int j = 0; j < boneGroup.transform.childCount; j++)
+            // Create an instance of the visualizers at each node
+            var worldToLocal = boneGroup.transform.worldToLocalMatrix;
+            for (int i = 0; i < boneGroup.transform.childCount; i++)
             {
-                // get target transform
-                GameObject node = boneGroup.transform.GetChild(j).gameObject;
-                var t = node.transform;
-                GameObject tempVisual = Object.Instantiate(visualsPrefab, t.position, t.rotation);
-                
-                // apply scaling according to radius
-                var contact = boneGroup.transform.GetChild(j).GetComponent<VRCContactReceiver>();
-                float defaultRadius = 0.0375f;
-                float scaleFactor = contact.radius / defaultRadius;
-                tempVisual.transform.localScale *= scaleFactor;
-                
-                MeshFilter mf = tempVisual.GetComponent<MeshFilter>();
-                if (mf != null)
-                {
-                    CombineInstance ci = new CombineInstance
-                    {
-                        mesh = mf.sharedMesh,
-                        transform = tempVisual.transform.localToWorldMatrix
-                    };
-                    combine.Add(ci);
-                }
+                Transform t = boneGroup.transform.GetChild(i);
+                var contact = t.GetComponent<VRCContactReceiver>();
 
-                Object.DestroyImmediate(tempVisual); // Clean up temporary instance
+                GameObject temp = Object.Instantiate(visualsPrefab, t.position, t.rotation);
+
+                float scale = contact.radius / 0.0375f;
+                temp.transform.localScale *= scale;
+
+                if (temp.TryGetComponent(out MeshFilter mf))
+                {
+                    combine.Add(new CombineInstance
+                    {
+                        mesh      = mf.sharedMesh,                      // keep it serialisable
+                        transform = worldToLocal * mf.transform.localToWorldMatrix
+                    });
+                }
+                Object.DestroyImmediate(temp);    // editor-only
             }
             
             GameObject combined = new GameObject("visuals");
@@ -211,6 +208,10 @@ namespace Editor
 
             Mesh combinedMesh = new Mesh();
             combinedMesh.CombineMeshes(combine.ToArray());
+            combinedMesh.RecalculateNormals();
+            combinedMesh.RecalculateBounds();
+            AssetDatabase.CreateAsset(combinedMesh, GeneratedOptimMeshPath + $"VisMesh_{boneGroup.name}.asset");
+            AssetDatabase.SaveAssets();
             
             MeshFilter combinedMF = combined.AddComponent<MeshFilter>();
             combinedMF.mesh = combinedMesh;
@@ -245,11 +246,10 @@ namespace Editor
         static void CreateMenu(List<GameObject> prefabs)
         {
             // define our copies paths
-            string generatedOptimFolder = $"{GeneratedAssetPath}/Optimized Prefab/";
-            Utils.CreateDirectoryFromAssetPath(generatedOptimFolder);
-            string rootMenuPath = generatedOptimFolder + "Menu_Root.asset";
-            string mainMenuPath = generatedOptimFolder + "Menu_Main.asset";
-            string parametersPath = generatedOptimFolder + $"Parameters_Main.asset";
+            Utils.CreateDirectoryFromAssetPath(GeneratedOptimFolder);
+            string rootMenuPath = GeneratedOptimFolder + "Menu_Root.asset";
+            string mainMenuPath = GeneratedOptimFolder + "Menu_Main.asset";
+            string parametersPath = GeneratedOptimFolder + $"Parameters_Main.asset";
             
             // Create Copy of pre-generated assets.
             string menuAssetsPath = "Packages/com.vrch.haptics-installer/Assets/Menu/";

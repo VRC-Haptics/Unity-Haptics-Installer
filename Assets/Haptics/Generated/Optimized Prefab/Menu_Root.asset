@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: -340790334, guid: 67cc4cb7839cd3741b63733d5adf0442, type: 3}
   m_Name: Menu_Root
   m_EditorClassIdentifier: 
-  Parameters: {fileID: 11400000, guid: 7232d6632a4c568429d72798dc9c6bd4, type: 2}
+  Parameters: {fileID: 11400000, guid: 62d2f832d6e7dfc459aba9bfe16edad1, type: 2}
   controls:
   - name: Haptics
     icon: {fileID: 0}
@@ -21,6 +21,6 @@ MonoBehaviour:
       name: 
     value: 1
     style: 0
-    subMenu: {fileID: 11400000, guid: 7ea946d1e1dff134b860a8e4a14cfcbd, type: 2}
+    subMenu: {fileID: 11400000, guid: c8977d7b73f13c9489fbf8aaff916f55, type: 2}
     subParameters: []
     labels: []

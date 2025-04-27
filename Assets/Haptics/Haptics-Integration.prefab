@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 73104018968881302}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.051, y: 0.963, z: 0.114}
+  m_LocalPosition: {x: 1.9740001, y: 1.085, z: 0.114}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -102,7 +102,7 @@ Transform:
   m_GameObject: {fileID: 269087852451710924}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.0725, y: 1.2684, z: -0.1236}
+  m_LocalPosition: {x: 1.9525001, y: 1.3903999, z: -0.1236}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -177,7 +177,7 @@ Transform:
   m_GameObject: {fileID: 719090072517533407}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.1398, y: 0.963, z: -0.0307}
+  m_LocalPosition: {x: 1.8852001, y: 1.085, z: -0.0307}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -252,7 +252,7 @@ Transform:
   m_GameObject: {fileID: 1056779627658052883}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.8302, y: 1.2716, z: -0.1089}
+  m_LocalPosition: {x: 2.1948001, y: 1.3936, z: -0.1089}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -327,7 +327,7 @@ Transform:
   m_GameObject: {fileID: 1058990056349321808}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.1283, y: 1.0474, z: 0.0609}
+  m_LocalPosition: {x: 1.8967001, y: 1.1694, z: 0.0609}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -402,7 +402,7 @@ Transform:
   m_GameObject: {fileID: 1106332824337734128}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.1407, y: 1.1470001, z: -0.0758}
+  m_LocalPosition: {x: 1.8843001, y: 1.269, z: -0.0758}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -477,7 +477,7 @@ Transform:
   m_GameObject: {fileID: 1410367193341325288}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.0737, y: 1.1470001, z: -0.0977}
+  m_LocalPosition: {x: 1.9513001, y: 1.269, z: -0.0977}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -552,7 +552,7 @@ Transform:
   m_GameObject: {fileID: 1756664638800446562}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.1338, y: 1.0474, z: -0.0438}
+  m_LocalPosition: {x: 1.8912001, y: 1.1694, z: -0.0438}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -627,7 +627,7 @@ Transform:
   m_GameObject: {fileID: 1999405702542384252}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.9566, y: 1.1470001, z: 0.106}
+  m_LocalPosition: {x: 2.0684001, y: 1.269, z: 0.106}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -702,7 +702,7 @@ Transform:
   m_GameObject: {fileID: 2300428503671030960}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.9263, y: 1.1470001, z: -0.0977}
+  m_LocalPosition: {x: 2.0987, y: 1.269, z: -0.0977}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -777,7 +777,7 @@ Transform:
   m_GameObject: {fileID: 2422370731077628997}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.857, y: 1.2684, z: 0.087}
+  m_LocalPosition: {x: 2.1680002, y: 1.3903999, z: 0.087}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -852,7 +852,7 @@ Transform:
   m_GameObject: {fileID: 2672381715740464700}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.0439, y: 1.0577, z: 0.1184}
+  m_LocalPosition: {x: 1.9811001, y: 1.1797, z: 0.1184}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -927,7 +927,7 @@ Transform:
   m_GameObject: {fileID: 2715524847610757186}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.0733, y: 0.9691, z: -0.0857}
+  m_LocalPosition: {x: 1.9517001, y: 1.0911, z: -0.0857}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1002,7 +1002,7 @@ Transform:
   m_GameObject: {fileID: 2754061962686918112}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.0649, y: 1.0577, z: -0.0845}
+  m_LocalPosition: {x: 1.9601, y: 1.1797, z: -0.0845}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1077,7 +1077,7 @@ Transform:
   m_GameObject: {fileID: 2823097452185427770}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.8717, y: 1.0474, z: 0.0609}
+  m_LocalPosition: {x: 2.1533, y: 1.1694, z: 0.0609}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1125,6 +1125,174 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetBone: 7
+--- !u!1 &3214967616071237486
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4996469464007473470}
+  - component: {fileID: 1152861381847966671}
+  - component: {fileID: 7588034078885609812}
+  - component: {fileID: 6218874831213211304}
+  m_Layer: 0
+  m_Name: visuals
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4996469464007473470
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3214967616071237486}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2028003034248061078}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &1152861381847966671
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3214967616071237486}
+  m_Mesh: {fileID: 4300000, guid: f64befb7235629042a2d2813ab8b979c, type: 2}
+--- !u!23 &7588034078885609812
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3214967616071237486}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 1600b85a53fc98045b871378509a2df3, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &6218874831213211304
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3214967616071237486}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9e94e501a2d4c95bff3d5601013d923, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 3
+  unityVersion: 2022.3.22f1
+  vrcfuryVersion: 1.1205.0
+  somethingIsBroken: 0
+  config:
+    features: []
+  content:
+    rid: 6877727320092442744
+  references:
+    version: 2
+    RefIds:
+    - rid: 6877727320092442744
+      type: {class: Toggle, ns: VF.Model.Feature, asm: VRCFury}
+      data:
+        version: 3
+        name: Haptics/Ignore Me/Individual Nodes
+        state:
+          actions:
+          - rid: 6877727320092442745
+        saved: 1
+        slider: 0
+        sliderInactiveAtZero: 0
+        securityEnabled: 0
+        defaultOn: 0
+        includeInRest: 0
+        exclusiveOffState: 0
+        enableExclusiveTag: 0
+        exclusiveTag: 
+        resetPhysbones: []
+        hasExitTime: 0
+        enableIcon: 0
+        icon:
+          version: 1
+          fileID: 0
+          guid: 
+          id: 
+          objRef: {fileID: 0}
+        enableDriveGlobalParam: 0
+        driveGlobalParam: 
+        separateLocal: 0
+        localState:
+          actions: []
+        hasTransition: 0
+        transitionStateIn:
+          actions: []
+        transitionStateOut:
+          actions: []
+        transitionTimeIn: 0
+        transitionTimeOut: 0
+        localTransitionStateIn:
+          actions: []
+        localTransitionStateOut:
+          actions: []
+        localTransitionTimeIn: 0
+        localTransitionTimeOut: 0
+        simpleOutTransition: 1
+        defaultSliderValue: 0
+        useGlobalParam: 1
+        globalParam: /haptic/global/show
+        holdButton: 0
+        invertRestLogic: 0
+        expandIntoTransition: 1
+    - rid: 6877727320092442745
+      type: {class: ObjectToggleAction, ns: VF.Model.StateAction, asm: VRCFury}
+      data:
+        version: 1
+        desktopActive: 0
+        androidActive: 0
+        localOnly: 0
+        remoteOnly: 0
+        obj: {fileID: 3214967616071237486}
+        mode: 0
 --- !u!1 &3392005147735938751
 GameObject:
   m_ObjectHideFlags: 0
@@ -1152,7 +1320,7 @@ Transform:
   m_GameObject: {fileID: 3392005147735938751}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.8662, y: 1.0474, z: -0.0438}
+  m_LocalPosition: {x: 2.1588001, y: 1.1694, z: -0.0438}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1227,7 +1395,7 @@ Transform:
   m_GameObject: {fileID: 3919281106395429792}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.0465, y: 1.2684, z: 0.1166}
+  m_LocalPosition: {x: 1.9785001, y: 1.3903999, z: 0.1166}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1302,7 +1470,7 @@ Transform:
   m_GameObject: {fileID: 4083298808072693923}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.9275, y: 1.2684, z: -0.1236}
+  m_LocalPosition: {x: 2.0975, y: 1.3903999, z: -0.1236}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1359,6 +1527,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1393181134278369943}
+  - component: {fileID: 1379675240159482674}
   m_Layer: 0
   m_Name: Spine
   m_TagString: Untagged
@@ -1395,9 +1564,63 @@ Transform:
   - {fileID: 1037794044043020640}
   - {fileID: 8057991419141194166}
   - {fileID: 5113290483691430872}
-  - {fileID: 1793692717772407291}
+  - {fileID: 559233188027535001}
   m_Father: {fileID: 8800066363087557883}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1379675240159482674
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4205319421524327414}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9e94e501a2d4c95bff3d5601013d923, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 3
+  unityVersion: 2022.3.22f1
+  vrcfuryVersion: 1.1205.0
+  somethingIsBroken: 0
+  config:
+    features: []
+  content:
+    rid: 6877727320092442740
+  references:
+    version: 2
+    RefIds:
+    - rid: 6877727320092442740
+      type: {class: ArmatureLink, ns: VF.Model.Feature, asm: VRCFury}
+      data:
+        version: 7
+        propBone: {fileID: 4205319421524327414}
+        linkTo:
+        - useBone: 1
+          bone: 7
+          useObj: 0
+          obj: {fileID: 0}
+          offset: 
+        removeBoneSuffix: 
+        removeParentConstraints: 1
+        forceMergedName: 
+        forceOneWorldScale: 0
+        recursive: 0
+        alignPosition: 0
+        alignRotation: 0
+        alignScale: 0
+        autoScaleFactor: 1
+        scalingFactorPowersOf10Only: 1
+        skinRewriteScalingFactor: 1
+        useOptimizedUpload: 0
+        useBoneMerging: 0
+        keepBoneOffsets: 0
+        physbonesOnAvatarBones: 0
+        boneOnAvatar: 0
+        bonePathOnAvatar: 
+        fallbackBones: 
+        keepBoneOffsets2: 0
+        linkMode: 4
 --- !u!1 &4378908682552269627
 GameObject:
   m_ObjectHideFlags: 0
@@ -1425,7 +1648,7 @@ Transform:
   m_GameObject: {fileID: 4378908682552269627}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.8593, y: 1.1470001, z: -0.0758}
+  m_LocalPosition: {x: 2.1657002, y: 1.269, z: -0.0758}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1500,7 +1723,7 @@ Transform:
   m_GameObject: {fileID: 4561589164096709548}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.949, y: 0.963, z: 0.114}
+  m_LocalPosition: {x: 2.0760002, y: 1.085, z: 0.114}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1573,7 +1796,7 @@ Transform:
   m_GameObject: {fileID: 4727698979476489773}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2, y: 0, z: 0}
+  m_LocalPosition: {x: -2.025, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1609,7 +1832,7 @@ Transform:
   m_GameObject: {fileID: 4727995221300002634}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.1268, y: 0.963, z: 0.0643}
+  m_LocalPosition: {x: 1.8982, y: 1.085, z: 0.0643}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1698,7 +1921,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4855238353524716117}
-  m_Mesh: {fileID: 0}
+  m_Mesh: {fileID: 4300000, guid: 9d24d6e9c62d0ea41846016cdea5cb64, type: 2}
 --- !u!23 &3234715510942063988
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1760,18 +1983,18 @@ MonoBehaviour:
   config:
     features: []
   content:
-    rid: 6877727269594071432
+    rid: 6877727320092442738
   references:
     version: 2
     RefIds:
-    - rid: 6877727269594071432
+    - rid: 6877727320092442738
       type: {class: Toggle, ns: VF.Model.Feature, asm: VRCFury}
       data:
         version: 3
         name: Haptics/Ignore Me/Individual Nodes
         state:
           actions:
-          - rid: 6877727269594071433
+          - rid: 6877727320092442739
         saved: 1
         slider: 0
         sliderInactiveAtZero: 0
@@ -1815,7 +2038,7 @@ MonoBehaviour:
         holdButton: 0
         invertRestLogic: 0
         expandIntoTransition: 1
-    - rid: 6877727269594071433
+    - rid: 6877727320092442739
       type: {class: ObjectToggleAction, ns: VF.Model.StateAction, asm: VRCFury}
       data:
         version: 1
@@ -1850,7 +2073,7 @@ Transform:
   m_GameObject: {fileID: 4941181135457226242}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2, y: 0, z: 0}
+  m_LocalPosition: {x: 2.025, y: 0.122, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1883,7 +2106,7 @@ Transform:
   m_GameObject: {fileID: 4971478048513951864}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.9351, y: 1.0577, z: -0.0845}
+  m_LocalPosition: {x: 2.0899, y: 1.1797, z: -0.0845}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1982,11 +2205,11 @@ MonoBehaviour:
   config:
     features: []
   content:
-    rid: 6877727269594071438
+    rid: 6877727320092442746
   references:
     version: 2
     RefIds:
-    - rid: 6877727269594071438
+    - rid: 6877727320092442746
       type: {class: FullController, ns: VF.Model.Feature, asm: VRCFury}
       data:
         version: 4
@@ -1996,18 +2219,18 @@ MonoBehaviour:
             version: 1
             fileID: 0
             guid: 
-            id: 332fabf356ab5534aadd3c33a002029c|Assets/Haptics/Generated/Optimized
+            id: cae562020df060b48bab21db793f56aa|Assets/Haptics/Generated/Optimized
               Prefab/Menu_Root.asset
-            objRef: {fileID: 11400000, guid: 332fabf356ab5534aadd3c33a002029c, type: 2}
+            objRef: {fileID: 11400000, guid: cae562020df060b48bab21db793f56aa, type: 2}
           prefix: 
         prms:
         - parameters:
             version: 1
             fileID: 0
             guid: 
-            id: 7232d6632a4c568429d72798dc9c6bd4|Assets/Haptics/Generated/Optimized
+            id: 62d2f832d6e7dfc459aba9bfe16edad1|Assets/Haptics/Generated/Optimized
               Prefab/Parameters_Main.asset
-            objRef: {fileID: 11400000, guid: 7232d6632a4c568429d72798dc9c6bd4, type: 2}
+            objRef: {fileID: 11400000, guid: 62d2f832d6e7dfc459aba9bfe16edad1, type: 2}
         smoothedPrms: []
         globalParams:
         - /haptic/global/intensity
@@ -2070,7 +2293,7 @@ Transform:
   m_GameObject: {fileID: 5475863422821434096}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.1427, y: 1.1470001, z: 0.0635}
+  m_LocalPosition: {x: 1.8823001, y: 1.269, z: 0.0635}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2145,7 +2368,7 @@ Transform:
   m_GameObject: {fileID: 5481993585745266684}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.9267, y: 0.9691, z: -0.0857}
+  m_LocalPosition: {x: 2.0983, y: 1.0911, z: -0.0857}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2193,174 +2416,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetBone: 0
---- !u!1 &5491932060534051502
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1793692717772407291}
-  - component: {fileID: 711026287690601043}
-  - component: {fileID: 886139285932569303}
-  - component: {fileID: 3906031213651529710}
-  m_Layer: 0
-  m_Name: visuals
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1793692717772407291
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5491932060534051502}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1393181134278369943}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &711026287690601043
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5491932060534051502}
-  m_Mesh: {fileID: 0}
---- !u!23 &886139285932569303
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5491932060534051502}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 1600b85a53fc98045b871378509a2df3, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &3906031213651529710
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5491932060534051502}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d9e94e501a2d4c95bff3d5601013d923, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  version: 3
-  unityVersion: 2022.3.22f1
-  vrcfuryVersion: 1.1205.0
-  somethingIsBroken: 0
-  config:
-    features: []
-  content:
-    rid: 6877727269594071434
-  references:
-    version: 2
-    RefIds:
-    - rid: 6877727269594071434
-      type: {class: Toggle, ns: VF.Model.Feature, asm: VRCFury}
-      data:
-        version: 3
-        name: Haptics/Ignore Me/Individual Nodes
-        state:
-          actions:
-          - rid: 6877727269594071435
-        saved: 1
-        slider: 0
-        sliderInactiveAtZero: 0
-        securityEnabled: 0
-        defaultOn: 0
-        includeInRest: 0
-        exclusiveOffState: 0
-        enableExclusiveTag: 0
-        exclusiveTag: 
-        resetPhysbones: []
-        hasExitTime: 0
-        enableIcon: 0
-        icon:
-          version: 1
-          fileID: 0
-          guid: 
-          id: 
-          objRef: {fileID: 0}
-        enableDriveGlobalParam: 0
-        driveGlobalParam: 
-        separateLocal: 0
-        localState:
-          actions: []
-        hasTransition: 0
-        transitionStateIn:
-          actions: []
-        transitionStateOut:
-          actions: []
-        transitionTimeIn: 0
-        transitionTimeOut: 0
-        localTransitionStateIn:
-          actions: []
-        localTransitionStateOut:
-          actions: []
-        localTransitionTimeIn: 0
-        localTransitionTimeOut: 0
-        simpleOutTransition: 1
-        defaultSliderValue: 0
-        useGlobalParam: 1
-        globalParam: /haptic/global/show
-        holdButton: 0
-        invertRestLogic: 0
-        expandIntoTransition: 1
-    - rid: 6877727269594071435
-      type: {class: ObjectToggleAction, ns: VF.Model.StateAction, asm: VRCFury}
-      data:
-        version: 1
-        desktopActive: 0
-        androidActive: 0
-        localOnly: 0
-        remoteOnly: 0
-        obj: {fileID: 5491932060534051502}
-        mode: 0
 --- !u!1 &5746758609323037035
 GameObject:
   m_ObjectHideFlags: 0
@@ -2388,7 +2443,7 @@ Transform:
   m_GameObject: {fileID: 5746758609323037035}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.8731999, y: 0.963, z: 0.0643}
+  m_LocalPosition: {x: 2.1518002, y: 1.085, z: 0.0643}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2436,6 +2491,174 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetBone: 0
+--- !u!1 &6454897185463748549
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 559233188027535001}
+  - component: {fileID: 7252231063469844612}
+  - component: {fileID: 9125358055139576006}
+  - component: {fileID: 4646791424524194029}
+  m_Layer: 0
+  m_Name: visuals
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &559233188027535001
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6454897185463748549}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1393181134278369943}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &7252231063469844612
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6454897185463748549}
+  m_Mesh: {fileID: 4300000, guid: c30426c1efe5d6347927a75808683a50, type: 2}
+--- !u!23 &9125358055139576006
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6454897185463748549}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 1600b85a53fc98045b871378509a2df3, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &4646791424524194029
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6454897185463748549}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9e94e501a2d4c95bff3d5601013d923, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 3
+  unityVersion: 2022.3.22f1
+  vrcfuryVersion: 1.1205.0
+  somethingIsBroken: 0
+  config:
+    features: []
+  content:
+    rid: 6877727320092442741
+  references:
+    version: 2
+    RefIds:
+    - rid: 6877727320092442741
+      type: {class: Toggle, ns: VF.Model.Feature, asm: VRCFury}
+      data:
+        version: 3
+        name: Haptics/Ignore Me/Individual Nodes
+        state:
+          actions:
+          - rid: 6877727320092442742
+        saved: 1
+        slider: 0
+        sliderInactiveAtZero: 0
+        securityEnabled: 0
+        defaultOn: 0
+        includeInRest: 0
+        exclusiveOffState: 0
+        enableExclusiveTag: 0
+        exclusiveTag: 
+        resetPhysbones: []
+        hasExitTime: 0
+        enableIcon: 0
+        icon:
+          version: 1
+          fileID: 0
+          guid: 
+          id: 
+          objRef: {fileID: 0}
+        enableDriveGlobalParam: 0
+        driveGlobalParam: 
+        separateLocal: 0
+        localState:
+          actions: []
+        hasTransition: 0
+        transitionStateIn:
+          actions: []
+        transitionStateOut:
+          actions: []
+        transitionTimeIn: 0
+        transitionTimeOut: 0
+        localTransitionStateIn:
+          actions: []
+        localTransitionStateOut:
+          actions: []
+        localTransitionTimeIn: 0
+        localTransitionTimeOut: 0
+        simpleOutTransition: 1
+        defaultSliderValue: 0
+        useGlobalParam: 1
+        globalParam: /haptic/global/show
+        holdButton: 0
+        invertRestLogic: 0
+        expandIntoTransition: 1
+    - rid: 6877727320092442742
+      type: {class: ObjectToggleAction, ns: VF.Model.StateAction, asm: VRCFury}
+      data:
+        version: 1
+        desktopActive: 0
+        androidActive: 0
+        localOnly: 0
+        remoteOnly: 0
+        obj: {fileID: 6454897185463748549}
+        mode: 0
 --- !u!1 &6965300271132638681
 GameObject:
   m_ObjectHideFlags: 0
@@ -2463,7 +2686,7 @@ Transform:
   m_GameObject: {fileID: 6965300271132638681}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.0434, y: 1.1470001, z: 0.106}
+  m_LocalPosition: {x: 1.9816, y: 1.269, z: 0.106}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2538,7 +2761,7 @@ Transform:
   m_GameObject: {fileID: 7120226804367977284}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.1698, y: 1.2716, z: -0.1089}
+  m_LocalPosition: {x: 1.8552, y: 1.3936, z: -0.1089}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2595,6 +2818,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3194739982452260278}
+  - component: {fileID: 8975290449250990599}
   m_Layer: 0
   m_Name: Chest
   m_TagString: Untagged
@@ -2626,50 +2850,13 @@ Transform:
   - {fileID: 2045880669536510516}
   m_Father: {fileID: 8800066363087557883}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &7210985127676363545
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 8800066363087557883}
-  - component: {fileID: 3889572575115566035}
-  - component: {fileID: 7223844716935637227}
-  - component: {fileID: 2420983697317054706}
-  m_Layer: 0
-  m_Name: nodes
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &8800066363087557883
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7210985127676363545}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 3194739982452260278}
-  - {fileID: 1393181134278369943}
-  - {fileID: 2028003034248061078}
-  m_Father: {fileID: 5957223446747110383}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3889572575115566035
+--- !u!114 &8975290449250990599
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7210985127676363545}
+  m_GameObject: {fileID: 7187080379585253290}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d9e94e501a2d4c95bff3d5601013d923, type: 3}
@@ -2682,15 +2869,15 @@ MonoBehaviour:
   config:
     features: []
   content:
-    rid: 6877727269594071429
+    rid: 6877727320092442737
   references:
     version: 2
     RefIds:
-    - rid: 6877727269594071429
+    - rid: 6877727320092442737
       type: {class: ArmatureLink, ns: VF.Model.Feature, asm: VRCFury}
       data:
         version: 7
-        propBone: {fileID: 7210985127676363545}
+        propBone: {fileID: 7187080379585253290}
         linkTo:
         - useBone: 1
           bone: 8
@@ -2717,114 +2904,40 @@ MonoBehaviour:
         fallbackBones: 
         keepBoneOffsets2: 0
         linkMode: 4
---- !u!114 &7223844716935637227
-MonoBehaviour:
+--- !u!1 &7210985127676363545
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8800066363087557883}
+  m_Layer: 0
+  m_Name: nodes
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8800066363087557883
+Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7210985127676363545}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d9e94e501a2d4c95bff3d5601013d923, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  version: 3
-  unityVersion: 2022.3.22f1
-  vrcfuryVersion: 1.1205.0
-  somethingIsBroken: 0
-  config:
-    features: []
-  content:
-    rid: 6877727269594071430
-  references:
-    version: 2
-    RefIds:
-    - rid: 6877727269594071430
-      type: {class: ArmatureLink, ns: VF.Model.Feature, asm: VRCFury}
-      data:
-        version: 7
-        propBone: {fileID: 7210985127676363545}
-        linkTo:
-        - useBone: 1
-          bone: 7
-          useObj: 0
-          obj: {fileID: 0}
-          offset: 
-        removeBoneSuffix: 
-        removeParentConstraints: 1
-        forceMergedName: 
-        forceOneWorldScale: 0
-        recursive: 0
-        alignPosition: 0
-        alignRotation: 0
-        alignScale: 0
-        autoScaleFactor: 1
-        scalingFactorPowersOf10Only: 1
-        skinRewriteScalingFactor: 1
-        useOptimizedUpload: 0
-        useBoneMerging: 0
-        keepBoneOffsets: 0
-        physbonesOnAvatarBones: 0
-        boneOnAvatar: 0
-        bonePathOnAvatar: 
-        fallbackBones: 
-        keepBoneOffsets2: 0
-        linkMode: 4
---- !u!114 &2420983697317054706
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7210985127676363545}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d9e94e501a2d4c95bff3d5601013d923, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  version: 3
-  unityVersion: 2022.3.22f1
-  vrcfuryVersion: 1.1205.0
-  somethingIsBroken: 0
-  config:
-    features: []
-  content:
-    rid: 6877727269594071431
-  references:
-    version: 2
-    RefIds:
-    - rid: 6877727269594071431
-      type: {class: ArmatureLink, ns: VF.Model.Feature, asm: VRCFury}
-      data:
-        version: 7
-        propBone: {fileID: 7210985127676363545}
-        linkTo:
-        - useBone: 1
-          bone: 0
-          useObj: 0
-          obj: {fileID: 0}
-          offset: 
-        removeBoneSuffix: 
-        removeParentConstraints: 1
-        forceMergedName: 
-        forceOneWorldScale: 0
-        recursive: 0
-        alignPosition: 0
-        alignRotation: 0
-        alignScale: 0
-        autoScaleFactor: 1
-        scalingFactorPowersOf10Only: 1
-        skinRewriteScalingFactor: 1
-        useOptimizedUpload: 0
-        useBoneMerging: 0
-        keepBoneOffsets: 0
-        physbonesOnAvatarBones: 0
-        boneOnAvatar: 0
-        bonePathOnAvatar: 
-        fallbackBones: 
-        keepBoneOffsets2: 0
-        linkMode: 4
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 3194739982452260278}
+  - {fileID: 1393181134278369943}
+  - {fileID: 2028003034248061078}
+  m_Father: {fileID: 5957223446747110383}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7305615789227210563
 GameObject:
   m_ObjectHideFlags: 0
@@ -2852,7 +2965,7 @@ Transform:
   m_GameObject: {fileID: 7305615789227210563}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.1430001, y: 1.2684, z: 0.087}
+  m_LocalPosition: {x: 1.8820001, y: 1.3903999, z: 0.087}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2927,7 +3040,7 @@ Transform:
   m_GameObject: {fileID: 7998645113661435764}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.9561, y: 1.0577, z: 0.1184}
+  m_LocalPosition: {x: 2.0689, y: 1.1797, z: 0.1184}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3002,7 +3115,7 @@ Transform:
   m_GameObject: {fileID: 8007363620565168063}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.9535, y: 1.2684, z: 0.1166}
+  m_LocalPosition: {x: 2.0715, y: 1.3903999, z: 0.1166}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3050,174 +3163,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetBone: 8
---- !u!1 &8079672130605768446
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7472944282384126390}
-  - component: {fileID: 3966506077473338098}
-  - component: {fileID: 6745124839008977449}
-  - component: {fileID: 2579286019119103518}
-  m_Layer: 0
-  m_Name: visuals
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &7472944282384126390
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8079672130605768446}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 2028003034248061078}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &3966506077473338098
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8079672130605768446}
-  m_Mesh: {fileID: 0}
---- !u!23 &6745124839008977449
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8079672130605768446}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 1600b85a53fc98045b871378509a2df3, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &2579286019119103518
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8079672130605768446}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d9e94e501a2d4c95bff3d5601013d923, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  version: 3
-  unityVersion: 2022.3.22f1
-  vrcfuryVersion: 1.1205.0
-  somethingIsBroken: 0
-  config:
-    features: []
-  content:
-    rid: 6877727269594071436
-  references:
-    version: 2
-    RefIds:
-    - rid: 6877727269594071436
-      type: {class: Toggle, ns: VF.Model.Feature, asm: VRCFury}
-      data:
-        version: 3
-        name: Haptics/Ignore Me/Individual Nodes
-        state:
-          actions:
-          - rid: 6877727269594071437
-        saved: 1
-        slider: 0
-        sliderInactiveAtZero: 0
-        securityEnabled: 0
-        defaultOn: 0
-        includeInRest: 0
-        exclusiveOffState: 0
-        enableExclusiveTag: 0
-        exclusiveTag: 
-        resetPhysbones: []
-        hasExitTime: 0
-        enableIcon: 0
-        icon:
-          version: 1
-          fileID: 0
-          guid: 
-          id: 
-          objRef: {fileID: 0}
-        enableDriveGlobalParam: 0
-        driveGlobalParam: 
-        separateLocal: 0
-        localState:
-          actions: []
-        hasTransition: 0
-        transitionStateIn:
-          actions: []
-        transitionStateOut:
-          actions: []
-        transitionTimeIn: 0
-        transitionTimeOut: 0
-        localTransitionStateIn:
-          actions: []
-        localTransitionStateOut:
-          actions: []
-        localTransitionTimeIn: 0
-        localTransitionTimeOut: 0
-        simpleOutTransition: 1
-        defaultSliderValue: 0
-        useGlobalParam: 1
-        globalParam: /haptic/global/show
-        holdButton: 0
-        invertRestLogic: 0
-        expandIntoTransition: 1
-    - rid: 6877727269594071437
-      type: {class: ObjectToggleAction, ns: VF.Model.StateAction, asm: VRCFury}
-      data:
-        version: 1
-        desktopActive: 0
-        androidActive: 0
-        localOnly: 0
-        remoteOnly: 0
-        obj: {fileID: 8079672130605768446}
-        mode: 0
 --- !u!1 &8215117947413289742
 GameObject:
   m_ObjectHideFlags: 0
@@ -3245,7 +3190,7 @@ Transform:
   m_GameObject: {fileID: 8215117947413289742}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.8602, y: 0.963, z: -0.0307}
+  m_LocalPosition: {x: 2.1648002, y: 1.085, z: -0.0307}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3320,7 +3265,7 @@ Transform:
   m_GameObject: {fileID: 8237236228954454846}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.8573, y: 1.1470001, z: 0.0635}
+  m_LocalPosition: {x: 2.1677, y: 1.269, z: 0.0635}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3377,6 +3322,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2028003034248061078}
+  - component: {fileID: 3406637453298385327}
   m_Layer: 0
   m_Name: Hips
   m_TagString: Untagged
@@ -3405,6 +3351,60 @@ Transform:
   - {fileID: 1828244713778333579}
   - {fileID: 3197054589268595939}
   - {fileID: 7560121081640351139}
-  - {fileID: 7472944282384126390}
+  - {fileID: 4996469464007473470}
   m_Father: {fileID: 8800066363087557883}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3406637453298385327
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8538707971635036283}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9e94e501a2d4c95bff3d5601013d923, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 3
+  unityVersion: 2022.3.22f1
+  vrcfuryVersion: 1.1205.0
+  somethingIsBroken: 0
+  config:
+    features: []
+  content:
+    rid: 6877727320092442743
+  references:
+    version: 2
+    RefIds:
+    - rid: 6877727320092442743
+      type: {class: ArmatureLink, ns: VF.Model.Feature, asm: VRCFury}
+      data:
+        version: 7
+        propBone: {fileID: 8538707971635036283}
+        linkTo:
+        - useBone: 1
+          bone: 0
+          useObj: 0
+          obj: {fileID: 0}
+          offset: 
+        removeBoneSuffix: 
+        removeParentConstraints: 1
+        forceMergedName: 
+        forceOneWorldScale: 0
+        recursive: 0
+        alignPosition: 0
+        alignRotation: 0
+        alignScale: 0
+        autoScaleFactor: 1
+        scalingFactorPowersOf10Only: 1
+        skinRewriteScalingFactor: 1
+        useOptimizedUpload: 0
+        useBoneMerging: 0
+        keepBoneOffsets: 0
+        physbonesOnAvatarBones: 0
+        boneOnAvatar: 0
+        bonePathOnAvatar: 
+        fallbackBones: 
+        keepBoneOffsets2: 0
+        linkMode: 4
