@@ -14,12 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isEmpty: 0
   parameters:
-  - name: /haptic/global/intensity
+  - name: haptic/global/intensity
     valueType: 1
     saved: 1
     defaultValue: 1
     networkSynced: 0
-  - name: /haptic/global/show
+  - name: haptic/global/show
     valueType: 2
     saved: 1
     defaultValue: 0

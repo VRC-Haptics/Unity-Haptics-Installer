@@ -127,7 +127,7 @@ namespace Editor
             var paramlist = menuParameters.parameters.ToList();
             var advertisingParameter = new VRCExpressionParameters.Parameter
             {
-                name = $"/haptic/prefabs/{conf.meta.map_author}/{conf.meta.map_name}/v{conf.meta.map_version}",
+                name = $"haptic/prefabs/{conf.meta.map_author}/{conf.meta.map_name}/v{conf.meta.map_version}",
                 defaultValue = conf.meta.map_version,
                 networkSynced = false,
                 saved = true,
