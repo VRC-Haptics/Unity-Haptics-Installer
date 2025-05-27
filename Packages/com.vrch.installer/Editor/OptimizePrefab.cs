@@ -27,8 +27,8 @@ namespace Editor
         private static List<bool> _emptyNodes = new List<bool>();
         
         // OSC Parameter Paths
-        private const string GlobalVisualizerParam = "/haptic/global/show";
-        private const string GlobalIntensityParam = "/haptic/global/intensity";
+        private const string GlobalVisualizerParam = "haptic/global/show";
+        private const string GlobalIntensityParam = "haptic/global/intensity";
         
         public static GameObject OptimizePrefabs(GameObject[] inPrefabs, GameObject avatarRoot)
         {
@@ -210,6 +210,7 @@ namespace Editor
             combinedMesh.CombineMeshes(combine.ToArray());
             combinedMesh.RecalculateNormals();
             combinedMesh.RecalculateBounds();
+            Utils.CreateDirectoryFromAssetPath(GeneratedOptimMeshPath + $"VisMesh_{boneGroup.name}.asset");
             AssetDatabase.CreateAsset(combinedMesh, GeneratedOptimMeshPath + $"VisMesh_{boneGroup.name}.asset");
             AssetDatabase.SaveAssets();
             
