@@ -191,7 +191,7 @@ namespace Editor
             boneObj.targetBone = node.target_bone;
             
             // add vrc contact
-            var collisionTags = new List<string> {"Head", "Hand", "Foot", "Torso", "HapticCollider"};
+            var collisionTags = new List<string> {"Head", "Hand", "Foot", "Torso", "HapticCollider", "Finger"};
             ContactReceiver recv = nodeObj.AddComponent<VRCContactReceiver>();
             recv.parameter = localAddr;
             recv.allowOthers = true;
