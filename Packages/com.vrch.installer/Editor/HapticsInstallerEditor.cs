@@ -2,8 +2,12 @@
 using UnityEditor;
 using UnityEngine;
 using System.IO;
+using Editor.ShrinkToFit;
+using HapticsInstaller.Runtime;
 using Newtonsoft.Json;
 using UnityEditorInternal;
+using VRC.SDK3.Avatars.Components;
+using static Editor.ShrinkToFit.ShrinkToFitUtils;
 
 namespace Editor
 {
@@ -14,10 +18,15 @@ namespace Editor
         private static Config _config;
         private static bool _configValid;
         private static GameObject _avatarRoot;
-        private static bool UseLowPoly = true;
-        private static List<GameObject> PrefabsToOptimize = new ();
+        private static readonly bool UseLowPoly = true;
+        private static readonly List<GameObject> PrefabsToOptimize = new ();
         // The ReorderableList to edit the list in the GUI.
         private static ReorderableList _prefabReorderableList;
+
+        private static bool _simpleBody = true;
+        private static GameObject _bodyMesh = null;
+        private static GameObject _currentFittingPrefab = null;
+        private static ReorderableList _fittingReorderableList;
 
         [MenuItem("Haptics/Start Installer")]
         static void ShowInstaller()
@@ -62,6 +71,20 @@ namespace Editor
         private void OnEnable()
         {
             InitList();
+            
+            // try to auto-fill fields
+            var desc = Object.FindObjectsByType<VRCAvatarDescriptor>(FindObjectsSortMode.None);
+            if (desc.Length > 0)
+            {
+                _avatarRoot = desc[0].gameObject;
+                _bodyMesh = _avatarRoot.transform.Find("Body").gameObject;
+                var bones = Object.FindObjectsByType<TargetBone>(FindObjectsSortMode.None);
+                if (bones.Length > 0)
+                {
+                    _currentFittingPrefab = bones[0].gameObject.transform.parent.parent.gameObject;
+                }
+            }
+            
         }
 
         private void OnGUI()
@@ -73,8 +96,11 @@ namespace Editor
             
             // draw the generator part of the gui
             GeneratorGui();
-
-            EditorGUILayout.Space(50);
+            
+            EditorGUILayout.Space(25);
+            FittingGui();
+            
+            EditorGUILayout.Space(25);
             // draw the optimizer part of the gui
             OptimizeGui();
 
@@ -90,7 +116,7 @@ namespace Editor
 
             PrefabsToOptimize.Clear();
         }
-        
+
         /// The prefab generator section for the installer gui
         static void GeneratorGui()
         {
@@ -154,6 +180,39 @@ namespace Editor
                     EditorGUILayout.HelpBox("Invalid configuration", MessageType.Error);
                 }
             }
+        }
+        
+        /// <summary>
+        ///  Fits the nodes of each prefab to the avatar as best as possible.
+        /// </summary>
+        static void FittingGui()
+        {
+            GUILayout.Label("Fit To Avatar", EditorStyles.boldLabel);
+            EditorGUILayout.HelpBox("Fit generated nodes to avatar positions", MessageType.Info);
+
+            _simpleBody = EditorGUILayout.Toggle("Single Body Mesh", _simpleBody);
+            if (_simpleBody)
+            {
+                _bodyMesh = (GameObject)EditorGUILayout.ObjectField("Body Mesh", _bodyMesh, typeof(GameObject), true);
+            }
+            
+            _currentFittingPrefab = (GameObject)EditorGUILayout.ObjectField("Prefab to Edit", _currentFittingPrefab, typeof(GameObject), true);
+            
+            if (_bodyMesh != null && _currentFittingPrefab != null && _avatarRoot != null)
+            {
+                if (GUILayout.Button("Fit To Avatar"))
+                {
+                     ShrinkToFitUtils.SinglePrefab(_avatarRoot, _bodyMesh, _currentFittingPrefab);
+                }
+            }
+            else
+            {
+                GUI.enabled = false;
+                bool _ = GUILayout.Button("Fit To Avatar");
+                GUI.enabled = true;
+            }
+            GUI.enabled = _bodyMesh != null;
+            
         }
 
         bool PrefabListNotNull()

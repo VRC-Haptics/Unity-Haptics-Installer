@@ -63,7 +63,7 @@ namespace Editor
             {
                 if (conf.nodes[i].is_external_address)
                 {
-                    Debug.Log("Skipping creating a node for external address");
+                    Debug.Log($"Skipping creating a node for external address: {conf.nodes[i].address}");
                     continue;
                 }
                 BuildHapticNode(conf.nodes[i], i, conf.meta.map_name);
