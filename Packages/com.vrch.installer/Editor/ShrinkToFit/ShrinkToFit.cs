@@ -73,6 +73,7 @@ namespace Editor.ShrinkToFit
             collider.sharedMesh = bodyRenderer.sharedMesh;
             collider.convex = false;
 
+            Physics.queriesHitBackfaces = true;
             foreach (Transform node in nodesParent.transform)
             {
                 Undo.RecordObject(node.transform, $"Shrink to fit: {node.name}");
@@ -106,18 +107,24 @@ namespace Editor.ShrinkToFit
                 float distanceToAxis = directionToAxis.magnitude;
 
                 // if outside mesh
-                if (Physics.Raycast(nodePosition, directionToAxis.normalized, out var raycastHit, distanceToAxis))
+                RaycastHit[] hits = new RaycastHit[1];
+                var size = Physics.RaycastNonAlloc(nodePosition, directionToAxis.normalized, hits, distanceToAxis);
+                if (size > 0)
                 {
-                    node.transform.position = raycastHit.point;
-                }
-                // if inside mesh
-                else if (Physics.Raycast(nodePosition, -directionToAxis.normalized, out raycastHit, 10000))
-                {
-                    node.transform.position = raycastHit.point;
+                    node.transform.position = hits[0].point;
                 }
                 else
                 {
-                    Debug.LogWarning($"Could not resolve shrink-to-fit: {node.name}");
+                    hits = Physics.RaycastAll(nodePosition, -directionToAxis.normalized, Mathf.Infinity);
+                    if (hits.Length > 0)
+                    {
+                        
+                        node.transform.position = hits[0].point;
+                    }
+                    else
+                    {
+                        Debug.LogWarning($"Could not resolve shrink-to-fit: {node.name}");
+                    }
                 }
             }
             Object.DestroyImmediate(duplicatedMesh);
