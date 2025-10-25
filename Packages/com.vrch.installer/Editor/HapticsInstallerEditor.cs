@@ -2,16 +2,14 @@
 using UnityEditor;
 using UnityEngine;
 using System.IO;
-using Editor.ShrinkToFit;
 using HapticsInstaller.Runtime;
 using Newtonsoft.Json;
 using UnityEditorInternal;
 using VRC.SDK3.Avatars.Components;
-using static Editor.ShrinkToFit.ShrinkToFitUtils;
 
 namespace Editor
 {
-    public class HapticsInstaller : EditorWindow
+    public partial class HapticsInstaller : EditorWindow
     {
         private static string _selectedConfigPath = "";
         private static string _configJsonContent = "";
@@ -19,7 +17,9 @@ namespace Editor
         private static bool _configValid;
         private static GameObject _avatarRoot;
         private static readonly bool UseLowPoly = true;
-        private static readonly List<GameObject> PrefabsToOptimize = new ();
+
+        private static readonly List<GameObject> PrefabsToOptimize = new();
+
         // The ReorderableList to edit the list in the GUI.
         private static ReorderableList _prefabReorderableList;
 
@@ -27,6 +27,9 @@ namespace Editor
         private static GameObject _bodyMesh = null;
         private static GameObject _currentFittingPrefab = null;
         private static ReorderableList _fittingReorderableList;
+
+        private static readonly List<GameObject> Nodes = new List<GameObject>();
+        private static readonly HashSet<int> FlaggedIndices = new HashSet<int>();
 
         [MenuItem("Haptics/Start Installer")]
         static void ShowInstaller()
@@ -40,11 +43,8 @@ namespace Editor
             _prefabReorderableList = new ReorderableList(PrefabsToOptimize, typeof(GameObject), true, true, true, true)
             {
                 // Callback for drawing the header.
-                drawHeaderCallback = (Rect rect) =>
-                {
-                    EditorGUI.LabelField(rect, "Prefabs to Optimize");
-                },
-                    
+                drawHeaderCallback = (Rect rect) => { EditorGUI.LabelField(rect, "Prefabs to Optimize"); },
+
                 // Draw each element (each GameObject field).
                 drawElementCallback = (Rect rect, int index, bool isActive, bool isFocused) =>
                 {
@@ -56,22 +56,19 @@ namespace Editor
                         typeof(GameObject),
                         true);
                 },
-                    
+
                 // Override the add callback so that a null entry is added instead of creating a new GameObject.
-                onAddCallback = (ReorderableList list) =>
-                {
-                    PrefabsToOptimize.Add(null);
-                },
-                    
+                onAddCallback = (ReorderableList list) => { PrefabsToOptimize.Add(null); },
+
                 // Remove callback to remove the selected element.
                 onRemoveCallback = (ReorderableList list) => { PrefabsToOptimize.RemoveAt(list.index); }
             };
         }
-        
+
         private void OnEnable()
         {
             InitList();
-            
+
             // try to auto-fill fields
             var desc = Object.FindObjectsByType<VRCAvatarDescriptor>(FindObjectsSortMode.None);
             if (desc.Length > 0)
@@ -84,7 +81,6 @@ namespace Editor
                     _currentFittingPrefab = bones[0].gameObject.transform.parent.parent.gameObject;
                 }
             }
-            
         }
 
         private void OnGUI()
@@ -93,17 +89,22 @@ namespace Editor
             {
                 ResetEditorWindow();
             }
-            
+
             // draw the generator part of the gui
             GeneratorGui();
-            
+
             EditorGUILayout.Space(25);
-            FittingGui();
+            FittingGui(); // refills the _nodes list every frame.
+            DrawPrefabWideSettings(_currentFittingPrefab);
             
+            EditorGUILayout.Space();
+            EditorGUILayout.BeginVertical(EditorStyles.helpBox);
+            DrawFocusTools(_currentFittingPrefab);
+            EditorGUILayout.EndVertical();
+
             EditorGUILayout.Space(25);
             // draw the optimizer part of the gui
             OptimizeGui();
-
         }
 
         static void ResetEditorWindow()
@@ -121,15 +122,15 @@ namespace Editor
         static void GeneratorGui()
         {
             GUILayout.Label("Prefab Builder", EditorStyles.boldLabel);
-            
+
             EditorGUILayout.HelpBox(
-                "Select your avatar root and a valid configuration file to start installing haptics.", 
+                "Select your avatar root and a valid configuration file to start installing haptics.",
                 MessageType.Info);
 
             // avatar root selection
             _avatarRoot =
                 (GameObject)EditorGUILayout.ObjectField("Avatar Root:", _avatarRoot, typeof(GameObject), true);
-            
+
             // Use low poly check mark
             EditorGUILayout.Toggle("Use Low Poly:", UseLowPoly);
 
@@ -139,20 +140,15 @@ namespace Editor
                 string path = EditorUtility.OpenFilePanel("Select JSON File", "", "json");
                 if (!string.IsNullOrEmpty(path))
                 {
-                    // read file and validate results
-                    _selectedConfigPath = path;
-                    _configJsonContent = File.ReadAllText(path);
-                    _config = JsonConvert.DeserializeObject<Config>(_configJsonContent);
-                    _configValid = ValidateConfig();
-
-                    Debug.Log("Config File loaded from: " + _selectedConfigPath);
+                    LoadConfig(path);
                 }
             }
-            
+
             // Prefab build button
             GUI.enabled = _configValid && _avatarRoot != null;
             if (GUILayout.Button("Create Prefab"))
             {
+                ReloadConfig();
                 GameObject generatedPrefab = BuildFromConfig.Build(_avatarRoot, _config, UseLowPoly);
                 // should never be null, but idk
                 if (generatedPrefab != null)
@@ -160,6 +156,7 @@ namespace Editor
                     PrefabsToOptimize.Add(generatedPrefab);
                 }
             }
+
             GUI.enabled = true;
 
             // display config loaded status
@@ -180,13 +177,50 @@ namespace Editor
                     EditorGUILayout.HelpBox("Invalid configuration", MessageType.Error);
                 }
             }
+
+            static void ReloadConfig()
+            {
+                if (!string.IsNullOrEmpty(_selectedConfigPath))
+                {
+                    LoadConfig(_selectedConfigPath);
+                }
+            }
+
+            static Config LoadConfig(string path)
+            {
+                // read file and validate results
+                _selectedConfigPath = path;
+                _configJsonContent = File.ReadAllText(path);
+                _config = JsonConvert.DeserializeObject<Config>(_configJsonContent);
+                _configValid = ValidateConfig();
+
+                Debug.Log("Config File loaded from: " + _selectedConfigPath);
+                return _config;
+            }
         }
-        
+
         /// <summary>
         ///  Fits the nodes of each prefab to the avatar as best as possible.
         /// </summary>
         static void FittingGui()
         {
+            if (_currentFittingPrefab != null)
+            {
+                var nodes = _currentFittingPrefab.transform.Find("nodes");
+                if (nodes == null)
+                {
+                    Debug.LogError("No Nodes found");
+                    return;
+                }
+
+                Nodes.Clear();
+                foreach (Transform node in nodes)
+                {
+                    Nodes.Add(node.gameObject);
+                }
+            }
+
+
             GUILayout.Label("Fit To Avatar", EditorStyles.boldLabel);
             EditorGUILayout.HelpBox("Fit generated nodes to avatar positions", MessageType.Info);
 
@@ -195,14 +229,16 @@ namespace Editor
             {
                 _bodyMesh = (GameObject)EditorGUILayout.ObjectField("Body Mesh", _bodyMesh, typeof(GameObject), true);
             }
-            
-            _currentFittingPrefab = (GameObject)EditorGUILayout.ObjectField("Prefab to Edit", _currentFittingPrefab, typeof(GameObject), true);
-            
+
+            _currentFittingPrefab =
+                (GameObject)EditorGUILayout.ObjectField("Prefab to Edit", _currentFittingPrefab, typeof(GameObject),
+                    true);
+
             if (_bodyMesh != null && _currentFittingPrefab != null && _avatarRoot != null)
             {
                 if (GUILayout.Button("Fit To Avatar"))
                 {
-                     ShrinkToFitUtils.SinglePrefab(_avatarRoot, _bodyMesh, _currentFittingPrefab);
+                    ShrinkToFitUtils.SinglePrefab(_avatarRoot, _bodyMesh, _currentFittingPrefab, FlaggedIndices);
                 }
             }
             else
@@ -211,8 +247,8 @@ namespace Editor
                 bool _ = GUILayout.Button("Fit To Avatar");
                 GUI.enabled = true;
             }
+
             GUI.enabled = _bodyMesh != null;
-            
         }
 
         bool PrefabListNotNull()
@@ -221,6 +257,7 @@ namespace Editor
             {
                 if (prefab == null) return false;
             }
+
             return true;
         }
 
@@ -230,16 +267,19 @@ namespace Editor
         void OptimizeGui()
         {
             GUILayout.Label("Prefab Optimizer", EditorStyles.boldLabel);
-            
+
             // Render the reorderable list.
-            EditorGUILayout.HelpBox("Drag and drop your prefabs into the list below to add them for optimization.", MessageType.Info);
+            EditorGUILayout.HelpBox("Drag and drop your prefabs into the list below to add them for optimization.",
+                MessageType.Info);
             _prefabReorderableList.DoLayoutList();
 
-            GUI.enabled = PrefabsToOptimize.Count > 0 && PrefabListNotNull() && _avatarRoot != null;;
+            GUI.enabled = PrefabsToOptimize.Count > 0 && PrefabListNotNull() && _avatarRoot != null;
+            ;
             if (GUILayout.Button("Bake Prefabs"))
             {
                 OptimizePrefab.OptimizePrefabs(PrefabsToOptimize.ToArray(), _avatarRoot);
             }
+
             GUI.enabled = true;
         }
 

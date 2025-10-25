@@ -25,6 +25,18 @@ namespace Editor
         public float radius;
         [JsonConverter(typeof(StringEnumConverter))]
         public HumanBodyBones target_bone;
+
+        public Vector3 GetNodePosition()
+        {
+            return new Vector3(node_data.x, node_data.y, node_data.z);
+        }
+
+        public void SetPosition(Vector3 pos)
+        {
+            node_data.x = pos.x;
+            node_data.y = pos.y;
+            node_data.z = pos.z;
+        }
     }
 
     [Serializable]

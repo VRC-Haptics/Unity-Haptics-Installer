@@ -11,7 +11,7 @@ using VRC.SDK3.Avatars.Components;
 using Debug = UnityEngine.Debug;
 using Object = UnityEngine.Object;
 
-namespace Editor.ShrinkToFit
+namespace Editor
 {
     public static class ShrinkToFitUtils
     {
@@ -26,10 +26,12 @@ namespace Editor.ShrinkToFit
         /// <param name="avatarRoot">assumed to have a VRCAvatarDescriptor on the object</param>
         /// <param name="bodyObject">Assumed to have a skinned mesh renderer on the avatar that will be used to shrink the nodes around</param>
         /// <param name="prefabBase">The base of our haptics prefab</param>
+        /// <param name="flaggedIndices">The hashset that we can use to alert the user to make chagnes to an index.</param>
         public static void SinglePrefab(
             GameObject avatarRoot,
             GameObject bodyObject,
-            GameObject prefabBase)
+            GameObject prefabBase,
+            HashSet<int> flaggedIndices)
         {
             
             if (avatarRoot == null || bodyObject == null || prefabBase == null)
@@ -59,7 +61,7 @@ namespace Editor.ShrinkToFit
                 return;
             }
 
-            FillBones(avatar, armature);
+            _bones = Utils.GetBonesMap(avatar, armature);
 
             //Debug.Log("Human bones: " + string.Join(", ", avatar.humanDescription.human.Select(b => $"{b.humanName}->{b.boneName}")));
             //Debug.Log("Skeleton: " + string.Join(", ", avatar.humanDescription.skeleton.Select(b => $"N:{b.name}, {b.position}, {b.rotation}")));
@@ -74,8 +76,9 @@ namespace Editor.ShrinkToFit
             collider.convex = false;
 
             Physics.queriesHitBackfaces = true;
-            foreach (Transform node in nodesParent.transform)
+            for (int i = 0; i < nodesParent.transform.childCount; i++)
             {
+                Transform node = nodesParent.transform.GetChild(i);
                 Undo.RecordObject(node.transform, $"Shrink to fit: {node.name}");
                 
                 // get target bone.
@@ -123,44 +126,13 @@ namespace Editor.ShrinkToFit
                     }
                     else
                     {
+                        flaggedIndices.Add(i);
                         Debug.LogWarning($"Could not resolve shrink-to-fit: {node.name}");
                     }
                 }
             }
             Object.DestroyImmediate(duplicatedMesh);
         }
-        static void FillBones(Avatar avatar, GameObject armatureRoot)
-        {
-            _bones = new Dictionary<HumanBodyBones, Transform>();
 
-            // maps a *models* skeleton to standard bones.
-            var human = avatar.humanDescription.human;
-            // maps the standard bones to positions/other info.
-            var skeleton = avatar.humanDescription.skeleton;
-
-
-            foreach (var humanBone in human)
-            {
-                var boneTransform = armatureRoot.transform.parent.GetComponentsInChildren<Transform>()
-                    .FirstOrDefault(t => t.name == humanBone.boneName);
-                if (boneTransform == null)
-                {
-                    Debug.LogWarning(
-                        $"Bone: {humanBone.boneName} is described in avatar but not found. Ignore if not part of the standard skeleton.");
-                    continue;
-                }
-
-                string enumName = humanBone.humanName.Replace(" ", "");
-                if (Enum.TryParse(enumName, true, out HumanBodyBones bone))
-                {
-                    _bones.Add(bone, boneTransform);
-                }
-                else
-                {
-                    Debug.LogWarning(
-                        $"unable to parse bone: humanName: {humanBone.humanName}, humanBoneName: {humanBone.boneName}");
-                }
-            }
-        }
     }
 }

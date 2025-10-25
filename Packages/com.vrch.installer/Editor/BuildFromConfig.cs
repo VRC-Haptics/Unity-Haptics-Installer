@@ -9,6 +9,7 @@ using UnityEditor;
 using VRC;
 using VRC.Dynamics;
 using VRC.PackageManagement.Core.Types;
+using VRC.SDK3.Avatars.Components;
 using VRC.SDK3.Avatars.ScriptableObjects;
 using VRC.SDK3.Dynamics.Contact.Components;
 
@@ -24,40 +25,42 @@ namespace Editor
         private const string MeshesPath = "Assets/Haptics/Assets/Mesh";
         private const string ScriptsPath = "Assets/Haptics/Assets/Scripts";
         private const string PackageScriptsPath = "Packages/com.vrch.haptics-installer/Assets/Scripts/";
-        
+
         // OSC Parameter Paths
         private const string GlobalVisualizerParam = "/haptic/global/show";
         private const string GlobalIntensityParam = "/haptic/global/intensity";
-        
+
         private static string _baseName = "";
         private static GameObject _prefabRoot;
         private static GameObject _nodesParent;
         private static GameObject _menuParent;
         private static bool _useLowPoly = true;
-        
+
         /// <summary>
         /// Builds a standalone unoptimized haptic prefab under the parent object.
         /// </summary>
-        /// <param name="parent"></param>
+        /// <param name="aviRoot"></param>
         /// <param name="conf"></param>
         /// <param name="lowPoly"></param>
         /// <returns>Instance of the object on the avatar</returns>
-        public static GameObject Build(GameObject parent, Config conf, bool lowPoly)
+        public static GameObject Build(GameObject aviRoot, Config conf, bool lowPoly)
         {
             _useLowPoly = lowPoly;
-            
+
             // setup base structure
             _baseName = "Haptic-Prefab_" + conf.meta.map_name + "_" + conf.meta.map_author;
             _prefabRoot = new GameObject(_baseName);
             _nodesParent = new GameObject("nodes");
             _menuParent = new GameObject("menu");
-            _prefabRoot.transform.SetParent(parent.transform);
+            _prefabRoot.transform.SetParent(aviRoot.transform);
             _prefabRoot.transform.localPosition = Vector3.zero;
             _menuParent.transform.SetParent(_prefabRoot.transform);
             _menuParent.transform.localPosition = Vector3.zero;
             _nodesParent.transform.SetParent(_prefabRoot.transform);
             _nodesParent.transform.localPosition = Vector3.zero;
-            
+
+            ScaleConfig(conf, aviRoot, _prefabRoot);
+
             // build nodes
             for (int i = 0; i < conf.nodes.Length; i++)
             {
@@ -66,30 +69,78 @@ namespace Editor
                     Debug.Log($"Skipping creating a node for external address: {conf.nodes[i].address}");
                     continue;
                 }
+
                 BuildHapticNode(conf.nodes[i], i, conf.meta.map_name);
             }
-            
+
             // build the menu for this prefab;
             var (expressionsMenu, expressionsParameters) = BuildMenu(conf);
-            
+
             // Create Controller Merger
             FuryFullController menu = FuryComponents.CreateFullController(_menuParent);
             menu.AddParams(expressionsParameters);
             menu.AddGlobalParam(GlobalIntensityParam);
             menu.AddGlobalParam(GlobalVisualizerParam);
             menu.AddMenu(expressionsMenu);
-            
+
             // Add data script
             var menuDataScript = _menuParent.AddComponent<MenuData>();
             menuDataScript.vrcMenu = expressionsMenu;
-            
+
             // create prefab for the finished product
             PrefabUtility.SaveAsPrefabAssetAndConnect(
-                _prefabRoot, 
-                $"Assets/Haptics/{conf.meta.map_author}_{conf.meta.map_name}_{conf.meta.map_version}.prefab", 
+                _prefabRoot,
+                $"Assets/Haptics/{conf.meta.map_author}_{conf.meta.map_name}_{conf.meta.map_version}.prefab",
                 InteractionMode.UserAction);
-            
+
             return _prefabRoot;
+        }
+
+        private static void ScaleConfig(Config conf, GameObject aviRoot, GameObject prefabRoot)
+        {
+            GameObject armature = aviRoot.transform.Find("Armature").gameObject;
+
+            VRCAvatarDescriptor aviDesc = aviRoot.GetComponent<VRCAvatarDescriptor>();
+            if (aviDesc == null)
+            {
+                Debug.LogError($"Could not find a {nameof(VRCAvatarDescriptor)} component on Avatar Root");
+                return;
+            }
+
+            Animator anim = aviDesc.GetComponent<Animator>();
+            if (anim == null) Debug.LogError($"Could not find a {nameof(Animator)} component on Avatar Root");
+            Avatar avatar = anim.avatar;
+            if (avatar == null)
+                Debug.LogError($"Could not find a {nameof(Avatar)} component on Avatar Root Animator component");
+
+            var bones = Utils.GetBonesMap(avatar, armature);
+
+            float eyeHeight = aviDesc.ViewPosition.y - aviRoot.transform.position.y;
+            const float standardEyeHeight = 1.585f;
+            float ratio = eyeHeight / standardEyeHeight;
+            
+            foreach (Node node in conf.nodes)
+            {
+                if (!bones.TryGetValue(node.target_bone, out var bonePos))
+                {
+                    Debug.LogWarning($"Could not find bone for node {node.target_bone}");
+                    bonePos = armature.transform;
+                }
+
+                if (bonePos != null) // should never be but compiler complains
+                {
+                    var sizeScale = bonePos.position + (node.GetNodePosition() - bonePos.position) * ratio;
+                    float yOffset = eyeHeight * (1 - ratio); // adjust for height differences
+                    //sizeScale.y += -yOffset;
+                    Vector3 offset = aviRoot.transform.position * (1 - ratio);
+                    sizeScale.x -= offset.x;
+                    sizeScale.y += offset.y - yOffset;
+                    sizeScale.z -= offset.z;
+                    node.SetPosition(sizeScale);
+                } 
+
+                node.radius *= ratio;
+            }
         }
 
         /// <summary>
@@ -104,25 +155,26 @@ namespace Editor
             Utils.CreateDirectoryFromAssetPath(generatedPrefabFolder);
             string rootMenuPath = generatedPrefabFolder + "Menu_Root.asset";
             string mainMenuPath = generatedPrefabFolder + "Menu_Main.asset";
-            string prefabMenuPath = generatedPrefabFolder + $"Menu_{conf.meta.map_name}.asset"; // eventually support per/prefab devices
+            string prefabMenuPath =
+                generatedPrefabFolder + $"Menu_{conf.meta.map_name}.asset"; // eventually support per/prefab devices
             string parametersPath = generatedPrefabFolder + $"Parameters_{conf.meta.map_name}.asset";
-            
+
             // Create Copy of pre-generated assets.
             string menuAssetsPath = "Packages/com.vrch.haptics-installer/Assets/Menu/";
             AssetDatabase.CopyAsset(menuAssetsPath + "Menu_Root.asset", rootMenuPath);
             AssetDatabase.CopyAsset(menuAssetsPath + "Menu_Main.asset", mainMenuPath);
             AssetDatabase.CopyAsset(menuAssetsPath + $"Parameters_Basic.asset", parametersPath);
-            
+
             // load copies into memory
             var rootMenu = AssetDatabase.LoadAssetAtPath<VRCExpressionsMenu>(rootMenuPath);
             var mainMenu = AssetDatabase.LoadAssetAtPath<VRCExpressionsMenu>(mainMenuPath);
             var menuParameters = AssetDatabase.LoadAssetAtPath<VRCExpressionParameters>(parametersPath);
-            
+
             // Point internal references to new copies
             rootMenu.Parameters = menuParameters;
             rootMenu.controls.First().subMenu = mainMenu;
             mainMenu.Parameters = menuParameters;
-            
+
             // Add advertising parameter.
             var paramlist = menuParameters.parameters.ToList();
             var advertisingParameter = new VRCExpressionParameters.Parameter
@@ -135,7 +187,7 @@ namespace Editor
             };
             paramlist.Add(advertisingParameter);
             menuParameters.parameters = paramlist.ToArray();
-            
+
             // Add user-facing menu listing
             var prefabControl = new VRCExpressionsMenu.Control
             {
@@ -150,16 +202,16 @@ namespace Editor
                 value = 1f,
             };
             mainMenu.controls.Add(prefabControl);
-            
+
             // Make sure changes are saved.
             rootMenu.MarkDirty();
             mainMenu.MarkDirty();
             menuParameters.MarkDirty();
             AssetDatabase.SaveAssets();
-            
+
             return (rootMenu, menuParameters);
         }
-        
+
         /// <summary>
         /// Builds a singular haptic node and returns the instance 
         /// </summary>
@@ -167,7 +219,7 @@ namespace Editor
         /// <param name="index">The index of this node in the config list.</param>
         /// <param name="prefabName">The name of the parent prefab</param>
         /// <returns>The fully built, but unoptimized, haptic node.</returns>
-        private static GameObject BuildHapticNode(Node node, int index, string prefabName)
+        private static void BuildHapticNode(Node node, int index, string prefabName)
         {
             // strip OSC address prefix
             const string prefix = "/avatar/parameters/";
@@ -175,8 +227,13 @@ namespace Editor
             if (node.address.StartsWith(prefix))
             {
                 localAddr = node.address[prefix.Length..];
-            } else { Debug.LogError("OSC address is not valid for node: " + index); }
-            
+            }
+            else
+            {
+                Debug.LogError("OSC address is not valid for node: " + index);
+                return;
+            }
+
             // create new node object
             GameObject nodeObj = new GameObject(index + "_" + prefabName);
             nodeObj.transform.SetParent(_nodesParent.transform);
@@ -185,13 +242,13 @@ namespace Editor
             // move node to skeleton on avatar build
             FuryComponents.CreateArmatureLink(nodeObj)
                 .LinkTo(node.target_bone);
-            
+
             //FU VRCFury (can't get the bone off of the objects)
             var boneObj = nodeObj.AddComponent<TargetBone>();
             boneObj.targetBone = node.target_bone;
-            
+
             // add vrc contact
-            var collisionTags = new List<string> {"Head", "Hand", "Foot", "Torso", "HapticCollider", "Finger"};
+            var collisionTags = new List<string> { "Head", "Hand", "Foot", "Torso", "HapticCollider", "Finger" };
             ContactReceiver recv = nodeObj.AddComponent<VRCContactReceiver>();
             recv.parameter = localAddr;
             recv.allowOthers = true;
@@ -200,7 +257,7 @@ namespace Editor
             recv.radius = node.radius;
             recv.collisionTags = collisionTags;
             recv.receiverType = ContactReceiver.ReceiverType.Proximity;
-            
+
             // create the node visualizer 
             const string dumpPath = "Haptics/Ignore Me/Individual Nodes";
             GameObject visualizer = CreateVisualizer(node, nodeObj);
@@ -210,10 +267,6 @@ namespace Editor
             vizToggle.SetMenuPath(dumpPath);
             var actions = vizToggle.GetActions();
             actions.AddTurnOn(visualizer);
-            
-            //create the prefab
-            
-            return nodeObj;
         }
 
         /// <summary>
@@ -239,7 +292,8 @@ namespace Editor
         /// <returns>The instance of the Visualizer created.</returns>
         private static GameObject CreateVisualizer(Node node, GameObject nodeObj)
         {
-            var prefabPath = _useLowPoly ? "Packages/com.vrch.haptics-installer/Assets/Visualizers/default_icosphere_20tri.prefab" 
+            var prefabPath = _useLowPoly
+                ? "Packages/com.vrch.haptics-installer/Assets/Visualizers/default_icosphere_20tri.prefab"
                 : "Packages/com.vrch.haptics-installer/Assets/Visualizers/default_icosphere_80tri.prefab";
 
             // load desired prefab.
@@ -249,7 +303,7 @@ namespace Editor
                 Debug.LogError("Failed to load prefab at path: " + prefabPath);
                 return null;
             }
-            
+
             // Instantiate the prefab.
             GameObject prefabInstance = PrefabUtility.InstantiatePrefab(prefab) as GameObject;
             if (prefabInstance != null)
@@ -264,9 +318,10 @@ namespace Editor
                 float defaultRadius = 0.0375f;
                 float scaleFactor = node.radius / defaultRadius;
                 prefabInstance.transform.localScale *= scaleFactor;
-                
+
                 return prefabInstance;
             }
+
             Debug.LogError("Failed to instantiate prefab from: " + prefabPath);
 
             return null;
