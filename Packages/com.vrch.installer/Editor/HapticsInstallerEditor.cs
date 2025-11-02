@@ -2,7 +2,6 @@
 using UnityEditor;
 using UnityEngine;
 using System.IO;
-using HapticsInstaller.Runtime;
 using Newtonsoft.Json;
 using UnityEditorInternal;
 using VRC.SDK3.Avatars.Components;
@@ -75,11 +74,15 @@ namespace Editor
             {
                 _avatarRoot = desc[0].gameObject;
                 _bodyMesh = _avatarRoot.transform.Find("Body").gameObject;
-                var bones = Object.FindObjectsByType<TargetBone>(FindObjectsSortMode.None);
-                if (bones.Length > 0)
-                {
-                    _currentFittingPrefab = bones[0].gameObject.transform.parent.parent.gameObject;
-                }
+                //var bones = Object.FindObjectsByType<TargetBone>(FindObjectsSortMode.None);
+                //foreach (var bone in bones)
+                //{
+                    // optimized prefabs don't have the ArmatureLink on the same component as the "node"
+                //    if (bone.transform.GetComponent(typeof(FuryArmatureLink)) != null)
+                //    {
+                //        _currentFittingPrefab = bone.gameObject.transform.parent.parent.gameObject;
+                //    }
+                //}
             }
         }
 
@@ -208,7 +211,7 @@ namespace Editor
             {
                 var nodes = _currentFittingPrefab.transform.Find("nodes");
                 if (nodes == null)
-                {
+                {  
                     Debug.LogError("No Nodes found");
                     return;
                 }

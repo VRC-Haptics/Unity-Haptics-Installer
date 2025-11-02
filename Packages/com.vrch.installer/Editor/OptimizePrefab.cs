@@ -6,7 +6,6 @@ using HapticsInstaller.Runtime;
 using UnityEditor;
 using UnityEngine;
 using VRC;
-using VRC.Dynamics;
 using VRC.SDK3.Avatars.ScriptableObjects;
 using VRC.SDK3.Dynamics.Contact.Components;
 using Object = UnityEngine.Object;
@@ -141,13 +140,15 @@ namespace Editor
                     // create new node with the originals position and set parent
                     GameObject newNode = new GameObject(node.name);
                     newNode.transform.position = node.transform.position;
+                    newNode.transform.rotation = node.transform.rotation;
+                    newNode.transform.localScale = node.transform.localScale;
                     newNode.transform.SetParent(boneGroup.transform);
                     
                     // copy contact from original node
                     VRCContactReceiver ogContact = node.GetComponent<VRCContactReceiver>();
                     if (ogContact != null)
                     {
-                        Utils.CopyComponent(ogContact, newNode);
+                        var newComp = Utils.CopyComponent(ogContact, newNode);
                     }
                     else
                     {
@@ -184,20 +185,24 @@ namespace Editor
             var worldToLocal = boneGroup.transform.worldToLocalMatrix;
             for (int i = 0; i < boneGroup.transform.childCount; i++)
             {
-                Transform t = boneGroup.transform.GetChild(i);
-                var contact = t.GetComponent<VRCContactReceiver>();
+                Transform node = boneGroup.transform.GetChild(i);
+                var contact = node.GetComponent<VRCContactReceiver>();
 
-                GameObject temp = Object.Instantiate(visualsPrefab, t.position, t.rotation);
+                GameObject temp = Object.Instantiate(visualsPrefab, node.position, node.rotation);
 
-                float scale = contact.radius / 0.0375f;
-                temp.transform.localScale *= scale;
+                float prefabScale = contact.radius / 0.0375f; // account for prefabs original radius
+                temp.transform.localScale *= prefabScale;
 
                 if (temp.TryGetComponent(out MeshFilter mf))
                 {
+                    // Build transform matrix that includes node's scale
+                    Matrix4x4 nodeScaleMatrix = Matrix4x4.Scale(node.localScale);
+                    Matrix4x4 finalTransform = worldToLocal * mf.transform.localToWorldMatrix * nodeScaleMatrix;
+                    
                     combine.Add(new CombineInstance
                     {
                         mesh      = mf.sharedMesh,                      // keep it serialisable
-                        transform = worldToLocal * mf.transform.localToWorldMatrix
+                        transform = finalTransform
                     });
                 }
                 Object.DestroyImmediate(temp);    // editor-only
