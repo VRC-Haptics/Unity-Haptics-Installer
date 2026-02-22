@@ -2,6 +2,7 @@
 using UnityEditor;
 using UnityEngine;
 using System.IO;
+using Common;
 using Newtonsoft.Json;
 using UnityEditorInternal;
 using VRC.SDK3.Avatars.Components;

@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using UnityEngine;
 
-namespace Editor
+namespace Common
 {
     [Serializable]
     public class NodeData

@@ -8,6 +8,7 @@ using HarmonyLib;
 using UnityEditor;
 using VRC;
 using VRC.Dynamics;
+using Common;
 using VRC.PackageManagement.Core.Types;
 using VRC.SDK3.Avatars.Components;
 using VRC.SDK3.Avatars.ScriptableObjects;
