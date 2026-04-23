@@ -3,6 +3,7 @@ using UnityEditor;
 using UnityEngine;
 using System.IO;
 using Common;
+using Editor.build_prefab;
 using Newtonsoft.Json;
 using UnityEditorInternal;
 using VRC.SDK3.Avatars.Components;
@@ -11,25 +12,22 @@ namespace Editor
 {
     public partial class HapticsInstaller : EditorWindow
     {
+        // --- Config Loading (Section 1) ---
         private static string _selectedConfigPath = "";
         private static string _configJsonContent = "";
         private static Config _config;
         private static bool _configValid;
-        private static GameObject _avatarRoot;
         private static readonly bool UseLowPoly = true;
 
-        private static readonly List<GameObject> PrefabsToOptimize = new();
+        // --- Offsets Editing (Section 2) ---
+        private static OffsetsAsset _currentOffsets;
+        private Vector2 _nodeScrollPos;
 
-        // The ReorderableList to edit the list in the GUI.
-        private static ReorderableList _prefabReorderableList;
-
-        private static bool _simpleBody = true;
-        private static GameObject _bodyMesh = null;
-        private static GameObject _currentFittingPrefab = null;
-        private static ReorderableList _fittingReorderableList;
-
-        private static readonly List<GameObject> Nodes = new List<GameObject>();
-        private static readonly HashSet<int> FlaggedIndices = new HashSet<int>();
+        // --- Baking (Section 3) ---
+        private static GameObject _avatarRoot;
+        private static string _collectionName = "Optimized";
+        private static readonly List<OffsetsAsset> OffsetsToBake = new();
+        private static ReorderableList _offsetsReorderableList;
 
         [MenuItem("Haptics/Start Installer")]
         static void ShowInstaller()
@@ -37,78 +35,49 @@ namespace Editor
             GetWindow<HapticsInstaller>("Haptics Installer");
         }
 
-        private static void InitList()
-        {
-            // Initialize the ReorderableList with the prefabsToOptimize list.
-            _prefabReorderableList = new ReorderableList(PrefabsToOptimize, typeof(GameObject), true, true, true, true)
-            {
-                // Callback for drawing the header.
-                drawHeaderCallback = (Rect rect) => { EditorGUI.LabelField(rect, "Prefabs to Optimize"); },
-
-                // Draw each element (each GameObject field).
-                drawElementCallback = (Rect rect, int index, bool isActive, bool isFocused) =>
-                {
-                    rect.y += 2;
-                    // Allow scene objects by setting allowSceneObjects to true.
-                    PrefabsToOptimize[index] = (GameObject)EditorGUI.ObjectField(
-                        new Rect(rect.x, rect.y, rect.width, EditorGUIUtility.singleLineHeight),
-                        PrefabsToOptimize[index],
-                        typeof(GameObject),
-                        true);
-                },
-
-                // Override the add callback so that a null entry is added instead of creating a new GameObject.
-                onAddCallback = (ReorderableList list) => { PrefabsToOptimize.Add(null); },
-
-                // Remove callback to remove the selected element.
-                onRemoveCallback = (ReorderableList list) => { PrefabsToOptimize.RemoveAt(list.index); }
-            };
-        }
-
         private void OnEnable()
         {
-            InitList();
+            InitOffsetsList();
 
-            // try to auto-fill fields
             var desc = Object.FindObjectsByType<VRCAvatarDescriptor>(FindObjectsSortMode.None);
             if (desc.Length > 0)
-            {
                 _avatarRoot = desc[0].gameObject;
-                _bodyMesh = _avatarRoot.transform.Find("Body").gameObject;
-                //var bones = Object.FindObjectsByType<TargetBone>(FindObjectsSortMode.None);
-                //foreach (var bone in bones)
-                //{
-                    // optimized prefabs don't have the ArmatureLink on the same component as the "node"
-                //    if (bone.transform.GetComponent(typeof(FuryArmatureLink)) != null)
-                //    {
-                //        _currentFittingPrefab = bone.gameObject.transform.parent.parent.gameObject;
-                //    }
-                //}
-            }
+        }
+
+        private static void InitOffsetsList()
+        {
+            _offsetsReorderableList = new ReorderableList(OffsetsToBake, typeof(OffsetsAsset), true, true, true, true)
+            {
+                drawHeaderCallback = rect => EditorGUI.LabelField(rect, "Offset Files to Bake"),
+
+                drawElementCallback = (rect, index, isActive, isFocused) =>
+                {
+                    rect.y += 2;
+                    OffsetsToBake[index] = (OffsetsAsset)EditorGUI.ObjectField(
+                        new Rect(rect.x, rect.y, rect.width, EditorGUIUtility.singleLineHeight),
+                        OffsetsToBake[index],
+                        typeof(OffsetsAsset),
+                        false);
+                },
+
+                onAddCallback = list => OffsetsToBake.Add(null),
+                onRemoveCallback = list => OffsetsToBake.RemoveAt(list.index)
+            };
         }
 
         private void OnGUI()
         {
             if (GUILayout.Button("Reset Window"))
-            {
                 ResetEditorWindow();
-            }
 
-            // draw the generator part of the gui
-            GeneratorGui();
+            EditorGUILayout.Space(10);
+            ConfigToOffsetsGui();
 
-            EditorGUILayout.Space(25);
-            FittingGui(); // refills the _nodes list every frame.
-            DrawPrefabWideSettings(_currentFittingPrefab);
-            
-            EditorGUILayout.Space();
-            EditorGUILayout.BeginVertical(EditorStyles.helpBox);
-            DrawFocusTools(_currentFittingPrefab);
-            EditorGUILayout.EndVertical();
+            EditorGUILayout.Space(20);
+            OffsetsEditorGui();
 
-            EditorGUILayout.Space(25);
-            // draw the optimizer part of the gui
-            OptimizeGui();
+            EditorGUILayout.Space(20);
+            BakeGui();
         }
 
         static void ResetEditorWindow()
@@ -118,176 +87,195 @@ namespace Editor
             _config = null;
             _configValid = false;
             _avatarRoot = null;
-
-            PrefabsToOptimize.Clear();
+            _currentOffsets = null;
+            OffsetsToBake.Clear();
         }
 
-        /// The prefab generator section for the installer gui
-        static void GeneratorGui()
+        // =====================================================================
+        // SECTION 1: Load Config → Save as Offsets .asset (no scene objects)
+        // =====================================================================
+        void ConfigToOffsetsGui()
         {
-            GUILayout.Label("Prefab Builder", EditorStyles.boldLabel);
-
+            GUILayout.Label("1. Create Offsets from Config", EditorStyles.boldLabel);
             EditorGUILayout.HelpBox(
-                "Select your avatar root and a valid configuration file to start installing haptics.",
+                "Load a config file, then save it as an editable offsets asset. Nothing is added to the scene.",
                 MessageType.Info);
 
-            // avatar root selection
-            _avatarRoot =
-                (GameObject)EditorGUILayout.ObjectField("Avatar Root:", _avatarRoot, typeof(GameObject), true);
-
-            // Use low poly check mark
-            EditorGUILayout.Toggle("Use Low Poly:", UseLowPoly);
-
-            // load configuration button
             if (GUILayout.Button("Select Configuration File"))
             {
                 string path = EditorUtility.OpenFilePanel("Select JSON File", "", "json");
                 if (!string.IsNullOrEmpty(path))
-                {
                     LoadConfig(path);
-                }
             }
 
-            // Prefab build button
-            GUI.enabled = _configValid && _avatarRoot != null;
-            if (GUILayout.Button("Create Prefab"))
+            if (!string.IsNullOrEmpty(_selectedConfigPath) && _configValid)
             {
-                ReloadConfig();
-                GameObject generatedPrefab = BuildFromConfig.Build(_avatarRoot, _config, UseLowPoly);
-                // should never be null, but idk
-                if (generatedPrefab != null)
+                string info = $"Config: {_config.meta.map_name} by {_config.meta.map_author}" +
+                              $" (v{_config.meta.map_version}, {_config.nodes.Length} nodes)";
+                EditorGUILayout.HelpBox(info, MessageType.Info);
+
+                if (GUILayout.Button("Save as Offsets Asset…"))
                 {
-                    PrefabsToOptimize.Add(generatedPrefab);
+                    string savePath = EditorUtility.SaveFilePanelInProject(
+                        "Save Offsets Asset", _config.meta.map_name + "_offsets", "asset",
+                        "Choose where to save the offsets file.");
+
+                    if (!string.IsNullOrEmpty(savePath))
+                    {
+                        var asset = CreateOffsetsFromConfig(_config, _selectedConfigPath);
+                        AssetDatabase.CreateAsset(asset, savePath);
+                        AssetDatabase.SaveAssets();
+                        _currentOffsets = asset;
+                        OffsetsToBake.Add(asset);
+                        EditorGUIUtility.PingObject(asset);
+                    }
                 }
             }
+            else if (!string.IsNullOrEmpty(_selectedConfigPath) && !_configValid)
+            {
+                EditorGUILayout.HelpBox("Invalid configuration", MessageType.Error);
+            }
+        }
 
+        static OffsetsAsset CreateOffsetsFromConfig(Config config, string configPath)
+        {
+            var asset = ScriptableObject.CreateInstance<OffsetsAsset>();
+            asset.mapAuthor = config.meta.map_author;
+            asset.mapName = config.meta.map_name;
+            asset.mapVersion = config.meta.map_version;
+            asset.useLowPoly = UseLowPoly;
+
+            asset.nodeOffsets = new OffsetsAsset.NodeOffset[config.nodes.Length];
+            for (int i = 0; i < config.nodes.Length; i++)
+            {
+                var src = config.nodes[i];
+                asset.nodeOffsets[i] = new OffsetsAsset.NodeOffset
+                {
+                    nodeId          = src.address,
+                    baseBone        = src.target_bone,
+                    basePosition    = src.GetNodePosition(),
+                    baseRotation    = Vector3.zero,
+                    baseRadius      = src.radius,
+                    targetBone      = src.target_bone,
+                    positionOffset  = Vector3.zero,
+                    rotationOffset  = Vector3.zero,
+                    scaleMultiplier = 1f
+                };
+            }
+
+            return asset;
+        }
+        
+        void OffsetsEditorGui()
+        {
+            GUILayout.Label("2. Edit Offsets", EditorStyles.boldLabel);
+
+            _currentOffsets = (OffsetsAsset)EditorGUILayout.ObjectField(
+                "Offsets Asset:", _currentOffsets, typeof(OffsetsAsset), false);
+
+            if (_currentOffsets == null) return;
+
+            EditorGUILayout.HelpBox(
+                $"{_currentOffsets.mapName} — {_currentOffsets.nodeOffsets.Length} nodes",
+                MessageType.None);
+
+            _nodeScrollPos = EditorGUILayout.BeginScrollView(_nodeScrollPos, GUILayout.MaxHeight(300));
+
+            Undo.RecordObject(_currentOffsets, "Edit Node Offsets");
+            EditorGUI.BeginChangeCheck();
+
+            for (int i = 0; i < _currentOffsets.nodeOffsets.Length; i++)
+            {
+                var node = _currentOffsets.nodeOffsets[i];
+
+                EditorGUILayout.BeginVertical(EditorStyles.helpBox);
+                EditorGUILayout.LabelField(node.nodeId, EditorStyles.boldLabel);
+                node.positionOffset = EditorGUILayout.Vector3Field("Position", node.positionOffset);
+                node.rotationOffset = EditorGUILayout.Vector3Field("Rotation", node.rotationOffset);
+                node.scaleMultiplier = EditorGUILayout.Slider("Scale", node.scaleMultiplier, 0.1f, 3f);
+                EditorGUILayout.EndVertical();
+            }
+
+            if (EditorGUI.EndChangeCheck())
+                EditorUtility.SetDirty(_currentOffsets);
+
+            EditorGUILayout.EndScrollView();
+        }
+
+        // =====================================================================
+        // SECTION 3: Bake (scene objects created here and only here)
+        // =====================================================================
+        void BakeGui()
+        {
+            GUILayout.Label("3. Bake to Prefab", EditorStyles.boldLabel);
+            EditorGUILayout.Space();
+
+            _avatarRoot = (GameObject)EditorGUILayout.ObjectField(
+                "Avatar Root:", _avatarRoot, typeof(GameObject), true);
+
+            _collectionName = EditorGUILayout.TextField("Collection Name:", _collectionName);
+
+            EditorGUILayout.HelpBox(
+                "Add your offset assets below, then bake them into one optimized prefab.",
+                MessageType.Info);
+
+            _offsetsReorderableList.DoLayoutList();
+
+            GUI.enabled = OffsetsToBake.Count > 0 && OffsetsListValid() && _avatarRoot != null;
+            if (GUILayout.Button("Bake Prefabs"))
+            {
+                var builtPrefabs = new List<GameObject>();
+                foreach (var offsets in OffsetsToBake)
+                {
+                    //string json = File.ReadAllText(offsets.configPath);
+                    //Config cfg = JsonConvert.DeserializeObject<Config>(json);
+                    //GameObject built = BuildFromConfig.Build(_avatarRoot, cfg, offsets.useLowPoly);
+                    //ApplyOffsets(built, offsets);
+                    //builtPrefabs.Add(built);
+                }
+
+                OptimizePrefab.OptimizePrefabs(
+                    builtPrefabs.ToArray(), _avatarRoot, _collectionName, new VisualizerAsset.Default());
+            }
             GUI.enabled = true;
+        }
 
-            // display config loaded status
-            if (!string.IsNullOrEmpty(_selectedConfigPath))
+        static void ApplyOffsets(GameObject prefab, OffsetsAsset offsets)
+        {
+            Transform nodesParent = prefab.transform.Find("nodes");
+            if (nodesParent == null) return;
+
+            foreach (var offset in offsets.nodeOffsets)
             {
-                if (_configValid)
-                {
-                    string validationMessage = "Valid Configuration:\n";
-                    validationMessage += "  Author: " + _config.meta.map_author + "\n";
-                    validationMessage += "  Name: " + _config.meta.map_name + "\n";
-                    validationMessage += "  Version: " + _config.meta.map_version + "\n";
-                    validationMessage += "  Number of Nodes: " + _config.nodes.Length;
+                Transform node = nodesParent.Find(offset.nodeId);
+                if (node == null) continue;
 
-                    EditorGUILayout.HelpBox(validationMessage, MessageType.Info);
-                }
-                else
-                {
-                    EditorGUILayout.HelpBox("Invalid configuration", MessageType.Error);
-                }
-            }
-
-            static void ReloadConfig()
-            {
-                if (!string.IsNullOrEmpty(_selectedConfigPath))
-                {
-                    LoadConfig(_selectedConfigPath);
-                }
-            }
-
-            static Config LoadConfig(string path)
-            {
-                // read file and validate results
-                _selectedConfigPath = path;
-                _configJsonContent = File.ReadAllText(path);
-                _config = JsonConvert.DeserializeObject<Config>(_configJsonContent);
-                _configValid = ValidateConfig();
-
-                Debug.Log("Config File loaded from: " + _selectedConfigPath);
-                return _config;
+                node.localPosition += offset.positionOffset;
+                node.localEulerAngles += offset.rotationOffset;
+                //node.localScale = (node.localScale * offset.scaleMultiplier).;
             }
         }
 
-        /// <summary>
-        ///  Fits the nodes of each prefab to the avatar as best as possible.
-        /// </summary>
-        static void FittingGui()
+        bool OffsetsListValid()
         {
-            if (_currentFittingPrefab != null)
-            {
-                var nodes = _currentFittingPrefab.transform.Find("nodes");
-                if (nodes == null)
-                {  
-                    Debug.LogError("No Nodes found");
-                    return;
-                }
-
-                Nodes.Clear();
-                foreach (Transform node in nodes)
-                {
-                    Nodes.Add(node.gameObject);
-                }
-            }
-
-
-            GUILayout.Label("Fit To Avatar", EditorStyles.boldLabel);
-            EditorGUILayout.HelpBox("Fit generated nodes to avatar positions", MessageType.Info);
-
-            _simpleBody = EditorGUILayout.Toggle("Single Body Mesh", _simpleBody);
-            if (_simpleBody)
-            {
-                _bodyMesh = (GameObject)EditorGUILayout.ObjectField("Body Mesh", _bodyMesh, typeof(GameObject), true);
-            }
-
-            _currentFittingPrefab =
-                (GameObject)EditorGUILayout.ObjectField("Prefab to Edit", _currentFittingPrefab, typeof(GameObject),
-                    true);
-
-            if (_bodyMesh != null && _currentFittingPrefab != null && _avatarRoot != null)
-            {
-                if (GUILayout.Button("Fit To Avatar"))
-                {
-                    ShrinkToFitUtils.SinglePrefab(_avatarRoot, _bodyMesh, _currentFittingPrefab, FlaggedIndices);
-                }
-            }
-            else
-            {
-                GUI.enabled = false;
-                bool _ = GUILayout.Button("Fit To Avatar");
-                GUI.enabled = true;
-            }
-
-            GUI.enabled = _bodyMesh != null;
-        }
-
-        bool PrefabListNotNull()
-        {
-            foreach (var prefab in PrefabsToOptimize)
-            {
-                if (prefab == null) return false;
-            }
-
+            foreach (var o in OffsetsToBake)
+                if (o == null) return false;
             return true;
         }
 
-        /// <summary>
-        /// Optimizer for the generated prefabs
-        /// </summary>
-        void OptimizeGui()
+        // =====================================================================
+        // Shared Helpers
+        // =====================================================================
+        static Config LoadConfig(string path)
         {
-            GUILayout.Label("Prefab Optimizer", EditorStyles.boldLabel);
-
-            // Render the reorderable list.
-            EditorGUILayout.HelpBox("Drag and drop your prefabs into the list below to add them for optimization.",
-                MessageType.Info);
-            _prefabReorderableList.DoLayoutList();
-
-            GUI.enabled = PrefabsToOptimize.Count > 0 && PrefabListNotNull() && _avatarRoot != null;
-            ;
-            if (GUILayout.Button("Bake Prefabs"))
-            {
-                OptimizePrefab.OptimizePrefabs(PrefabsToOptimize.ToArray(), _avatarRoot);
-            }
-
-            GUI.enabled = true;
+            _selectedConfigPath = path;
+            _configJsonContent = File.ReadAllText(path);
+            _config = JsonConvert.DeserializeObject<Config>(_configJsonContent);
+            _configValid = ValidateConfig();
+            Debug.Log("Config loaded: " + _selectedConfigPath);
+            return _config;
         }
 
-        /// Returns true if the config has at least one node and the required metadata
         static bool ValidateConfig()
         {
             if (_config == null)
@@ -295,19 +283,16 @@ namespace Editor
                 Debug.LogError("Failed to parse JSON.");
                 return false;
             }
-
             if (_config.nodes == null || _config.nodes.Length == 0)
             {
-                Debug.LogError("Validation failed: The configuration must contain at least one node.");
+                Debug.LogError("Config must contain at least one node.");
                 return false;
             }
-
             if (_config.meta == null || _config.meta.map_author == null || _config.meta.map_name == null)
             {
-                Debug.LogError("Validation failed: The metadata is missing or empty.");
+                Debug.LogError("Metadata is missing or incomplete.");
                 return false;
             }
-
             return true;
         }
     }

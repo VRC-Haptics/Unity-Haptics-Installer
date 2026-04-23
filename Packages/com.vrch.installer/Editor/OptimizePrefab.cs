@@ -1,9 +1,12 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using com.vrcfury.api;
 using com.vrcfury.api.Components;
+using Editor.build_prefab;
 using HapticsInstaller.Runtime;
 using UnityEditor;
+using UnityEditor.Animations;
 using UnityEngine;
 using VRC;
 using VRC.SDK3.Avatars.ScriptableObjects;
@@ -12,6 +15,15 @@ using Object = UnityEngine.Object;
 
 namespace Editor
 {
+    public abstract record VisualizerAsset()
+    {
+        public record Default() : VisualizerAsset();
+
+        public record HighPoly() : VisualizerAsset();
+
+        public record Custom(GameObject asset) : VisualizerAsset();
+    }
+    
     public class OptimizePrefab
     {
         // can't disable menu entries on vrcfury so we create a dump folder in the menu.
@@ -20,22 +32,35 @@ namespace Editor
         private const string GeneratedOptimFolder = "Assets/Haptics/Generated/Optimized Prefab/";
         private const string GeneratedOptimMeshPath = "Assets/Haptics/Generated/Optimized Prefab/";
         
+        private static string _savedAssetPath = "Assets/Haptics/Opti/";
         private static List<GameObject> Prefabs = new ();
         private static GameObject _optimPrefabParent;
+        private static GameObject _visualizerPrefab;
         private static Dictionary<HumanBodyBones, List<GameObject>> _nodeGroups = new();
         private static List<bool> _emptyNodes = new List<bool>();
+        private static AnimatorController _animatorController;
         
         // OSC Parameter Paths
         private const string GlobalVisualizerParam = "haptic/global/show";
         private const string GlobalIntensityParam = "haptic/global/intensity";
         
-        public static GameObject OptimizePrefabs(GameObject[] inPrefabs, GameObject avatarRoot)
+        public static GameObject OptimizePrefabs(GameObject[] inPrefabs, GameObject avatarRoot, string name, VisualizerAsset vis)
         {
+            _savedAssetPath = "Assets/Haptics/Opti/" + name + "/";
+            Utils.CreateDirectoryFromAssetPath(_savedAssetPath);
+
+            _visualizerPrefab = vis switch
+            {
+                VisualizerAsset.Custom(GameObject obj) => obj,
+                VisualizerAsset.Default => LoadDefaultPrefab(),
+                VisualizerAsset.HighPoly => LoadDefaultPrefab(),
+            };
+            
             Prefabs.Clear();
             _nodeGroups.Clear();
             
             // create our final parent.
-            _optimPrefabParent = new GameObject("Haptics-Integration")
+            _optimPrefabParent = new GameObject(name)
             {
                 transform = { parent = avatarRoot.transform }
             };
@@ -72,7 +97,7 @@ namespace Editor
             
             // destroy contents of our version of the prefabs
             // we don't need the contents of this copy.
-            // Keep the original to denote which prefabs this contains.
+            // Keep the root to denote which prefabs this contains.
             foreach (GameObject prefab in Prefabs)
             {
                 if (prefab == null) continue;
@@ -85,10 +110,22 @@ namespace Editor
             
             PrefabUtility.SaveAsPrefabAssetAndConnect(
                 _optimPrefabParent, 
-                $"Assets/Haptics/{_optimPrefabParent.name}.prefab", 
+                _savedAssetPath + $"{name}.prefab", 
                 InteractionMode.UserAction);
             
             return _optimPrefabParent;
+        }
+        
+        static GameObject LoadDefaultPrefab()
+        {
+            string prefabPath = "Packages/com.vrch.haptics-installer/Assets/Visualizers/default_icosphere_20tri.prefab";
+            GameObject visualsPrefab = AssetDatabase.LoadAssetAtPath<GameObject>(prefabPath);
+            if (visualsPrefab == null)
+            {
+                Debug.LogError("Failed to load prefab at path: " + prefabPath);
+                return null;
+            }
+            return visualsPrefab;
         }
 
         /// <summary>
@@ -126,6 +163,8 @@ namespace Editor
             }
             
             // Push new nodes into our main nodes section
+            var toggle = new ToggleBuilder(_optimPrefabParent, GlobalVisualizerParam, false, _savedAssetPath,
+                "VisualsEnable");
             foreach (var (bone, nodeList) in _nodeGroups)
             { 
                 GameObject boneGroup = new GameObject(bone.ToString());
@@ -168,16 +207,20 @@ namespace Editor
                 }
                 
                 // build the visualizers
-                BuildVisualsForBone(boneGroup, visualsPrefab);
+                var visuals = BuildVisualsForBone(boneGroup, visualsPrefab);
+                toggle.AddObject(visuals);
             }
+            _animatorController = toggle.Finalize();
+            
         }
 
         /// <summary>
         /// Build the visualizer for this boneGroup.
         /// Since all nodes parented to the same bone won't move we can consolidate them.
+        /// returned the combined gameobject
         /// </summary>
         /// <param name="boneGroup">The node group parent (the actual object that will be moved on the avatar)</param>
-        static void BuildVisualsForBone(GameObject boneGroup, GameObject visualsPrefab)
+        static GameObject BuildVisualsForBone(GameObject boneGroup, GameObject visualsPrefab)
         {
             List<CombineInstance> combine = new List<CombineInstance>();
             
@@ -215,8 +258,8 @@ namespace Editor
             combinedMesh.CombineMeshes(combine.ToArray());
             combinedMesh.RecalculateNormals();
             combinedMesh.RecalculateBounds();
-            Utils.CreateDirectoryFromAssetPath(GeneratedOptimMeshPath + $"VisMesh_{boneGroup.name}.asset");
-            AssetDatabase.CreateAsset(combinedMesh, GeneratedOptimMeshPath + $"VisMesh_{boneGroup.name}.asset");
+            Utils.CreateDirectoryFromAssetPath(_savedAssetPath + $"VisMesh_{boneGroup.name}.asset");
+            AssetDatabase.CreateAsset(combinedMesh, _savedAssetPath + $"VisMesh_{boneGroup.name}.asset");
             AssetDatabase.SaveAssets();
             
             MeshFilter combinedMF = combined.AddComponent<MeshFilter>();
@@ -224,13 +267,8 @@ namespace Editor
             
             MeshRenderer combinedMR = combined.AddComponent<MeshRenderer>();
             combinedMR.sharedMaterial = visualsPrefab.GetComponent<MeshRenderer>().sharedMaterial;
-            
-            FuryToggle vizToggle = FuryComponents.CreateToggle(combined);
-            vizToggle.SetSaved();
-            vizToggle.SetGlobalParameter(GlobalVisualizerParam);
-            vizToggle.SetMenuPath(dumpPath);
-            var actions = vizToggle.GetActions();
-            actions.AddTurnOn(combined);
+
+            return combined;
         }
 
         /// <summary>
@@ -252,10 +290,9 @@ namespace Editor
         static void CreateMenu(List<GameObject> prefabs)
         {
             // define our copies paths
-            Utils.CreateDirectoryFromAssetPath(GeneratedOptimFolder);
-            string rootMenuPath = GeneratedOptimFolder + "Menu_Root.asset";
-            string mainMenuPath = GeneratedOptimFolder + "Menu_Main.asset";
-            string parametersPath = GeneratedOptimFolder + $"Parameters_Main.asset";
+            string rootMenuPath = _savedAssetPath + "Menu_Root.asset";
+            string mainMenuPath = _savedAssetPath + "Menu_Main.asset";
+            string parametersPath = _savedAssetPath + $"Parameters_Main.asset";
             
             // Create Copy of pre-generated assets.
             string menuAssetsPath = "Packages/com.vrch.haptics-installer/Assets/Menu/";
@@ -309,13 +346,20 @@ namespace Editor
             AssetDatabase.SaveAssets();
 
             // create new vrcfury component on base prefab.
-            GameObject menuObject = new GameObject("menu");
-            menuObject.transform.SetParent(_optimPrefabParent.transform, false);
-            var furyCon = FuryComponents.CreateFullController(menuObject);
-            furyCon.AddParams(menuParameters);
-            furyCon.AddGlobalParam(GlobalIntensityParam);
-            furyCon.AddGlobalParam(GlobalVisualizerParam);
-            furyCon.AddMenu(rootMenu);
+            if (_animatorController != null)
+            {
+                var furyCon = FuryComponents.CreateFullController(_optimPrefabParent);
+                furyCon.AddParams(menuParameters);
+                furyCon.AddController(_animatorController);
+                furyCon.AddGlobalParam(GlobalIntensityParam);
+                furyCon.AddGlobalParam(GlobalVisualizerParam);
+                furyCon.AddMenu(rootMenu);
+            }
+            else
+            { 
+                Debug.LogError("Cannot add controller.");
+            }
+            
         }
 
     }

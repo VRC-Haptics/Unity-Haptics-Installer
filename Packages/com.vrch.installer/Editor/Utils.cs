@@ -115,7 +115,7 @@ namespace Editor
                     .FirstOrDefault(t => t.name == humanBone.boneName);
                 if (boneTransform == null)
                 {
-                    Debug.LogWarning(
+                    Debug.LogError(
                         $"Bone: {humanBone.boneName} is described in avatar but not found. Ignore if not part of the standard skeleton.");
                     continue;
                 }
@@ -127,7 +127,7 @@ namespace Editor
                 }
                 else
                 {
-                    Debug.LogWarning(
+                    Debug.LogError(
                         $"unable to parse bone: humanName: {humanBone.humanName}, humanBoneName: {humanBone.boneName}");
                 }
             }

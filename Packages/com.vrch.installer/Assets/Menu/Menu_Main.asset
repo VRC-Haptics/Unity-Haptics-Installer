@@ -35,3 +35,36 @@ MonoBehaviour:
     subParameters:
     - name: haptic/global/intensity
     labels: []
+  - name: Colliders
+    icon: {fileID: 0}
+    type: 102
+    parameter:
+      name: haptic/global/enable_colliders
+    value: 1
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters:
+    - name: haptic/global/intensity
+    labels: []
+  - name: Rays
+    icon: {fileID: 0}
+    type: 102
+    parameter:
+      name: haptic/global/enable_rays
+    value: 1
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters:
+    - name: haptic/global/intensity
+    labels: []
+  - name: Self Interaction
+    icon: {fileID: 0}
+    type: 102
+    parameter:
+      name: haptic/global/self_collide
+    value: 1
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters:
+    - name: haptic/global/intensity
+    labels: []
