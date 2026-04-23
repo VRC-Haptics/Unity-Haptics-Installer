@@ -8,6 +8,7 @@ namespace Common
         public string mapAuthor;
         public string mapName;
         public int mapVersion;
+        public string IDAddress;
         public bool useLowPoly = true;
 
         public NodeOffset[] nodeOffsets = Array.Empty<NodeOffset>();

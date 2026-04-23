@@ -370,11 +370,16 @@ namespace Editor
             asset.mapName = config.meta.map_name;
             asset.mapVersion = config.meta.map_version;
             asset.useLowPoly = true;
+            asset.IDAddress =
+                $"haptic/prefabs/{config.meta.map_author}/{config.meta.map_name}/v{config.meta.map_version}";
 
-            asset.nodeOffsets = new OffsetsAsset.NodeOffset[config.nodes.Length];
+            var realNodes = config.nodes.Where(x => !x.is_external_address).ToList();
+            // TODO: Add some sort of GUI warning that stick around as long as the file is present.
+            asset.nodeOffsets = new OffsetsAsset.NodeOffset[realNodes.Count];
             for (int i = 0; i < config.nodes.Length; i++)
             {
                 var src = config.nodes[i];
+                if (src.is_external_address) continue;
                 var hasRay = src.ray != null;
                 asset.nodeOffsets[i] = new OffsetsAsset.NodeOffset
                 {

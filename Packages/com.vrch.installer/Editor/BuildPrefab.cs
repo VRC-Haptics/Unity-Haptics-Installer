@@ -82,6 +82,11 @@ namespace Editor
                 .Distinct()
                 .ToList();
 
+            foreach (var offset in offsets)
+            {
+                _menuBuilder.AddParam(offset.IDAddress);
+            }
+
             // create roots for each of our human body bones we will need
             var bonePositions = Utils.GetBonesMap(animAvatar, armatureRoot);
             var pairs = new List<(HumanBodyBones, GameObject)>();
@@ -295,9 +300,15 @@ namespace Editor
 
             private GameObject _animationRoot;
             private AnimatorController _animatorController;
+            private List<string> additionalParams = new();
             private List<VRCRaycast> rays = new List<VRCRaycast>();
             private List<VRCContactReceiver> contacts = new List<VRCContactReceiver>();
             private List<GameObject> visuals = new List<GameObject>();
+
+            public void AddParam(string param)
+            {
+                additionalParams.Add(param);
+            }
 
             public void SetAnimationRoot(GameObject animationRoot)
             {
@@ -398,6 +409,21 @@ namespace Editor
                 var rootMenu = AssetDatabase.LoadAssetAtPath<VRCExpressionsMenu>(rootMenuPath);
                 var mainMenu = AssetDatabase.LoadAssetAtPath<VRCExpressionsMenu>(mainMenuPath);
                 var menuParameters = AssetDatabase.LoadAssetAtPath<VRCExpressionParameters>(parametersPath);
+
+                // append identifying parameters
+                var current = menuParameters.parameters.ToList();
+                foreach (var param in additionalParams)
+                {
+                    current.Add(new VRCExpressionParameters.Parameter
+                    {
+                        name = param,
+                        valueType = VRCExpressionParameters.ValueType.Float,
+                        defaultValue = 0f,
+                        saved = false,
+                        networkSynced = true
+                    });
+                }
+                menuParameters.parameters = current.ToArray();
                 
                 // update the menu references
                 rootMenu.controls.First().subMenu = mainMenu;
