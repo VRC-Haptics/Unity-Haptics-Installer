@@ -114,7 +114,7 @@ namespace Editor
                 bonePositions.TryGetValue(bone, out var bonePos);
                 foreach (var (node, i) in pair.Value.Select((n, i) => (n, i)))
                 {
-                    var go = new GameObject(bone.ToString());
+                    var go = new GameObject($"{bone.ToString()}_{i}");
                     // zero to prefab root
                     go.transform.SetParent(root.transform, false);
                     // offset by whats needed
@@ -151,15 +151,19 @@ namespace Editor
         private static BuildResult BuildNode(GameObject root, MinNode node)
         {
             // build contact
-            var recv = root.AddComponent<VRCContactReceiver>();
-            recv.parameter = node.Address;
-            recv.allowOthers = true;
-            recv.allowSelf = false;
-            recv.localOnly = true;
-            recv.radius = node.SphereRadius;
-            recv.collisionTags = node.Tags.ToList();
-            recv.receiverType = ContactReceiver.ReceiverType.Proximity;
-            _menuBuilder.AddContact(recv);
+            if (node.SphereRadius > 0.001)
+            {
+               var recv = root.AddComponent<VRCContactReceiver>();
+                           recv.parameter = node.Address;
+                           recv.allowOthers = true;
+                           recv.allowSelf = false;
+                           recv.localOnly = true;
+                           recv.radius = node.SphereRadius;
+                           recv.collisionTags = node.Tags.ToList();
+                           recv.receiverType = ContactReceiver.ReceiverType.Proximity;
+                           _menuBuilder.AddContact(recv); 
+            }
+            
 
             // only build ray if it has been configured by the node.
             if (node.RayLen > 0.0001)
@@ -240,7 +244,7 @@ namespace Editor
                         var temp = Object.Instantiate(_prefab, parent.transform);
                         temp.transform.position = info.GlobalPosition;
 
-                        float scale = info.Radius / 0.0375f;
+                        float scale = info.Radius * 40f;
                         temp.transform.localScale = Vector3.one * scale;
 
                         var mf = temp.GetComponent<MeshFilter>();
@@ -351,8 +355,8 @@ namespace Editor
                 foreach (var obj in contacts)
                 {
                     string path = AnimationUtility.CalculateTransformPath(obj.transform, _animationRoot.transform);
-                    contactsOn.SetCurve(path, typeof(GameObject), PropertyEnable, CurveOn);
-                    contactsOff.SetCurve(path, typeof(GameObject), PropertyEnable, CurveOff);
+                    contactsOn.SetCurve(path, typeof(VRCContactReceiver), "m_Enabled", CurveOn);
+                    contactsOff.SetCurve(path, typeof(VRCContactReceiver), "m_Enabled", CurveOff);
                 }
 
                 AssetDatabase.CreateAsset(contactsOn, Path.Combine(saveDir, "contacts_On.anim"));

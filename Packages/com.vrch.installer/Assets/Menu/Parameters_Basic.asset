@@ -34,8 +34,3 @@ MonoBehaviour:
     saved: 1
     defaultValue: 1
     networkSynced: 0
-  - name: haptic/global/self_collide
-    valueType: 2
-    saved: 1
-    defaultValue: 1
-    networkSynced: 0

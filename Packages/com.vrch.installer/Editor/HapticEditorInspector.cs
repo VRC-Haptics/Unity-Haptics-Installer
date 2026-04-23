@@ -392,7 +392,7 @@ namespace Editor
                     rotationOffset = Vector3.zero,
                     scaleMultiplier = 1.0f,
                     rayLenMultiplier = 1.0f,
-                    rayOffset = hasRay ? src.ray.position_offset.z : 0.0f,
+                    rayOffset = 0.0f,
                     
                     mirrorIndex = -1
                 };
@@ -519,21 +519,23 @@ namespace Editor
             if (isSelected)
             {
                 EditorGUI.indentLevel++;
-                Undo.RecordObject(offsets, "Edit Node Offset");
 
                 EditorGUI.BeginChangeCheck();
                 var newBone = (HumanBodyBones)EditorGUILayout.EnumPopup("Target Bone", node.targetBone);
                 if (EditorGUI.EndChangeCheck())
                 {
+                    Undo.RecordObject(offsets, "Change Target Bone");
                     node.targetBone = newBone;
                     if (node.mirrorIndex >= 0)
                         offsets.nodeOffsets[node.mirrorIndex].targetBone = MirrorUtils.MirrorBone(newBone);
+                    EditorUtility.SetDirty(offsets);
                 }
 
                 EditorGUI.BeginChangeCheck();
                 var newPos = EditorGUILayout.Vector3Field("Position Offset", node.positionOffset);
                 if (EditorGUI.EndChangeCheck())
                 {
+                    Undo.RecordObject(offsets, "Edit Position Offset");
                     node.positionOffset = newPos;
                     if (node.mirrorIndex >= 0)
                     {
@@ -541,12 +543,14 @@ namespace Editor
                         var fullLocal = node.basePosition + newPos;
                         mirror.positionOffset = MirrorUtils.MirrorPosition(fullLocal) - mirror.basePosition;
                     }
+                    EditorUtility.SetDirty(offsets);
                 }
 
                 EditorGUI.BeginChangeCheck();
                 var newRot = EditorGUILayout.Vector3Field("Rotation Offset", node.rotationOffset);
                 if (EditorGUI.EndChangeCheck())
                 {
+                    Undo.RecordObject(offsets, "Edit Rotation Offset");
                     node.rotationOffset = newRot;
                     if (node.mirrorIndex >= 0)
                     {
@@ -554,35 +558,41 @@ namespace Editor
                         var fullRot = Quaternion.Euler(node.baseRotation + newRot);
                         mirror.rotationOffset = MirrorUtils.MirrorEuler(fullRot.eulerAngles) - mirror.baseRotation;
                     }
+                    EditorUtility.SetDirty(offsets);
                 }
 
                 EditorGUI.BeginChangeCheck();
                 var newScale = EditorGUILayout.Slider("Node Scale (both ray and sphere)", node.scaleMultiplier, 0.01f, 3.0f);
                 if (EditorGUI.EndChangeCheck())
                 {
+                    Undo.RecordObject(offsets, "Edit Scale");
                     node.scaleMultiplier = newScale;
                     if (node.mirrorIndex >= 0)
                         offsets.nodeOffsets[node.mirrorIndex].scaleMultiplier = MirrorUtils.MirrorScale(newScale);
+                    EditorUtility.SetDirty(offsets);
                 }
                 
                 EditorGUI.BeginChangeCheck();
-                var newRaySize = EditorGUILayout.Slider("Ray Length", node.rayLenMultiplier, 0.001f, 0.2f);
+                var newRaySize = EditorGUILayout.Slider("Ray Length", node.rayLenMultiplier, 0.01f, 3.0f);
                 if (EditorGUI.EndChangeCheck())
                 {
+                    Undo.RecordObject(offsets, "Edit Ray Length");
                     node.rayLenMultiplier = newRaySize;
                     if (node.mirrorIndex >= 0)
                         offsets.nodeOffsets[node.mirrorIndex].rayLenMultiplier = MirrorUtils.MirrorScale(newRaySize);
+                    EditorUtility.SetDirty(offsets);
                 }
                 
                 EditorGUI.BeginChangeCheck();
-                var newRayOffset = EditorGUILayout.Slider("Z ray Offset", node.rayOffset, 0.01f, 3.0f);
+                var newRayOffset = EditorGUILayout.Slider("Z ray Offset", node.rayOffset, -0.1f, 0.1f);
                 if (EditorGUI.EndChangeCheck())
                 {
+                    Undo.RecordObject(offsets, "Edit Ray Offset");
                     node.rayOffset = newRayOffset;
                     if (node.mirrorIndex >= 0)
                         offsets.nodeOffsets[node.mirrorIndex].rayOffset = MirrorUtils.MirrorScale(newRayOffset);
+                    EditorUtility.SetDirty(offsets);
                 }
-
                 if (TryGetMesh(editor, out _, out _))
                 {
                     EditorGUILayout.BeginHorizontal();
@@ -679,7 +689,7 @@ namespace Editor
 
             EditorGUI.showMixedValue = !selected.TrueForAll(s => s.node.scaleMultiplier == first.scaleMultiplier);
             EditorGUI.BeginChangeCheck();
-            var scale = EditorGUILayout.Slider("Scale Multiplier", first.scaleMultiplier, 0.01f, 3.0f);
+            var scale = EditorGUILayout.Slider("Node Scale", first.scaleMultiplier, 0.01f, 3.0f);
             if (EditorGUI.EndChangeCheck())
             {
                 foreach (var (node, _) in selected)
@@ -687,6 +697,32 @@ namespace Editor
                     node.scaleMultiplier = scale;
                     if (node.mirrorIndex >= 0 && !selectedSet.Contains(node.mirrorIndex))
                         offsets.nodeOffsets[node.mirrorIndex].scaleMultiplier = MirrorUtils.MirrorScale(scale);
+                }
+            }
+
+            EditorGUI.showMixedValue = !selected.TrueForAll(s => s.node.rayLenMultiplier == first.rayLenMultiplier);
+            EditorGUI.BeginChangeCheck();
+            var rayLen = EditorGUILayout.Slider("Ray Length", first.rayLenMultiplier, 0.01f, 3.0f);
+            if (EditorGUI.EndChangeCheck())
+            {
+                foreach (var (node, _) in selected)
+                {
+                    node.rayLenMultiplier = rayLen;
+                    if (node.mirrorIndex >= 0 && !selectedSet.Contains(node.mirrorIndex))
+                        offsets.nodeOffsets[node.mirrorIndex].rayLenMultiplier = MirrorUtils.MirrorScale(rayLen);
+                }
+            }
+
+            EditorGUI.showMixedValue = !selected.TrueForAll(s => s.node.rayOffset == first.rayOffset);
+            EditorGUI.BeginChangeCheck();
+            var rayOff = EditorGUILayout.Slider("Z Ray Offset", first.rayOffset, -0.1f, 0.1f);
+            if (EditorGUI.EndChangeCheck())
+            {
+                foreach (var (node, _) in selected)
+                {
+                    node.rayOffset = rayOff;
+                    if (node.mirrorIndex >= 0 && !selectedSet.Contains(node.mirrorIndex))
+                        offsets.nodeOffsets[node.mirrorIndex].rayOffset = MirrorUtils.MirrorScale(rayOff);
                 }
             }
 
@@ -759,9 +795,11 @@ namespace Editor
                 if (node.hasRay && node.baseRayLength > 0f)
                 {
                     float scale = node.scaleMultiplier;
-                    var rayOrigin = worldPos + worldRot * node.baseRayPositionOffset;
-                    var rayDir = (worldPos - rayOrigin).normalized;
-                    float rayLen = node.EffectiveRayLen;
+                    var rayBaseOffset = node.baseRayPositionOffset;
+                    rayBaseOffset.z += node.rayOffset;
+                    var rayOrigin = worldPos + worldRot * (rayBaseOffset * scale);
+                    var rayDir = worldRot * Vector3.forward;
+                    float rayLen = node.EffectiveRayLen * scale;
                     float rayRadius = radius * 0.4f;
 
                     if (isSelected)

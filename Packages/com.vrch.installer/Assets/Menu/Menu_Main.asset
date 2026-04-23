@@ -57,14 +57,3 @@ MonoBehaviour:
     subParameters:
     - name: haptic/global/intensity
     labels: []
-  - name: Self Interaction
-    icon: {fileID: 0}
-    type: 102
-    parameter:
-      name: haptic/global/self_collide
-    value: 1
-    style: 0
-    subMenu: {fileID: 0}
-    subParameters:
-    - name: haptic/global/intensity
-    labels: []

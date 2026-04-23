@@ -44,8 +44,8 @@ namespace Common
             public Vector3 EffectivePosition => basePosition + positionOffset;
             public Vector3 EffectiveRotation => baseRotation + rotationOffset;
             public float EffectiveRadius => baseRadius * scaleMultiplier;
-            public float EffectiveRayLen => baseRayLength * rayLenMultiplier;
-            public float EffectiveRayPos => baseRayPositionOffset.z * rayOffset;
+            public float EffectiveRayLen => baseRayLength * rayLenMultiplier *  scaleMultiplier;
+            public float EffectiveRayPos => (baseRayPositionOffset.z + rayOffset) * scaleMultiplier;
         }
     }
 }
