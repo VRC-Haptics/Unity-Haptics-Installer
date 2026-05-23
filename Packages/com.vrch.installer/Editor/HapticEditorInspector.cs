@@ -22,6 +22,10 @@ namespace Editor
         private static readonly Dictionary<Animator, Dictionary<HumanBodyBones, HashSet<int>>> _boneIndexCache = new();
         private readonly HashSet<HumanBodyBones> _expandedBones = new();
         private Vector2 _scrollPos;
+        private Vector3 _scaleHandleValue = Vector3.one;
+        
+        private enum HandleMode { Move, Rotate, Scale }
+        private HandleMode _handleMode = HandleMode.Move;
 
         private static Config _lastConfig;
         private static bool _lastConfigValid;
@@ -75,7 +79,7 @@ namespace Editor
             {
                 Undo.RecordObject(editor, "Assign Offsets");
                 EditorUtility.SetDirty(editor);
-                _selectedIndices.Clear();
+                ClearSelection();
             }
 
             editor.snapTarget = (GameObject)EditorGUILayout.ObjectField(
@@ -112,6 +116,9 @@ namespace Editor
 
                 if (selected.Count > 1) DrawBulkEditor(offsets, selected);
 
+                _handleMode = (HandleMode)GUILayout.Toolbar((int)_handleMode,
+                    new[] { "Move", "Rotate", "Scale" });
+                
                 if (TryGetMesh(editor, out _, out _))
                 {
                     EditorGUILayout.BeginHorizontal();
@@ -148,7 +155,7 @@ namespace Editor
 
                 if (GUILayout.Button("Deselect All"))
                 {
-                    _selectedIndices.Clear();
+                    ClearSelection();
                     SceneView.RepaintAll();
                 }
             }
@@ -219,6 +226,12 @@ namespace Editor
                 }
                 EditorGUILayout.HelpBox(err, MessageType.Error);
             }
+        }
+        
+        private void ClearSelection()
+        {
+            _selectedIndices.Clear();
+            _scaleHandleValue = Vector3.one;
         }
 
         private void ConfigToOffsetsGui(HapticEditor editor)
@@ -293,7 +306,7 @@ namespace Editor
                         Undo.RecordObject(editor, "Assign New Offsets");
                         editor.offsets = asset;
                         EditorUtility.SetDirty(editor);
-                        _selectedIndices.Clear();
+                        ClearSelection();
 
                         EditorGUIUtility.PingObject(asset);
                     }
@@ -338,8 +351,7 @@ namespace Editor
             float ratio = aviDesc.ViewPosition.y / standardEyeHeight;
             var scale = avatarRoot.transform.localScale;
             var inverse = new Vector3(1f / scale.x, 1f / scale.y, 1f / scale.z);
-            
-            Debug.LogWarning($"ratio: {ratio}");
+            float inverseUniform = 1f / ((scale.x + scale.y + scale.z) / 3f);
 
             foreach (Node node in config.nodes)
             {
@@ -359,11 +371,11 @@ namespace Editor
 
                 if (node.ray != null)
                 {
-                   node.ray.size *= ratio;
-                   node.ray.position_offset *= ratio; 
+                    node.ray.size *= ratio * inverseUniform;
+                    node.ray.position_offset *= ratio * inverseUniform;
                 }
-                
-                node.radius *= ratio;
+
+                node.radius *= ratio * inverseUniform;
             }
         }
 
@@ -505,7 +517,7 @@ namespace Editor
                         _selectedIndices.Remove(index);
                     else
                     {
-                        _selectedIndices.Clear();
+                        ClearSelection();
                         _selectedIndices.Add(index);
                     }
                 }
@@ -763,8 +775,159 @@ namespace Editor
             // Two passes: occluded (faint), then visible (full)
             DrawNodePass(offsets, rootTransform, labelStyle, CompareFunction.Greater, 0.07f, false);
             DrawNodePass(offsets, rootTransform, labelStyle, CompareFunction.LessEqual, 1f, true);
+            
+            DrawSelectionHandles(offsets, rootTransform);
 
             Handles.zTest = CompareFunction.Always;
+        }
+
+        private void DrawSelectionHandles(OffsetsAsset offsets, Transform rootTransform)
+        {
+            if (_selectedIndices.Count == 0) return;
+
+            var centroid = Vector3.zero;
+            int count = 0;
+
+            foreach (int i in _selectedIndices)
+            {
+                if (i < 0 || i >= offsets.nodeOffsets.Length) continue;
+                centroid += rootTransform.TransformPoint(offsets.nodeOffsets[i].EffectivePosition);
+                count++;
+            }
+
+            if (count == 0) return;
+            centroid /= count;
+
+            var firstNode = offsets.nodeOffsets[_selectedIndices.First()];
+            var handleRot = rootTransform.rotation * Quaternion.Euler(firstNode.EffectiveRotation);
+
+            Handles.zTest = CompareFunction.Always;
+
+            switch (_handleMode)
+            {
+                case HandleMode.Move:
+                    DrawMoveHandle(offsets, rootTransform, centroid, handleRot);
+                    break;
+                case HandleMode.Rotate:
+                    DrawRotateHandle(offsets, rootTransform, centroid, handleRot);
+                    break;
+                case HandleMode.Scale:
+                    DrawScaleHandle(offsets, rootTransform, centroid, handleRot);
+                    break;
+            }
+        }
+
+        private void DrawMoveHandle(OffsetsAsset offsets, Transform rootTransform,
+            Vector3 centroid, Quaternion handleRot)
+        {
+            EditorGUI.BeginChangeCheck();
+            var newCentroid = Handles.PositionHandle(centroid, handleRot);
+            if (EditorGUI.EndChangeCheck())
+            {
+                Undo.RecordObject(offsets, "Move Node Offset");
+                var delta = newCentroid - centroid;
+                var selectedSet = new HashSet<int>(_selectedIndices);
+
+                foreach (int i in _selectedIndices)
+                {
+                    if (i < 0 || i >= offsets.nodeOffsets.Length) continue;
+                    var node = offsets.nodeOffsets[i];
+
+                    var oldWorld = rootTransform.TransformPoint(node.EffectivePosition);
+                    var newLocal = rootTransform.InverseTransformPoint(oldWorld + delta);
+                    node.positionOffset = newLocal - node.basePosition;
+
+                    if (node.mirrorIndex >= 0 && !selectedSet.Contains(node.mirrorIndex))
+                    {
+                        var mirror = offsets.nodeOffsets[node.mirrorIndex];
+                        mirror.positionOffset = MirrorUtils.MirrorPosition(newLocal) - mirror.basePosition;
+                    }
+                }
+
+                EditorUtility.SetDirty(offsets);
+            }
+        }
+
+        private void DrawRotateHandle(OffsetsAsset offsets, Transform rootTransform,
+            Vector3 centroid, Quaternion handleRot)
+        {
+            EditorGUI.BeginChangeCheck();
+            var newHandleRot = Handles.RotationHandle(handleRot, centroid);
+            if (EditorGUI.EndChangeCheck())
+            {
+                Undo.RecordObject(offsets, "Rotate Node Offset");
+                var rotDelta = newHandleRot * Quaternion.Inverse(handleRot);
+                var selectedSet = new HashSet<int>(_selectedIndices);
+
+                foreach (int i in _selectedIndices)
+                {
+                    if (i < 0 || i >= offsets.nodeOffsets.Length) continue;
+                    var node = offsets.nodeOffsets[i];
+
+                    var oldWorld = rootTransform.TransformPoint(node.EffectivePosition);
+                    var rotatedWorld = centroid + rotDelta * (oldWorld - centroid);
+                    var newLocal = rootTransform.InverseTransformPoint(rotatedWorld);
+                    node.positionOffset = newLocal - node.basePosition;
+
+                    var oldWorldRot = rootTransform.rotation * Quaternion.Euler(node.EffectiveRotation);
+                    var newWorldRot = rotDelta * oldWorldRot;
+                    var localRot = Quaternion.Inverse(rootTransform.rotation) * newWorldRot;
+                    node.rotationOffset = localRot.eulerAngles - node.baseRotation;
+
+                    if (node.mirrorIndex >= 0 && !selectedSet.Contains(node.mirrorIndex))
+                    {
+                        var mirror = offsets.nodeOffsets[node.mirrorIndex];
+                        mirror.positionOffset = MirrorUtils.MirrorPosition(newLocal) - mirror.basePosition;
+                        var mirroredRot = MirrorUtils.MirrorRotation(localRot);
+                        mirror.rotationOffset = mirroredRot.eulerAngles - mirror.baseRotation;
+                    }
+                }
+
+                EditorUtility.SetDirty(offsets);
+            }
+        }
+
+        private void DrawScaleHandle(OffsetsAsset offsets, Transform rootTransform,
+            Vector3 centroid, Quaternion handleRot)
+        {
+            EditorGUI.BeginChangeCheck();
+            var newScale = Handles.ScaleHandle(_scaleHandleValue, centroid, handleRot,
+                HandleUtility.GetHandleSize(centroid));
+            if (EditorGUI.EndChangeCheck())
+            {
+                Undo.RecordObject(offsets, "Scale Nodes Around Centroid");
+
+                var delta = new Vector3(
+                    newScale.x / _scaleHandleValue.x,
+                    newScale.y / _scaleHandleValue.y,
+                    newScale.z / _scaleHandleValue.z);
+
+                _scaleHandleValue = newScale;
+
+                var selectedSet = new HashSet<int>(_selectedIndices);
+
+                foreach (int i in _selectedIndices)
+                {
+                    if (i < 0 || i >= offsets.nodeOffsets.Length) continue;
+                    var node = offsets.nodeOffsets[i];
+
+                    // Scale position per-axis relative to centroid in handle-local space
+                    var oldWorld = rootTransform.TransformPoint(node.EffectivePosition);
+                    var localOffset = Quaternion.Inverse(handleRot) * (oldWorld - centroid);
+                    localOffset = Vector3.Scale(localOffset, delta);
+                    var scaledWorld = centroid + handleRot * localOffset;
+                    var newLocal = rootTransform.InverseTransformPoint(scaledWorld);
+                    node.positionOffset = newLocal - node.basePosition;
+
+                    if (node.mirrorIndex >= 0 && !selectedSet.Contains(node.mirrorIndex))
+                    {
+                        var mirror = offsets.nodeOffsets[node.mirrorIndex];
+                        mirror.positionOffset = MirrorUtils.MirrorPosition(newLocal) - mirror.basePosition;
+                    }
+                }
+
+                EditorUtility.SetDirty(offsets);
+            }
         }
 
         private void DrawNodePass(OffsetsAsset offsets, Transform rootTransform, GUIStyle labelStyle,
@@ -781,7 +944,8 @@ namespace Editor
                 bool isSelected = _selectedIndices.Contains(i);
                 bool isMirrorOfSelected = node.mirrorIndex >= 0 && _selectedIndices.Contains(node.mirrorIndex);
 
-                float radius = node.baseRadius * node.scaleMultiplier;
+                float rootScale = (rootTransform.lossyScale.x + rootTransform.lossyScale.y + rootTransform.lossyScale.z) / 3f;
+                float radius = node.baseRadius * node.scaleMultiplier * rootScale;
 
                 // --- Main node disc ---
                 if (isSelected)
@@ -859,7 +1023,7 @@ namespace Editor
                         }
                         else
                         {
-                            _selectedIndices.Clear();
+                            ClearSelection();
                             _selectedIndices.Add(i);
                         }
 
@@ -868,46 +1032,6 @@ namespace Editor
                 }
 
                 if (!isSelected || !drawHandles) continue;
-
-                // --- Position handle (always visible for usability) ---
-                Handles.zTest = CompareFunction.Always;
-
-                EditorGUI.BeginChangeCheck();
-                var newWorldPos = Handles.PositionHandle(worldPos, worldRot);
-                if (EditorGUI.EndChangeCheck())
-                {
-                    Undo.RecordObject(offsets, "Move Node Offset");
-                    var newLocal = rootTransform.InverseTransformPoint(newWorldPos);
-                    node.positionOffset = newLocal - node.basePosition;
-
-                    if (node.mirrorIndex >= 0)
-                    {
-                        var mirror = offsets.nodeOffsets[node.mirrorIndex];
-                        var mirroredLocal = MirrorUtils.MirrorPosition(newLocal);
-                        mirror.positionOffset = mirroredLocal - mirror.basePosition;
-                    }
-
-                    EditorUtility.SetDirty(offsets);
-                }
-
-                // --- Rotation handle ---
-                EditorGUI.BeginChangeCheck();
-                var newWorldRot = Handles.RotationHandle(worldRot, worldPos);
-                if (EditorGUI.EndChangeCheck())
-                {
-                    Undo.RecordObject(offsets, "Rotate Node Offset");
-                    var localRot = Quaternion.Inverse(rootTransform.rotation) * newWorldRot;
-                    node.rotationOffset = localRot.eulerAngles - node.baseRotation;
-
-                    if (node.mirrorIndex >= 0)
-                    {
-                        var mirror = offsets.nodeOffsets[node.mirrorIndex];
-                        var mirroredRot = MirrorUtils.MirrorRotation(localRot);
-                        mirror.rotationOffset = mirroredRot.eulerAngles - mirror.baseRotation;
-                    }
-
-                    EditorUtility.SetDirty(offsets);
-                }
 
                 Handles.zTest = zTest;
             }

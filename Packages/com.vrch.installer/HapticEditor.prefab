@@ -44,5 +44,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80393e579893fdb49b7ccd309499bfbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  offsets: {fileID: 0}
+  offsets: {fileID: 11400000, guid: 43cb5e0e6f142a7439b0dfae8fe2c4b6, type: 2}
   snapTarget: {fileID: 0}
