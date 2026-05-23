@@ -335,7 +335,7 @@ namespace Editor
             var bones = Utils.GetBonesMap(avatar, armature);
 
             float eyeHeight = aviDesc.ViewPosition.y - avatarRoot.transform.position.y;
-            const float standardEyeHeight = 1.585f;
+            const float standardEyeHeight = 1.5f; //1.585
             float ratio = eyeHeight / standardEyeHeight;
 
             foreach (Node node in config.nodes)
@@ -345,18 +345,20 @@ namespace Editor
                     Debug.LogWarning($"Could not find bone for node {node.target_bone}");
                     bonePos = armature.transform;
                 }
-
+                
                 if (bonePos != null)
                 {
-                    var sizeScale = bonePos.position + (node.GetNodePosition() - bonePos.position) * ratio;
-                    float yOffset = eyeHeight * (1 - ratio);
-                    Vector3 offset = avatarRoot.transform.position * (1 - ratio);
-                    sizeScale.x -= offset.x;
-                    sizeScale.y += offset.y - yOffset;
-                    sizeScale.z -= offset.z;
-                    node.SetPosition(sizeScale);
+                    Vector3 nodePos = node.GetNodePosition();
+                    Vector3 scaled = nodePos * ratio;
+                    node.SetPosition(scaled);
                 }
 
+                if (node.ray != null)
+                {
+                   node.ray.size *= ratio;
+                   node.ray.position_offset *= ratio; 
+                }
+                
                 node.radius *= ratio;
             }
         }
@@ -717,6 +719,9 @@ namespace Editor
                         offsets.nodeOffsets[node.mirrorIndex].rayLenMultiplier = MirrorUtils.MirrorScale(rayLen);
                 }
             }
+            
+            // TODO: Ability to move all selected groups 
+            // TODO: Proper CTRL and shift workflow
 
             EditorGUI.showMixedValue = !selected.TrueForAll(s => s.node.rayOffset == first.rayOffset);
             EditorGUI.BeginChangeCheck();
