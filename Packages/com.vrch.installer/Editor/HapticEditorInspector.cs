@@ -334,9 +334,12 @@ namespace Editor
 
             var bones = Utils.GetBonesMap(avatar, armature);
 
-            float eyeHeight = aviDesc.ViewPosition.y - avatarRoot.transform.position.y;
-            const float standardEyeHeight = 1.5f; //1.585
-            float ratio = eyeHeight / standardEyeHeight;
+            const float standardEyeHeight = 1.585f;
+            float ratio = aviDesc.ViewPosition.y / standardEyeHeight;
+            var scale = avatarRoot.transform.localScale;
+            var inverse = new Vector3(1f / scale.x, 1f / scale.y, 1f / scale.z);
+            
+            Debug.LogWarning($"ratio: {ratio}");
 
             foreach (Node node in config.nodes)
             {
@@ -349,8 +352,9 @@ namespace Editor
                 if (bonePos != null)
                 {
                     Vector3 nodePos = node.GetNodePosition();
-                    Vector3 scaled = nodePos * ratio;
-                    node.SetPosition(scaled);
+                    // VRC's eye height is relative coordinates but is scaled by the avatar roots scaling.
+                    // This needs to be undone AFTER local coordinates are generated, otherwise it scaling is applied twice
+                    node.SetPosition(Vector3.Scale(nodePos * ratio, inverse) );
                 }
 
                 if (node.ray != null)
@@ -365,6 +369,7 @@ namespace Editor
 
         private static OffsetsAsset CreateOffsetsFromConfig(Config config, GameObject avatarRoot)
         {
+            // scales node positions to correlate to the avatars eye height
             ScaleConfig(config, avatarRoot);
 
             var asset = ScriptableObject.CreateInstance<OffsetsAsset>();
@@ -378,10 +383,9 @@ namespace Editor
             var realNodes = config.nodes.Where(x => !x.is_external_address).ToList();
             // TODO: Add some sort of GUI warning that stick around as long as the file is present.
             asset.nodeOffsets = new OffsetsAsset.NodeOffset[realNodes.Count];
-            for (int i = 0; i < config.nodes.Length; i++)
+            for (int i = 0; i < realNodes.Count; i++)
             {
-                var src = config.nodes[i];
-                if (src.is_external_address) continue;
+                var src = realNodes[i];
                 var hasRay = src.ray != null;
                 asset.nodeOffsets[i] = new OffsetsAsset.NodeOffset
                 {
@@ -400,7 +404,6 @@ namespace Editor
                     scaleMultiplier = 1.0f,
                     rayLenMultiplier = 1.0f,
                     rayOffset = 0.0f,
-                    
                     mirrorIndex = -1
                 };
             }
@@ -950,7 +953,7 @@ namespace Editor
             if (smr != null && smr.sharedMesh != null)
             {
                 var baked = new Mesh();
-                smr.BakeMesh(baked);
+                smr.BakeMesh(baked, true); // scale shouldn't be taken into account
                 data.mesh = baked;
                 data.meshTransform = smr.transform;
                 data.boneWeights = smr.sharedMesh.boneWeights;
